@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+import datetime
 
 class Profile(models.Model):
     Company_name = models.CharField(max_length=10, default="Amigait technology")
@@ -54,3 +55,23 @@ class AddTickets(models.Model):
 
     Ticket_Name = models.CharField(max_length=50, null=True)
     Description = models.TextField(max_length=80, null=True)
+
+class Geofence(models.Model):
+
+    Area = models.CharField(max_length=50, null=True)
+    Vehicleno = models.CharField(max_length=80, null=True)
+    Radius = models.CharField(max_length=50, null=True)
+    PresentLocation =models.CharField(max_length=50, null=True)
+    Bounds = models.CharField(max_length=50, null=True)
+    DateTime = models.DateTimeField(default=datetime.now, blank=True)
+
+
+class AddTrip(models.Model):
+  Sno = models.IntegerField()
+  Start = models.CharField(max_length=50, null=True)
+  Stop = models.CharField(max_length=50, null=True)
+  Vehicle_No = models.CharField(max_length=10, null=True)
+  Current_Location = models.CharField(max_length=50, null=True)
+  Distance = models.CharField(max_length=50, null=True)
+  Duration = models.CharField(max_length=50, null=True)
+  Complete_Incomplete = models.CharField(max_length=50, null=True)

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .models import AddDevice,Profile
+from .models import AddDevice,Profile,Geofence
 from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
 from ipywidgets.embed import embed_minimal_html, embed_snippet
@@ -263,10 +263,10 @@ class devicelistview(ListView):
 def device_listview(request,pk,*args,**kwargs):
     queryset = AddDevice.objects.get(pk=pk)
     instance = AddDevice.objects.get_by_id(pk)
-    print(instance)
+    #print(instance)
     # instance = get_object_or_404(AddDevice,id=pk)
-    print(pk)
-    print(id)
+    #print(pk)
+    #print(id)
     context = {
         'object_list':queryset
     }
@@ -410,7 +410,7 @@ def funclu(po):
     var1 = json.dumps(
         [{'lat': country, 'lng': wins,'plate':num,'status':v_sta} for country, wins, num, v_sta in zip(lat_list, long_list,v_plate,v_status)]
     )
-    print(var1)
+    #print(var1)
     return data1, var1
 
 def cluster(request):
@@ -538,3 +538,25 @@ def table_map(request):
 
 def playback(request):
     return render(request,"main/playback.html")
+def geo(request):
+  area = request.GET['area']
+  vno = request.GET['vno']
+  return render(request,"main/geofence.html")
+def trip(request):
+    start = request.GET["start"]
+    end = request.GET["end"]
+    startid = request.GET["startid"]
+    endid = request.GET["endid"]
+    vehicleno = request.GET["vehicleno"]
+    distance = request.GET["distance"]
+    queryset = AddTrip()
+    queryset.Start = start
+    queryset.Stop = stop
+    queryset.Vehicle_No = vehicleno
+    queryset.Current_Location = currentlocation
+    queryset.Distance = distance
+    queryset.Duration = duration
+    queryset.save()
+
+    context = {"AddTrip": queryset}
+    return render(request, "trip/add_trip.html", context)

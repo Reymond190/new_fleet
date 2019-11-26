@@ -63,7 +63,7 @@ width:auto;}
 <select id="vno"  class="controls"
         name="search" ><option>Select Vehicle No..</option></select>
 
-   &nbsp;&nbsp; <input type="submit" class="btn btn-primary">&nbsp;&nbsp;
+   &nbsp;&nbsp; <input type="submit" class="btn btn-primary" id="geo">&nbsp;&nbsp;
     <button id="button" class="btn btn-default">Select New Vehicle</button>
 </div>
     <div id="map"></div>
@@ -180,7 +180,7 @@ function buildColorPalette() {
   }
   selectColor(colors[0]);
 }
-
+var area;
 function initialize() {
    map = new google.maps.Map(document.getElementById('map'), {
    center: {lat: 22.9734, lng: 78.6569},
@@ -223,13 +223,19 @@ map.controls[google.maps.ControlPosition.TOP_CENTER].push(vo);
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(panel);
 
   google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+
     if (event.type == google.maps.drawing.OverlayType.CIRCLE) {
+
        radius = event.overlay.getRadius();
        center=event.overlay.getCenter();
          area =3.1417* radius*radius;
+         bounds = event.overlay.getBounds();
+         map.fitBounds(bounds);
+
     acre = area/4046.86;
-   $("#radi").addClass("acre");
+ $("#radi").addClass("acre");
  document.getElementById('radi').innerHTML="Area :"+area;
+
     }
 
 
@@ -257,12 +263,15 @@ map.controls[google.maps.ControlPosition.TOP_RIGHT].push(panel);
 
   // Clear the current selection when the drawing mode is changed, or when the
   // map is clicked.
+
   google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
   google.maps.event.addListener(map, 'click', clearSelection);
   google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
+
   vno.addEventListener("click", function(event){hinter(event)});
   buildColorPalette();
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
  function hinter(event) {
     var input = event.target;
@@ -305,8 +314,31 @@ map:map
 $("#button").click(function(){
             location.reload(true);
         });
-    </script>
+$(document).ready(function(){
+$("#geo").click(function(){
+ $.ajax({
+                method: "GET",
+                url: '/geo',
+                data:{area:area,vno:selectedvehicle},
+        success: function(data){alert("successfully inserted");},
 
+        });
+
+});
+});
+    </script>
+<!--function arePointsNear(checkPoint, centerPoint, km) {-->
+<!--    var ky = 40000 / 360;-->
+<!--    var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;-->
+<!--    var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;-->
+<!--    var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;-->
+<!--    return Math.sqrt(dx * dx + dy * dy) <= km;-->
+<!--}-->
+
+<!--var vasteras = { lat: 59.615911, lng: 16.544232 };-->
+<!--var stockholm = { lat: 59.345635, lng: 18.059707 };-->
+
+<!--var n = arePointsNear(vasteras, stockholm, 10);-->
 
 
   {% endblock %}

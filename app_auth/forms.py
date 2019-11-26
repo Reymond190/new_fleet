@@ -26,3 +26,8 @@ class AddTicketsForm(forms.ModelForm):
     class Meta:
         model = AddTickets
         fields = ['Ticket_Name', 'Description']
+
+class AddTripForm(forms.ModelForm):
+    class Meta:
+        model = AddTrip
+        fields = ['Sno', 'Start', 'Stop', 'Vehicle_No', 'Current_Location', 'Distance', 'Duration', 'Complete_Incomplete']

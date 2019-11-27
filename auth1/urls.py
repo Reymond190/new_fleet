@@ -26,7 +26,7 @@ from app_auth.views import start, register, profile, \
     ChartData, BarChart, Doughnut, track, map, \
     reports,cluster,geofence,marker,tickets,\
     setting,helpcenter,tour,devicelistview\
-    ,device_listview,detail,advance,get_ch,playback,geo
+    ,device_listview,detail,advance,get_ch,playback,geo,trip
 
 
 
@@ -64,7 +64,7 @@ urlpatterns = [
     path('advance/',advance,name='advance'),
     path('geo/', geo, name='geo'),
     path('trip/',trip, name='trip'),
-    path('', include('trip.urls')),
+    path('ajax/', include('trip.urls')),
     path("home/",home,name='home'),
 
 ]

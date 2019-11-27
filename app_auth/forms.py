@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, AddDevice, AddTickets
+from .models import Profile, AddDevice, AddTickets,AddTrip
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -30,4 +30,4 @@ class AddTicketsForm(forms.ModelForm):
 class AddTripForm(forms.ModelForm):
     class Meta:
         model = AddTrip
-        fields = ['Sno', 'Start', 'Stop', 'Vehicle_No', 'Current_Location', 'Distance', 'Duration', 'Complete_Incomplete']
+        fields = [ 'Start', 'Stop', 'Vehicle_No', 'Current_Location', 'Distance', 'Duration', 'Complete_Incomplete']

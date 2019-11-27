@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import UserRegisterForm, ProfileAddForm, AddDeviceform, AddTicketsForm
+from .forms import UserRegisterForm, ProfileAddForm, AddDeviceform, AddTicketsForm,AddTripForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.views import APIView
@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .models import AddDevice,Profile,Geofence
+from .models import AddDevice,Profile,Geofence,AddTrip
 from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
 from ipywidgets.embed import embed_minimal_html, embed_snippet
@@ -542,9 +542,13 @@ def geo(request):
   area = request.GET['area']
   vno = request.GET['vno']
   return render(request,"main/geofence.html")
+
 def trip(request):
+    print("save")
+    currentlocation = request.GET["location"]
+    duration = request.GET["time"]
     start = request.GET["start"]
-    end = request.GET["end"]
+    stop = request.GET["end"]
     startid = request.GET["startid"]
     endid = request.GET["endid"]
     vehicleno = request.GET["vehicleno"]
@@ -557,6 +561,7 @@ def trip(request):
     queryset.Distance = distance
     queryset.Duration = duration
     queryset.save()
-
-    context = {"AddTrip": queryset}
+    re = AddTrip.objects.all()
+    print(re)
+    context = {"AddTrip": re}
     return render(request, "trip/add_trip.html", context)

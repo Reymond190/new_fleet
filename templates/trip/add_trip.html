@@ -1,76 +1,25 @@
 {% extends 'main/sidenav.html' %}
 {% load static %}
 {% block content1 %}
-<style>
-/* Always set the map height explicitly to define the size of the div
-element that contains the map. /
-#map12 {
-width:100%;
-height:74vh;
-margin-top:0;
-}
-
-.controls {
-margin-top: 0px;
-border: 1px solid transparent;
-border-radius: 2px 0 0 2px;
-box-sizing: border-box;
--moz-box-sizing: border-box;
-height: 32px;
-outline: none;
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-#origin-input,
-#destination-input {
-background-color: #fff;
-font-family: Roboto;
-font-size: 15px;
-font-weight: 300;
-margin-left: 12px;
-padding: 0 11px 0 13px;
-text-overflow: ellipsis;
-width: 200px;
-}
-
-#origin-input:focus,
-#destination-input:focus {
-border-color: #4d90fe;
-}
-
-#vno {
-color: #000;
-width:180px;
-margin-left: 12px;
-padding: 5px 11px 0px 11px;
-}
-
-#mode-selector label {
-font-family: Roboto;
-font-size: 13px;
-font-weight: 300;
-}
-.vehno{display: list-item;}
-
-</style>
+   <link rel="stylesheet" href="{% static 'css/style10.css' %}">
 
 
-<div style="display: none">
-<form method="post" >
-<input id="origin-input" class="controls" type="text" required="required"
-placeholder="Enter an origin location">
+    <div style="display: none">
+        <form  method="post" >
+        <input id="origin-input" class="controls" type="text" required="required"
+            placeholder="Enter an origin location">
 
-<input id="destination-input" class="controls" type="text" required="required"
-placeholder="Enter a destination location">
-<select id="vno" class="controls"
-name="search" placeholder="Search Vehicle No.."></select>
+        <input id="destination-input" class="controls" type="text" required="required"
+            placeholder="Enter a destination location">
+<select id="vno"  class="controls"
+        name="search" placeholder="Search Vehicle No.."></select>
 
-<input type="submit" class="btn btn-primary controls" id="sub" style="margin-left:10px;font-size:16px;" onclick="aja();">
-</form>
-</div>
+            <input type="submit" class="btn btn-primary controls" id="sub" style="margin-left:10px;font-size:16px;" onclick="aja();">
+            </form>
+    </div>
 <div style="display:none" id="c"></div>
-<div id="map12"></div>
-<script>
+    <div id="map12"></div>
+    <script>
 
 var distance="";
 var time="";
@@ -80,102 +29,102 @@ var plateno={{json|safe}};
 console.log(plateno);
 function initMap() {
 
-var map = new google.maps.Map(document.getElementById('map12'), {
-mapTypeControl: false,
-zoom: 4,
+  var map = new google.maps.Map(document.getElementById('map12'), {
+    mapTypeControl: false,
+   zoom: 4,
 center: {lat: 22.9734, lng: 78.6569},
-});
+  });
 infowindow = new google.maps.InfoWindow();
-new AutocompleteDirectionsHandler(map);
+  new AutocompleteDirectionsHandler(map);
 }
 
 function AutocompleteDirectionsHandler(map) {
-this.map = map;
-this.originPlaceId = null;
-this.destinationPlaceId = null;
-this.travelMode = 'DRIVING';
-this.directionsService = new google.maps.DirectionsService;
-this.directionsRenderer = new google.maps.DirectionsRenderer;
-this.directionsRenderer.setMap(map);
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'DRIVING';
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsRenderer = new google.maps.DirectionsRenderer;
+  this.directionsRenderer.setMap(map);
 
-var originInput = document.getElementById('origin-input');
-var destinationInput = document.getElementById('destination-input');
-var vno = document.getElementById('vno');
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input');
+  var vno = document.getElementById('vno');
 
-var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-// Specify just the place data fields that you need.
-originAutocomplete.setFields(['place_id']);
-
-
-var destinationAutocomplete =
-new google.maps.places.Autocomplete(destinationInput);
-// Specify just the place data fields that you need.
-destinationAutocomplete.setFields(['place_id']);
+  var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+  // Specify just the place data fields that you need.
+  originAutocomplete.setFields(['place_id']);
 
 
+  var destinationAutocomplete =
+      new google.maps.places.Autocomplete(destinationInput);
+  // Specify just the place data fields that you need.
+  destinationAutocomplete.setFields(['place_id']);
 
-this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 
-this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
-destinationInput);
-this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(vno);
-this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(sub);
+
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+      destinationInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(vno);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(sub);
 }
 vno.addEventListener("click", function(event){hinter(event)});
 
 
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
-autocomplete, mode) {
-var me = this;
+    autocomplete, mode) {
+  var me = this;
 
 
-autocomplete.bindTo('bounds', this.map);
+  autocomplete.bindTo('bounds', this.map);
 
-autocomplete.addListener('place_changed', function() {
-var place = autocomplete.getPlace();
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
 
-if (!place.place_id) {
-return;
-}
-if (mode === 'ORIG') {
-me.originPlaceId = place.place_id;
-} else {
-me.destinationPlaceId = place.place_id;
-}
-me.route();
+    if (!place.place_id) {
+      return;
+    }
+    if (mode === 'ORIG') {
+      me.originPlaceId = place.place_id;
+    } else {
+      me.destinationPlaceId = place.place_id;
+    }
+    me.route();
 
-});
+  });
 };
 
 AutocompleteDirectionsHandler.prototype.route = function() {
-if (!this.originPlaceId || !this.destinationPlaceId) {
-return;
-}
-var me = this;
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
+  }
+  var me = this;
 startid=this.originPlaceId;
 endid=this.destinationPlaceId;
-this.directionsService.route(
-{
-origin: {'placeId': this.originPlaceId},
-destination: {'placeId': this.destinationPlaceId},
-travelMode: this.travelMode
-},
-function(response, status) {
-if (status === 'OK') {
-me.directionsRenderer.setDirections(response);
+  this.directionsService.route(
+      {
+        origin: {'placeId': this.originPlaceId},
+        destination: {'placeId': this.destinationPlaceId},
+        travelMode: this.travelMode
+      },
+      function(response, status) {
+        if (status === 'OK') {
+          me.directionsRenderer.setDirections(response);
 tim=response.routes[0].legs[0].duration.text;
 distance=response.routes[0].legs[0].distance.text;
-var center = response.routes[0].overview_path[Math.floor(response.routes[0].overview_path.length / 2)];
-infowindow.setPosition(center);
-infowindow.setContent( distance + "<br>" + tim);
-infowindow.open(me.map);
+  var center = response.routes[0].overview_path[Math.floor(response.routes[0].overview_path.length / 2)];
+  infowindow.setPosition(center);
+  infowindow.setContent( distance + "<br>" + tim);
+  infowindow.open(me.map);
 
-} else {
-window.alert('Directions request failed due to ' + status);
-}
-});
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
 
 };
 
@@ -183,73 +132,74 @@ window.alert('Directions request failed due to ' + status);
 function hinter(event) {
 
 
-var input = event.target;
+    var input = event.target;
 
-var min_characters = 0;
+    var min_characters = 0;
 
-if (input.value.length < min_characters ) {
-return;
-} else {
+    if (input.value.length < min_characters ) {
+        return;
+    } else {
 
 
 var i=0;
-// clear any previously loaded options in the datalist
+                // clear any previously loaded options in the datalist
 
-
+var d;
 for(i in plateno){
+console.log(plateno);
+ var x = document.createElement("option");
+  x.setAttribute("value", plateno[i].plate);
+  var t = document.createTextNode(plateno[i].plate);
+  x.appendChild(t);
+  document.getElementById("vno").appendChild(x);
+ d = [plateno[i].lat,plateno[i].lng];
+            }
 
-var x = document.createElement("option");
-x.setAttribute("value", plateno[i].plate);
-var t = document.createTextNode(plateno[i].plate);
-x.appendChild(t);
-document.getElementById("vno").appendChild(x);
-
-}
-
-}
-};
-function aja(){
+            }
+        };
+        function aja(){
 
 var start=document.getElementById("origin-input").value;
 var end=document.getElementById("destination-input").value;
 var vehicleno=document.getElementById("vno").value;
 alert("ff");
-$.ajax({
-method: "GET",
-url: '/trip',
-data:{start: start,end:end,startid:startid,endid:endid,vehicleno:vehicleno,distance:distance},
-success: function(data){alert("success");
-console.log(data);},
-});
+ $.ajax({
+                method: "GET",
+                url: '/trip',
+                data:{start: start,end:end,startid:startid,endid:endid,vehicleno:vehicleno,distance:distance,time:tim,location:d},
+                success: function(data){alert("success");
+                console.log(data);},
+        });
 }
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries&libraries=places&callback=initMap"
-async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries&libraries=places&callback=initMap"
+        async defer></script>
 <div class="container-fluid">
-<div class="row">
-<table class=" table table-striped table-dark table-bordered">
-<tr>
-<th>S.NO</th>
-<th>Start</th>
-<th>Stop</th>
+    <div class="row">
+        <table class=" table table-striped table-dark table-bordered">
+            <tr>
+                <th>S.NO</th>
+                <th>Start</th>
+                <th>Stop</th>
 
-<th>Vehicle No</th>
-<th>Current Location</th>
-<th>Distance</th>
-<th>Duration</th>
+                <th>Vehicle No</th>
+                <th>Current Location</th>
+                <th>Distance</th>
+                <th>Duration</th>
 
-<th>Complete/Incomplete</th>
-</tr>
-{% for i in AddTrip %}
-<tr><td>{{ i.start }}</td>
-<td>{{ i.end }}</td>
-<td>{{ i.startid }}</td>
-<td>{{ i.endid }}</td>
-<td>{{ i.vehicleno }}</td>
-<td>{{ i.distance }}</td>
-<td><input type="checkbox"></td></tr>
-</table>
-</div>
+                <th>Complete/Incomplete</th>
+            </tr>
+            {% for i in AddTrip %}
+            <tr><td>{{ i.start }}</td>
+                <td>{{ i.stop }}</td>
+                <td>{{ i.startid }}</td>
+                <td>{{ i.endid }}</td>
+                <td>{{ i.vehicleno }}</td>
+                <td>{{ i.distance }}</td>
+                <td><input type="checkbox"></td></tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

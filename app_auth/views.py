@@ -399,12 +399,13 @@ def cluster(request):
     return render(request, 'main/cluster.html',context)
 
 def get_ch(request):
+    line = LineData()
     chart = ChartData()
     print(chart)
-    context={"bar":chart}
+    context={"line":line,"chart":chart}
     return render(request, 'main/chart.html',context)
 
-def ChartData():
+def LineData():
 
      r = requests.get('http://13.232.118.209/path')
      x = r.json()
@@ -420,11 +421,31 @@ def ChartData():
      print(df1['current_speed'].count())
      data = {
 
-            "data": [[df1['current_speed'].count(),"20"],[df2['current_speed'].count(),"20-40"],[df3['current_speed'].count(),"40-60"],[df4['current_speed'].count(),"60-80"],[df5['current_speed'].count(),"80-100"],[df6['current_speed'].count(),"100-120"]],
+            "X": [[df1['current_speed'].count()],[df2['current_speed'].count()],[df3['current_speed'].count()],[df4['current_speed'].count()],[df5['current_speed'].count()],[df6['current_speed'].count()]],
+            "Y" : [["20"],["21-40"],["41-60"],["61-80"],["81-100"],["101-120"]]
         }
      return data
 
 
+def ChartData():
+    r = requests.get('http://13.232.118.209/api2')
+    x = r.json()
+    x1 = json.dumps(x)
+    y = json.loads(x1)
+    df = json_normalize(y)
+    to = df["Total"][0]
+    print(to)
+    ru = df["Running"][0]
+    idl = df["Idle"][0]
+    st = df["Stop"][0]
+
+    print(df)
+    data = {
+
+        "X": [["Total"],["Running"],["Idle"],["Stop"],["NoData"]],
+        "Y": [to, ru,idl, st, "0"]
+    }
+    return data
 
 class BarChart(APIView):
     authentication_classes = []

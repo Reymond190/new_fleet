@@ -3,7 +3,6 @@
 {% block content1 %}
    <link rel="stylesheet" href="{% static 'css/style10.css' %}">
 
-
     <div style="display: none">
         <form  method="post" >
         <input id="origin-input" class="controls" type="text" required="required"
@@ -24,7 +23,6 @@
 var distance="";
 var time="";
 var startid="";
-var d;
 var endid="";
 var plateno={{json|safe}};
 console.log(plateno);
@@ -147,26 +145,27 @@ var i=0;
 
 
 for(i in plateno){
-console.log(plateno);
+
  var x = document.createElement("option");
   x.setAttribute("value", plateno[i].plate);
   var t = document.createTextNode(plateno[i].plate);
   x.appendChild(t);
   document.getElementById("vno").appendChild(x);
- d = [plateno[i].lat,plateno[i].lng];
+
             }
 
             }
         };
         function aja(){
+
 var start=document.getElementById("origin-input").value;
 var end=document.getElementById("destination-input").value;
 var vehicleno=document.getElementById("vno").value;
 alert("ff");
  $.ajax({
                 method: "GET",
-                url: '{%url 'trip'%}',
-                data:{start: start,end:end,startid:startid,endid:endid,vehicleno:vehicleno,distance:distance,time:tim,location:d[0],locations:d[1]},
+                url: '/trip',
+                data:{start: start,end:end,startid:startid,endid:endid,vehicleno:vehicleno,distance:distance},
                 success: function(data){alert("success");
                 console.log(data);},
         });
@@ -175,35 +174,73 @@ alert("ff");
 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries&libraries=places&callback=initMap"
         async defer></script>
-<div class="container-fluid" >
+<div class="container-fluid">
     <div class="row">
-        <div class="scr">
-        <table class=" table table-striped table-dark table-bordered">
+        <table class=" table table-striped table-dark table-bordered ">
+            <thead class="table-fixed">
             <tr>
                 <th>S.NO</th>
                 <th>Start</th>
                 <th>Stop</th>
-
                 <th>Vehicle No</th>
                 <th>Current Location</th>
                 <th>Distance</th>
                 <th>Duration</th>
-
                 <th>Complete/Incomplete</th>
             </tr>
-            {% for i in trip %}
-            <tr><td>{{ i.id }}</td>
-                <td>{{ i.Start }}</td>
-                <td>{{ i.Stop }}</td>
-                <td>{{ i.Vehicle_No }}</td>
-                <td>{{ i.Current_Location }}</td>
-                <td>{{ i.Distance }}</td>
-
-                <td>{{ i.Duration }}</td>
+            </thead>
+            <tbody>
+            <tr><td>1</td>
+                <td>chennai</td>
+                <td>vellore</td>
+                <td>tn1234</td>
+                <td>chennai</td>
+                <td>230km</td>
+                 <td>3hrs</td>
                 <td><input type="checkbox"></td></tr>
-            {% endfor %}
+            <tr><td>1</td>
+                <td>chennai</td>
+                <td>vellore</td>
+                <td>tn1234</td>
+                <td>chennai</td>
+                <td>230km</td>
+                <td>3hrs</td>
+                <td><input type="checkbox"></td></tr>
+            <tr><td>1</td>
+                <td>chennai</td>
+                <td>vellore</td>
+                <td>tn1234</td>
+                <td>chennai</td>
+                <td>230km</td>
+                <td>3hrs</td>
+                <td><input type="checkbox"></td></tr>
+            <tr><td>1</td>
+                <td>chennai</td>
+                <td>vellore</td>
+                <td>tn1234</td>
+                <td>chennai</td>
+                <td>230km</td>
+                <td>3hrs</td>
+                <td><input type="checkbox"></td></tr>
+            <tr><td>1</td>
+                <td>chennai</td>
+                <td>vellore</td>
+                <td>tn1234</td>
+                <td>chennai</td>
+                <td>230km</td>
+                <td>3hrs</td>
+                <td><input type="checkbox"></td></tr>
+            <!--{% for i in AddTrip %}-->
+            <!--<tr><td>{{ i.start }}</td>-->
+                <!--<td>{{ i.stop }}</td>-->
+                <!--<td>{{ i.startid }}</td>-->
+                <!--<td>{{ i.endid }}</td>-->
+                <!--<td>{{ i.vehicleno }}</td>-->
+                <!--<td>{{ i.distance }}</td>-->
+                <!--<td><input type="checkbox"></td></tr>-->
+            <!--{% endfor %}-->
+            </tbody>
         </table>
-            </div>
     </div>
 </div>
 {% endblock %}

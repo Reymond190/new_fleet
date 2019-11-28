@@ -412,8 +412,9 @@ def cluster(request):
 def get_ch(request):
     line = LineData()
     chart = ChartData()
-    print(chart)
-    context={"line":line,"chart":chart}
+    bar = BarChart()
+    print(bar)
+    context={"line":line,"chart":chart,"bar":bar}
     return render(request, 'main/chart.html',context)
 
 def LineData():
@@ -445,12 +446,10 @@ def ChartData():
     y = json.loads(x1)
     df = json_normalize(y)
     to = df["Total"][0]
-    print(to)
     ru = df["Running"][0]
     idl = df["Idle"][0]
     st = df["Stop"][0]
 
-    print(df)
     data = {
 
         "X": [["Total"],["Running"],["Idle"],["Stop"],["NoData"]],
@@ -458,27 +457,26 @@ def ChartData():
     }
     return data
 
-class BarChart(APIView):
-    authentication_classes = []
-    permission_classes = []
+def BarChart():
+    r = requests.get('http://13.232.118.209/path')
+    x = r.json()
+    x1 = json.dumps(x)
+    y = json.loads(x1)
+    df = json_normalize(y)
+    print(df)
+    df1 = df.loc[df['distance'] < 3]
+    df2 = df.loc[(df['distance'] >= 4) & (df['distance'] <= 8)]
+    df3 = df.loc[(df['distance'] >= 9) & (df['distance'] <= 12)]
+    df4 = df.loc[(df['distance'] >= 13) & (df['distance'] <= 20)]
+    df5 = df.loc[(df['distance'] >= 21)]
+    df6 = df.loc[df['distance'] == 0]
+    data = {
 
-    def get(self, request, format=None):
-        r = requests.get(' https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-07 11:00:00/2019-08-07 11:05:00 ',
-                         auth=HTTPBasicAuth('admin', 'admin'))
-        x = r.json()
-        x1 = json.dumps(x)
-        y = json.loads(x1)
-        df = json_normalize(y["assetHistory"])
-        df['serverTimeStamp'] = pd.to_datetime(df['serverTimeStamp'])
-        df = df.set_index('serverTimeStamp')
-        df['eventTimeStamp'] = pd.to_datetime(df['eventTimeStamp'])
-        df1 = df.drop_duplicates(['deviceImeiNo'], keep='last')
-        s = df1["speed"].value_counts()
-        data = {
-            "labels": [df1['speed']],
-            "data": [s],
-        }
-        return Response(data)
+        "X": [[df6['distance'].count()],[df1['distance'].count()], [df2['distance'].count()], [df3['distance'].count()],
+              [df4['distance'].count()], [df5['distance'].count()]],
+        "Y": [["0"], ["5"], ["10"], ["15"], ["20"]]
+    }
+    return data
 
 class Doughnut(APIView):
         authentication_classes = []

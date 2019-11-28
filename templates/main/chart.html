@@ -1,7 +1,8 @@
 {% extends 'main/sidenav.html' %}
 {% load static %}
 {% block content1 %}
- <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
@@ -20,76 +21,45 @@
 
 
 window.onload = function () {
+var ch = {{bar|safe}};
+var seasondata2 = []
+var count = Object.values(ch["X"]).length;
+for (var index = 0; index < count; index++) {
 
-<!--var chart = new CanvasJS.Chart("chartContainer", {-->
-<!--	animationEnabled: true,-->
-<!--	title:{-->
-<!--		text: "Distance",-->
-<!--		fontFamily: "arial black",-->
-<!--		fontColor: "#695A42"-->
-<!--	},-->
-<!--	axisX: {-->
-<!--		interval: 1,-->
-<!--		intervalType: "year"-->
-<!--	},-->
-<!--	axisY:{-->
-<!--		valueFormatString:"#",-->
-<!--		gridColor: "#B6B1A8",-->
-<!--		tickColor: "#B6B1A8"-->
-<!--	},-->
-<!--	toolTip: {-->
-<!--		shared: true,-->
-<!--		content: toolTipContent-->
-<!--	},-->
-<!--	data: [{-->
-<!--		type: "stackedColumn",-->
-<!--		showInLegend: true,-->
-<!--		color: "#FF7C7C",-->
-<!--		name: "Profit",-->
-<!--		dataPoints: [-->
-<!--			{ y: 6.75, x: new Date(2010,0) },-->
-<!--			{ y: 8.57, x: new Date(2011,0) },-->
-<!--			{ y: 10.64, x: new Date(2012,0) },-->
-<!--			{ y: 13.97, x: new Date(2013,0) },-->
-<!--			{ y: 15.42, x: new Date(2014,0) },-->
-<!--			{ y: 17.26, x: new Date(2015,0) },-->
-<!--			{ y: 20.26, x: new Date(2016,0) }-->
-<!--		]-->
-<!--		},-->
-<!--		{        -->
-<!--			type: "stackedColumn",-->
-<!--			showInLegend: true,-->
-<!--			name: "Loss",-->
-<!--			color: "#6FAF77",-->
-<!--			dataPoints: [-->
+    seasondata2.push({ y:Number(ch["X"][index])})
 
-<!--				{ y: 9.02, x: new Date(2011,0) },-->
-<!--				{ y: 11.80, x: new Date(2012,0) },-->
-<!--				{ y: 14.11, x: new Date(2013,0) },-->
-<!--				{ y: 15.96, x: new Date(2014,0) },-->
-<!--				{ y: 17.73, x: new Date(2015,0) },-->
-<!--				{ y: 21.5, x: new Date(2016,0) }-->
-<!--			]-->
-<!--		},-->
+}
+var options = {
+	title: {
+		text: "Distance"
 
-<!--		]-->
-<!--});-->
-<!--chart.render();-->
+	},
 
-<!--function toolTipContent(e) {-->
-<!--	var str = "";-->
-<!--	var total = 0;-->
-<!--	var str2, str3;-->
-<!--	for (var i = 0; i < e.entries.length; i++){-->
-<!--		var  str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\"> "+e.entries[i].dataSeries.name+"</span>: <strong>"+e.entries[i].dataPoint.y+"</strong><br/>";-->
-<!--		total = e.entries[i].dataPoint.y + total;-->
-<!--		str = str.concat(str1);-->
-<!--	}-->
-<!--	str2 = "<span style = \"color:DodgerBlue;\"><strong>"+(e.entries[0].dataPoint.x).getFullYear()+"</strong></span><br/>";-->
-<!--	total = Math.round(total * 100) / 100;-->
-<!--	str3 = "<span style = \"color:Tomato\">Total:</span><strong> "+total+"</strong><br/>";-->
-<!--	return (str2.concat(str)).concat(str3);-->
-<!--}-->
+	data: [{
+		type: "column",
+		yValueFormatString: "#,###",
+		indexLabel: "{y}",
+      	color: "#546BC1",
+		dataPoints: seasondata2
+	}]
+};
+$("#chartContainer").CanvasJSChart(options);
+
+function updateChart() {
+	var performance, deltaY, yVal;
+	var dps = options.data[0].dataPoints;
+	for (var i = 0; i < dps.length; i++) {
+		deltaY = Math.round(2 + Math.random() * (-2 - 2));
+		yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
+		dps[i].y = yVal;
+	}
+	options.data[0].dataPoints = dps;
+	$("#chartContainer").CanvasJSChart().render();
+};
+updateChart();
+
+setInterval(function () { updateChart() }, 500);
+
 //Line Chart
 var data = {{line|safe}}; // dataPoints
 var seasondata = []

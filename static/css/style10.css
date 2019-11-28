@@ -54,3 +54,14 @@
 	  padding:0px;
 	  margin:0px;
 	  }
+
+tbody{
+    display:block;
+    overflow:auto;
+    height:100px;
+    }
+thead, tbody, tr{
+  display:block;
+    width:100%;
+    table-layout:fixed;
+}

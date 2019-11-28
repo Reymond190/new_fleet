@@ -1,5 +1,6 @@
 from django import forms
-from .models import Profile, AddDevice, AddTickets,AddTrip
+from .models import Profile, AddDevice, AddTickets
+from trip.models import AddTrip
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 

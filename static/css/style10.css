@@ -2,7 +2,7 @@
        * element that contains the map. */
       #map12 {
       width:100%;
-        height:80%;
+        height:73%;
         margin-top:0;
       }
 
@@ -47,3 +47,10 @@
         font-weight: 300;
       }
 	  .vehno{display: list-item;}
+	  .scr{
+	  width:100%;
+	  height:27%;
+	  overflow:auto;
+	  padding:0px;
+	  margin:0px;
+	  }

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .models import AddDevice,Profile,Geofence,AddTrip
+from .models import AddDevice,Profile,Geofence
 from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
 from ipywidgets.embed import embed_minimal_html, embed_snippet
@@ -435,28 +435,30 @@ def cluster(request):
     return render(request, 'main/cluster.html',context)
 
 def get_ch(request):
-        return render(request, 'main/chart.html')
+    chart = ChartData()
+    print(chart)
+    context={"bar":chart}
+    return render(request, 'main/chart.html',context)
 
-class ChartData(APIView):
-    authentication_classes = []
-    permission_classes = []
+def ChartData():
 
-    def get(self, request, format=None):
-     r = requests.get(' https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-07 11:00:00/2019-07-07 11:05:00 ',
-                      auth=HTTPBasicAuth('admin', 'admin'))
+     r = requests.get('http://13.232.118.209/path')
      x = r.json()
      x1 = json.dumps(x)
      y = json.loads(x1)
-     df = json_normalize(y["assetHistory"])
-     df['serverTimeStamp'] = pd.to_datetime(df['serverTimeStamp'])
-     df = df.set_index('serverTimeStamp')
-     df['eventTimeStamp'] = pd.to_datetime(df['eventTimeStamp'])
-     df1 = df.drop_duplicates(['deviceImeiNo'], keep='last')
+     df = json_normalize(y)
+     df1 = df.loc[df['current_speed'] < 20]
+     df2 = df.loc[(df['current_speed'] >= 20) & (df['current_speed'] <= 40)]
+     df3 = df.loc[(df['current_speed'] >= 40) & (df['current_speed'] <= 60)]
+     df4 = df.loc[(df['current_speed'] >= 60) & (df['current_speed'] <= 80)]
+     df5 = df.loc[(df['current_speed'] >= 80) & (df['current_speed'] <= 100)]
+     df6 = df.loc[(df['current_speed'] >= 100) & (df['current_speed'] <= 120)]
+     print(df1['current_speed'].count())
      data = {
-            "labels": ["Vechicle_On", "Vechicle_Off"],
-            "data": [len(df1.loc[df1['engine']=="ON"]), len(df1.loc[df1['engine']=="OFF"])],
+
+            "data": [[df1['current_speed'].count(),"20"],[df2['current_speed'].count(),"20-40"],[df3['current_speed'].count(),"40-60"],[df4['current_speed'].count(),"60-80"],[df5['current_speed'].count(),"80-100"],[df6['current_speed'].count(),"100-120"]],
         }
-     return Response(data)
+     return data
 
 
 
@@ -543,25 +545,3 @@ def geo(request):
   vno = request.GET['vno']
   return render(request,"main/geofence.html")
 
-def trip(request):
-    print("save")
-    currentlocation = request.GET["location"]
-    duration = request.GET["time"]
-    start = request.GET["start"]
-    stop = request.GET["end"]
-    startid = request.GET["startid"]
-    endid = request.GET["endid"]
-    vehicleno = request.GET["vehicleno"]
-    distance = request.GET["distance"]
-    queryset = AddTrip()
-    queryset.Start = start
-    queryset.Stop = stop
-    queryset.Vehicle_No = vehicleno
-    queryset.Current_Location = currentlocation
-    queryset.Distance = distance
-    queryset.Duration = duration
-    queryset.save()
-    re = AddTrip.objects.all()
-    print(re)
-    context = {"AddTrip": re}
-    return render(request, "trip/add_trip.html", context)

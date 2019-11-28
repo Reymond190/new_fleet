@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
-from app_auth.views import device_listview,devicelistview
+# from app_auth.views import device_listview,devicelistview
 from .views import travel_summary,detail_travel_summary,trip_summary,\
     stoppage_summary,idle_summary,idle_detail_summary,inactive_summary,\
     ignition_summary,ac_summary,ac_misused_summary,speed_vs_distance,\

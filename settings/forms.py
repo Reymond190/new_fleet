@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import AddDevice
 
 class AddDeviceform(forms.ModelForm):
     class Meta:

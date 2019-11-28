@@ -25,17 +25,17 @@ from django.contrib.auth import views as auth_views
 from app_auth.views import start, register, profile,\
     ChartData, BarChart, Doughnut, track, map, \
     reports,cluster,geofence,marker,\
-    setting,helpcenter,tour,devicelistview\
-    ,device_listview,detail,advance,get_ch,playback,geo
+    setting,helpcenter,tour\
+    ,detail,advance,get_ch,playback,geo
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',start,name='index' ),
-    path('class/<int:pk>/',devicelistview.as_view()),
-    path('class-fbv/<int:pk>/', device_listview),
-    path('class/',devicelistview.as_view()),
+    # path('class/<int:pk>/',devicelistview.as_view()),
+    # path('class-fbv/<int:pk>/', device_listview),
+    # path('class/',devicelistview.as_view()),
     path('login/',auth_views.LoginView.as_view(),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logged_out.html'),name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic import ListView
 from vehicles.models import vehicle
-from app_auth.models import AddDevice
+# from app_auth.models import AddDevice
 from datetime import date
 import json
 from app_auth.views import get_temp,get_dataframe,listfun

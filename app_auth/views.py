@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import UserRegisterForm, ProfileAddForm, AddDeviceform, AddTripForm
+from .forms import UserRegisterForm, ProfileAddForm, AddTripForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.views import APIView
@@ -40,6 +40,17 @@ def get_api():
     y1 = json.loads(x2)
     return y1
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required
+def profile(request):
+    form = ProfileAddForm
+    context = {'form':form}
+    if request.method == 'POST' and 'button-name1' in request.POST:
+        form = ProfileAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile is updated!')
+    return render(request,'main/profile.html',context)
 
 def reload_and_store():
     f = open('venv/temp.json', 'w+')
@@ -224,7 +235,7 @@ def advance(request):
 
 
 def setting(request):
-    return render(request,'main/settings.html')
+    return render(request, 'main/../templates/setttings/settings.html')
 
 def helpcenter(request):
     return render(request,'main/helpcenter.html')
@@ -232,29 +243,29 @@ def helpcenter(request):
 def tour(request):
     return render(request,'main/tour.html')
 
-class devicelistview(ListView):
-    queryset = AddDevice.objects.all()
-    template_name = 'main/class.html'
-
-
-    def get_queryset(self,*args,**kwargs):
-        request = self.request
-        pk = self.kwargs.get('pk')
-        return AddDevice.objects.filter(pk=pk)
-
-
-
-def device_listview(request,pk,*args,**kwargs):
-    queryset = AddDevice.objects.get(pk=pk)
-    instance = AddDevice.objects.get_by_id(pk)
-    #print(instance)
-    # instance = get_object_or_404(AddDevice,id=pk)
-    #print(pk)
-    #print(id)
-    context = {
-        'object_list':queryset
-    }
-    return render(request,"main/class.html",context)
+# class devicelistview(ListView):
+#     queryset = AddDevice.objects.all()
+#     template_name = 'main/class.html'
+#
+#
+#     def get_queryset(self,*args,**kwargs):
+#         request = self.request
+#         pk = self.kwargs.get('pk')
+#         return AddDevice.objects.filter(pk=pk)
+#
+#
+#
+# def device_listview(request,pk,*args,**kwargs):
+#     queryset = AddDevice.objects.get(pk=pk)
+#     instance = AddDevice.objects.get_by_id(pk)
+#     #print(instance)
+#     # instance = get_object_or_404(AddDevice,id=pk)
+#     #print(pk)
+#     #print(id)
+#     context = {
+#         'object_list':queryset
+#     }
+#     return render(request,"main/class.html",context)
 
 
 

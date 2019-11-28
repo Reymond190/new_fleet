@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import UserRegisterForm, ProfileAddForm, AddDeviceform, AddTicketsForm,AddTripForm
+from .forms import UserRegisterForm, ProfileAddForm, AddDeviceform, AddTripForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.views import APIView
@@ -8,23 +8,20 @@ from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .models import AddDevice,Profile,Geofence
+from .models import Profile,Geofence
 from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
-from ipywidgets.embed import embed_minimal_html, embed_snippet
+
 from vehicles.models import vehicle
 import json
 
 
 from background_task import background
 import requests
-import gmaps
 from datetime import timedelta
 import datetime
 import pandas as pd
 import json as simplejson
-from pandas.io.json import json_normalize
-import sys
 from pandas.io.json import json_normalize
 from django.views.decorators.cache import cache_control
 
@@ -101,8 +98,8 @@ def myfun1(po):             #argument:dataframe(df)
 def myfunpro(po):             #argument:dataframe(df)
     lat_list = list(po["latitude"])
     long_list = list(po["longitude"])
-    gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
-    fig = gmaps.figure()
+    # gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+    # fig = gmaps.figure()
     var1 = json.dumps(
         [{'lat': country, 'lng': wins} for country, wins in zip(lat_list, long_list)]
     )
@@ -224,19 +221,6 @@ def advance(request):
     }
     return render(request,"main/advanced.html",context)
 
-def tickets(request):
-    form3 = AddTicketsForm
-    context = {"form3": form3}
-    if request.method == 'POST' and 'button-name2' in request.POST:
-        form3 = AddTicketsForm(request.POST)
-        if form3.is_valid():
-            print("getting inside if")
-            fs = form3.save(commit=False)
-            fs.user = request.user
-            fs.save()
-            print("save")
-        messages.success(request, 'Tickets Added')
-    return render(request, 'main/tickets.html', context)
 
 
 def setting(request):
@@ -320,27 +304,7 @@ def register(request):
     context = {'form': form}
     return render(request, 'registration/register.html', context)
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-@login_required
-def profile(request):
-    form = ProfileAddForm
-    form2 = AddDeviceform
-    context = {'form':form, "form2":form2}
-    if request.method == 'POST' and 'button-name1' in request.POST:
-        form = ProfileAddForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile is updated!')
-    if request.method == 'POST' and 'button-name2' in request.POST:
-        form2 = AddDeviceform(request.POST)
-        if form2.is_valid():
-            print("getting inside if")
-            fs = form2.save(commit=False)
-            fs.user = request.user
-            fs.save()
-            print("save")
-        messages.success(request, 'Device Added')
-    return render(request,'main/profile.html',context)
+
 
 
 # @background(schedule=10)

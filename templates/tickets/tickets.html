@@ -18,6 +18,8 @@ padding-right:100px;
 padding-left:60px;
 
 }
+
+
 .right{
 float:right;
 font-size:25px;
@@ -53,7 +55,8 @@ width: 100%;
 
 td, th {
 border: 1px solid #dddddd;
-text-align: left;
+text-align: center;
+
 padding: 10px;
 }
 
@@ -66,7 +69,7 @@ background-color: white;
 <div>
 <span class="left">Company Name</span><span class="right">Tickets</span><br><br><br>
 
-<span class="add"><button type="button" class="btn btn-primary btn-lg add" data-toggle="modal" data-target="#ticketForm">Add</button></span>
+<span class="add"><button type="button" class="btn btn-primary btn-lg add" data-toggle="modal">Add</button></span>
 
 <span class="left1">Melbourne,Australia</span><br>
 <span class="left2">Ph:(123)456-7890</span>
@@ -83,72 +86,20 @@ background-color: white;
 <th>Description</th>
 <th>Ratings</th>
 <th>Time</th>
+<th>Action</th>
 </thead>
 <tbody>
+
+{% for i in voot %}
 <tr>
-<td>1</td>
-<td>Woman Pescoat</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>10hrs</td>
+<td>{{ i.id }}</td>
+<td>{{ i.Ticket_Name }}</td>
+<td>{{i.Description}}</td>
+<td>{{i.priority}}</td>
+<td>{{i.time}}</td>
+<td><button type="button" class="btn btn-outline-info"  data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
 </tr>
-<tr>
-<td>2</td>
-<td>Woman Pescoat</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>12hrs</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Pescoat</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>15hrs</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Levaca Womens Long...</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>$9,928</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Levaca Womens Long...</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>$9,928</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Levaca Womens Long...</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>$9,928</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Levaca Womens Long...</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>$9,928</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Levaca Womens Long...</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>$9,928</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Levaca Womens Long...</td>
-<td>Lorem ipsum dolor sit amet Consectetur</td>
-<td>432</td>
-<td>$9,928</td>
-<td><b>Sub-total:150</b></td>
-</tr>
+{% endfor %}
 </tbody>
 </table>
 </div>
@@ -185,6 +136,22 @@ background-color: white;
 </div></div>
 </div>
 </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+        <h4>Do you want to delete?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">N0</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

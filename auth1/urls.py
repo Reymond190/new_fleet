@@ -22,9 +22,9 @@ from home.views import home
 
 from django.contrib.auth import views as auth_views
 
-from app_auth.views import start, register, profile, \
+from app_auth.views import start, register, profile,\
     ChartData, BarChart, Doughnut, track, map, \
-    reports,cluster,geofence,marker,tickets,\
+    reports,cluster,geofence,marker,\
     setting,helpcenter,tour,devicelistview\
     ,device_listview,detail,advance,get_ch,playback,geo
 
@@ -50,7 +50,7 @@ urlpatterns = [
     path('marker/',marker,name='marker'),
     path('cluster/', cluster, name='cluster'),
     path('playback/', playback, name='playback'),
-    path('tickets/', tickets, name='tickets'),
+    path('', include('tickets.urls')),
     path('settings/', setting, name='settings'),
     path('helpcenter/', helpcenter, name='helpcenter'),
     path('tour/', tour, name='tour'),

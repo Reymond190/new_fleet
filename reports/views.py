@@ -1,16 +1,23 @@
+import requests
 from django.shortcuts import render
 from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic import ListView
+from requests.auth import HTTPBasicAuth
+from pandas.io.json import json_normalize
 from vehicles.models import vehicle
 from datetime import date
 import json
+from django.template.defaulttags import register
 from app_auth.views import get_temp,get_dataframe,listfun
 
 
 def travel_summary(request):
     queryset = vehicle.objects.all()
-    context = {"object_list":queryset}
+    p = get_api()
+    print('hello')
+    print(type(p))
+    context = {"object_list":queryset,'one1':p}
     return render(request, 'reports/travel_summary.html',context)
 
 
@@ -48,7 +55,7 @@ def idle_summary(request):
     x = datetime.datetime.now()
     p = x.date()
     print(p)
-    context = {"object_list":queryset,'date':p}
+    context = {"object_list":queryset,'data':p}
     return render(request, 'reports/idle_summary.html',context)
 
 def idle_detail_summary(request):
@@ -180,3 +187,17 @@ def rfid_data(request):
     context = {"object_list":queryset,'date':p}
     return render(request, 'reports/rfid_data.html',context)
 
+
+def get_api():
+    r1 = requests.get(' http://13.232.118.209/path')
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    x1 = json_normalize(y1)
+    p = x1.to_dict()
+    print(type(p))
+    return p
+
+@register.filter(name='get_item')
+def get_item(dictionary, key):
+    return dictionary[key]

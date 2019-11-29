@@ -41,6 +41,7 @@ def searchlistview(request,*args,**kwargs):
         )
     else:
         queryset = vehicle.objects.all()
+        print('all')
     context = {
         'object_list' : queryset, "plate":v1,
     }

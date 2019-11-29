@@ -66,12 +66,12 @@ background-color: #f2f2f2;
 <table class="table table-hover" Style="width:100%;">
 <thead>
 <tr>
-<h2>Settings<span><button type="button" class="btn btn-danger" style="float:right;font-size:13px;">Remove Device</button>
+<h2>Settings<span><button type="button" class="btn btn-danger" style="padding-left:15px;float:right;font-size:13px;">Remove Device</button>
     <a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float: right;font-size:13px;">Add Device</a></span></h2>
 </tr>
 </thead><hr>
 </table>
-    <h4><b>240 Devices</b><span><button class="text-primary" style="color:blue;float: right;font-size:13px;">Previous&nbsp;&nbsp;Next</button></span></h4>
+
     <table class="table table-hover" Style="width:100%;">
 <thead style="background-color:#d9d9d9">
 <tr style="font-size:13px;">
@@ -84,187 +84,20 @@ background-color: #f2f2f2;
 <th>Action</th>
 </tr>
 </thead>
-<tbody style="font-size:11px;">
+<tbody style="font-size:14px;">
+{% for i in device_list %}
 <tr>
-<td>AT246456</td>
-<td>ET 300</td>
-<td>111222334312431</td>
-<td>Michal</td>
-<td>TN9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
+<td>{{i.Device_Id}}</td>
+<td>{{i.Device_Model}}</td>
+<td>{{i.IMEI_Number}}</td>
+<td>{{i.Driver_Name}}</td>
+<td>{{i.Vehicle_Licence_No }}</td>
+<td>Loading...</td>
+<td><button type="button" style="font-size: 14px" class="btn btn-outline-info"  data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
+</td>
 </tr>
-<tr>
-<td>TN240056</td>
-<td>ET 300</td>
-<td>111000933476524</td>
-<td>Wilson</td>
-<td>KA9765 VT900046</td>
-<td>Idle</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH21246</td>
-<td>ET 300</td>
-<td>901228973431243</td>
-<td>Steve</td>
-<td>MH9854 Ht9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Tn246006</td>
-<td>ET 300</td>
-<td>875695334312431</td>
-<td>Michal</td>
-<td>TN9004 VT98321646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>KA249956</td>
-<td>ET 300</td>
-<td>543213343124130</td>
-<td>Jhon</td>
-<td>KA0054 VT0077646</td>
-<td>Stop</td>
-<td>None</td>
-</tr>
-<tr>
-<td>AT246456</td>
-<td>ET 300</td>
-<td>111222334312431</td>
-<td>Michal</td>
-<td>TN9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>AN246456</td>
-<td>ET 300</td>
-<td>676222334312411</td>
-<td>Mohamad</td>
-<td>AN7654 VT6667646</td>
-<td>Stop</td>
-<td>None</td>
-</tr>
-<tr>
-<td>TN000006</td>
-<td>ET 300</td>
-<td>111222000012431</td>
-<td>Rock</td>
-<td>TN1234 VT98123461</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>AT246456</td>
-<td>ET 300</td>
-<td>111222334312431</td>
-<td>Michal</td>
-<td>TN9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>KA246400</td>
-<td>ET 300</td>
-<td>555213334312431</td>
-<td>Reymond</td>
-<td>KA0054 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
-<tr>
-<td>MH98542</td>
-<td>ET 300</td>
-<td>555222334312143</td>
-<td>Martin</td>
-<td>MH9854 VT9877646</td>
-<td>Running</td>
-<td>None</td>
-</tr>
+{% endfor %}
+
 </tbody>
 </table>
 </div>
@@ -286,7 +119,7 @@ background-color: #f2f2f2;
                     <div >{{ form2|crispy}}</div>
 
 <div class="form-group " style="text-align: center">
-         <input name="button-name2" type="submit" value="Update" class="btn btn-primary">
+         <input name="button-name2" type="submit" value="Add Device" class="btn btn-primary">
         </div>
 
 
@@ -298,6 +131,22 @@ background-color: #f2f2f2;
 {#      <div class="modal-footer d-flex justify-content-center">#}
 {#        <button class="btn btn-success">Send <i class="fas fa-paper-plane-o ml-1"></i></button>#}
 {#      </div>#}
+    </div>
+  </div>
+</div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+        <p style="font-size: 18px">Are sure you want to delete device?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Yes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">N0</button>
+      </div>
     </div>
   </div>
 </div>

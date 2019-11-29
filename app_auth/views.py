@@ -237,8 +237,7 @@ def advance(request):
 def setting(request):
     return render(request, 'main/../templates/setttings/settings.html')
 
-def helpcenter(request):
-    return render(request,'main/helpcenter.html')
+
 
 def tour(request):
     return render(request,'main/tour.html')

@@ -9,7 +9,6 @@ class AddTickets(models.Model):
         ('LOW','LOW'),
         ('MEDIUM','MEDIUM'),
         ('HIGH','HIGH'),
-
     )
 
     no = models.CharField(max_length=50,null=True)

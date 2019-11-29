@@ -17,4 +17,4 @@ def helpcenter(request):
             fs.save()
             print("save")
         messages.success(request, 'Message Added')
-    return render(request, 'help_center/helpcenter.html')
+    return render(request, 'help_center/helpcenter.html',context)

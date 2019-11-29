@@ -17,8 +17,8 @@ class Helpcenter(models.Model):
     no = models.CharField(max_length=50,null=True)
     Title = models.CharField(max_length=50, null=True)
     How_can_we_help_you = models.CharField(max_length=100,choices= CHOICES_1 ,null=True)
-    message = models.CharField(max_length=100,null=True)
-    comments = models.TextField(max_length=80, null=True)
+    message = models.TextField(max_length=100,null=True)
+    comments = models.CharField(max_length=80, null=True)
     time = models.CharField(max_length=80,null=True)
 
 

@@ -66,7 +66,7 @@ display: inline-block;
 </style>
 </head>
 <div class="sidenav" style="margin-left:20px;">
-<button type="button" class="btn btn-info btn-lg" style="height:40px;width:150px;margin-left:20px;">Send</button><br><br>
+<button type="button" class="btn btn-info btn-lg"  data-toggle="modal" data-target="#exampleModal" style="height:40px;width:150px;margin-left:20px;"><p style=" font-size:20px; text-align: center;">Send</p></button><br><br>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/material-outlined/20/000000/reply-all.png">&nbsp;&nbsp;All</a><hr>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/ios/20/000000/star.png">&nbsp;&nbsp;&nbsp;Starred</a>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/windows/20/000000/warning-shield.png">&nbsp;&nbsp;&nbsp; Important</a>
@@ -135,5 +135,21 @@ $("#checkall").removeAttr("checked");
 });
 });
 </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+        <div >{{ form2|crispy}}</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">N0</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

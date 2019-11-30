@@ -24,7 +24,7 @@ from django.contrib.auth import views as auth_views
 
 from app_auth.views import start, register, profile,\
     ChartData, BarChart, Doughnut, track, map, \
-    reports,cluster,geofence,marker,\
+    reports,cluster,geofence,\
     setting,tour\
     ,detail,advance,get_ch,playback,geo
 
@@ -47,7 +47,7 @@ urlpatterns = [
 
     path('track/', track.as_view()),
     path('geofence/', geofence, name='geofence'),
-    path('marker/',marker,name='marker'),
+
     path('cluster/', cluster, name='cluster'),
     path('playback/', playback, name='playback'),
     path('', include('tickets.urls')),

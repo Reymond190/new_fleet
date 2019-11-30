@@ -288,8 +288,6 @@ def geofence(request):
     }
     return render(request, 'main/geofence.html', context)
 
-def marker(request):
-    return render(request, 'main/marker.html')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required

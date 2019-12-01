@@ -5,19 +5,19 @@ from django.conf import settings
 # Create your models here.
 class AddDevice(models.Model):
     CHOICES_1 = (
-        ('P', 'Prime 07'),
-        ('B', 'Benley 140'),
-        ('O', 'OBDII'),
-        ('R', 'Optimus 2.0'),
+        ('Prime 07', 'Prime 07'),
+        ('Benley 140', 'Benley 140'),
+        ('OBDII', 'OBDII'),
+        ('Optimus 2.0', 'Optimus 2.0'),
     )
     CHOICES_2 = (
-        ('A', 'Ambulance'),
-        ('M', 'Motorcycle'),
-        ('B', 'Bus'),
-        ('C', 'Car'),
-        ('M', 'Minivan'),
-        ('T', 'Tempo'),
-        ('T', 'Truck'),
+        ('Ambulance', 'Ambulance'),
+        ('Motorcycle', 'Motorcycle'),
+        ('Bus', 'Bus'),
+        ('Car', 'Car'),
+        ('Minivan', 'Minivan'),
+        ('Tempo', 'Tempo'),
+        ('Truck', 'Truck'),
     )
 
     CHOICES_3 = (

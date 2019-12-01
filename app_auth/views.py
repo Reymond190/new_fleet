@@ -205,12 +205,14 @@ def detail(request):
     return render(request, 'main/details.html',context)
 
 def advance(request):
-    temp = get_temp()
-    y1 = json.loads(temp)
-    df1 = get_dataframe(y1)
-    df2 = filter_running(df1)
-    df3 = filter_idle(df1)
-    df4 = filter_stop(df1)
+    r1 = requests.get('http://13.232.118.209/path')
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df1 = json_normalize(y1)
+    df2 = df1.loc[(df1["engine_current"] == "ON") & (df1["current_speed"] > 0)]
+    df3 = df1.loc[(df1["engine_current"] == "ON") & (df1["current_speed"] == 0)]
+    df4 = df1.loc[(df1["engine_current"] == "OFF") & (df1["current_speed"] == 0)]
     total = len(df1)
     running = len(df2)
     idle = len(df3)
@@ -378,7 +380,8 @@ def funclu(po):
     v_plate = list(po["plateNumber"])
     #print(len(v_plate))
     data1 = "one"
-    v_status = list(po["status"])
+    # v_status = list(po["status"])
+    v_status = "running"
     var1 = json.dumps(
         [{'lat': country, 'lng': wins,'plate':num,'status':v_sta} for country, wins, num, v_sta in zip(lat_list, long_list,v_plate,v_status)]
     )

@@ -7,13 +7,11 @@
     width:100%;
     max-height: 100%;
      height:auto;
-
     }
      #slideshow2 img{
     width:100%;
     max-height: 100%;
      height:auto;
-
     }
    .d1 {text-align:center;}
      #slideshow1 img , .flip-box-back{
@@ -33,25 +31,20 @@
     padding:0px;
     margin:0px;}
     .d{margin:0px;padding:0px;}
+
 </style>
 <link rel="stylesheet" href="{% static 'css/style6.css' %}">
 <script>
-
-
 $(document).ready(function(){
 var $carousel = $('.carousel'),
 currentSlide, nextSlide;
-
 $('.slides').mouseover(function() {
-
 currentSlide = $carousel.attr('data-slide');
 nextSlide = +currentSlide === 4 ? 1 : +currentSlide + 1;
 $carousel.attr('data-slide', nextSlide);
 });
 });
-
 $("#slideshow1 > div:gt(0)").hide();
-
 setInterval(function() {
 $('#slideshow1 > div:first')
 .fadeOut(1000)
@@ -61,7 +54,6 @@ $('#slideshow1 > div:first')
 .appendTo('#slideshow1');
 }, 6000);
 $("#slideshow2 > div:gt(0)").hide();
-
 setInterval(function() {
 $('#slideshow2 > div:first')
 .fadeOut(1000)
@@ -71,7 +63,6 @@ $('#slideshow2 > div:first')
 .appendTo('#slideshow2');
 }, 6000);
 $("#slideshow3 > div:gt(0)").hide();
-
 setInterval(function() {
 $('#slideshow3 > div:first')
 .fadeOut(1000)
@@ -85,22 +76,22 @@ $('#slideshow3 > div:first')
 
 <div class="file">
     <div class="container-fluid">
-<div class="row">
+<div class="row de">
 
-<div class="col-md-4 col-lg-4 col-sm-4 d ">
-<a href="{%url 'map'%}"><img src="{% static 'images/live.gif'%}" ></a>
+<div class="col-md-4 col-lg-4 col-sm-4 d" >
+<a href="{%url 'map'%}"><img src="{% static 'images/live.gif'%}"  ></a>
 
-</div>&nbsp;
-<div class="col-md-2 col-lg-2 col-sm-2 d2" style="text-align:Center;">
+</div>
+<div class="col-md-2 col-lg-2 col-sm-2 d">
 
-  <br>  <a href="{%url 'reports'%}"><img src="{% static 'images/rd.png'%}" style="margin:auto;display:block;" ><p>Summary</p></a>
+    <a href="{%url 'reports'%}"><img src="{% static 'images/rd.gif'%}" ></a>
 
  </div>
 
 &nbsp; &nbsp; &nbsp;
-<div class="col-md-2  col-lg-2 col-sm-2 d5" style="text-align:Center"><br> <a href="{%url 'tickets'%}">
+<div class="col-md-2  col-lg-2 col-sm-2 d5" style="text-align:Center;"> <a href="{%url 'tickets'%}">
 <img src="{% static 'images/ti.png'%}"><p>Tickets</p>
-</a> </div>&nbsp;
+</a> </div>
 <div class="col-md-3 col-lg-3 col-sm-3 d6 " > <div class="carousel" data-slide="1" data-toggle="tooltip" title="Alerts">
 <a href="{%url 'alerts'%}"> <div class="slides">
 <img src="{% static 'images/a1.jpg'%}">
@@ -120,10 +111,10 @@ $('#slideshow3 > div:first')
 <div class="row">
 
 
-<div class="col-md-2 col-lg-2 col-sm-2 d1" ><a href="{%url 'reports'%}">
-    <img src="{% static 'images/re1.png'%}" title="reports"><p>Reports</p></a>
- </div> &nbsp;
- <div class="col-md-4 col-lg-4 col-sm-4 d2 " id="slideshow1"  data-toggle="tooltip" title="Geofence"><div>
+<div class="col-md-2 col-lg-2 col-sm-2 d" ><a href="{%url 'reports'%}">
+    <img src="{% static 'images/re1.gif'%}" title="reports" height="90%" width="100%"></a>
+ </div>
+ <div class="col-md-4 col-lg-4 col-sm-4  " id="slideshow1"  data-toggle="tooltip" title="Geofence"><div>
      <a href="{%url 'geofence'%}"><img src="{% static 'images/g.png'%}" ></a>
 </div>
 
@@ -134,7 +125,7 @@ $('#slideshow3 > div:first')
     <a href="{%url 'geofence'%}"><img src="{% static 'images/g2.png'%}"></a>
 </div>
 <div>
-    <a href="{%url 'geofence'%}"><img src="{% static 'images/g3.png'%}"></a>
+    <a href="{%url 'geofence'%}"><img src="{% static 'images/g3.gif'%}"></a>
 </div>
 </div>
 &nbsp; &nbsp;&nbsp;&nbsp;
@@ -149,7 +140,7 @@ $('#slideshow3 > div:first')
     <a href="{%url 'chart'%}"><img src="{% static 'images/gr2.gif'%}"></a>
 </div>
 <div>
-    <a href="{%url 'chart'%}"><img src="{% static 'images/gr2.png'%}"></a>
+    <a href="{%url 'chart'%}"><img src="{% static 'images/gr2.jpg'%}"></a>
 </div>
 
 </div>
@@ -175,15 +166,15 @@ $('#slideshow3 > div:first')
 </div>
 <div class="col-md-2 col-lg-2 col-sm-2 flip-box" title="Tour"><div class="flip-box-inner">
 <a href=""> <div class="flip-box-front">
- <a href="{%url 'tour'%}"><img src="{% static 'images/to.gif'%}"  height="100%">
+ <a href="{%url 'tour'%}"><img src="{% static 'images/to.gif'%}"  height="100%" width="99.5%">
  </a></div>
 <div class="flip-box-back">
- <a href="{%url 'tour'%}"><img src="{% static 'images/tour2.gif'%}"  height="100%">
+ <a href="{%url 'tour'%}"><img src="{% static 'images/tour2.gif'%}"  height="100%"  width="99.5%">
  </a></div>
 </a></div>
 
 </div>
-&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp;
 <div class="col-md-2 col-lg-2 col-sm-2 flip-box " title="Settings"><div class="flip-box-inner">
 <a href=""> <div class="flip-box-front">
  <a href="{%url 'settings'%}"><img src="{% static 'images/se.jpg'%}"  height="100%" >

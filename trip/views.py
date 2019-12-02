@@ -8,18 +8,34 @@ import json
 
 @csrf_exempt
 def add_trip(request):
-    print("success")
     temp = get_temp()
     y1 = json.loads(temp)
     df1 = get_dataframe(y1)
     i,j = funclu(df1)
     print(request.method)
-    if request.method == 'GET':
+    if request.is_ajax():
             message = "Yes, AJAX!"
+            start = request.GET["start"]
+            stop = request.GET["end"]
+            vehicleno = request.GET["vehicleno"]
+            distance = request.GET["distance"]
+            duration = request.GET["time"]
+            currentlocation1 = request.GET["location1"]
+            currentlocation2 = request.GET["location2"]
+            currentlocation3 = [currentlocation1, currentlocation2]
+            queryset = AddTrip()
+            queryset.Start = start
+            queryset.Stop = stop
+            queryset.Vehicle_No = vehicleno
+            queryset.Current_Location = currentlocation3
+            queryset.Distance = distance
+            queryset.Duration = duration
+            queryset.save()
+            print("saved")
 
     else:
             message = "Not Ajax"
-            trip()
+
 
     print(message)
     re = AddTrip.objects.all()
@@ -31,22 +47,7 @@ def add_trip(request):
 
     return render(request, 'trip/add_trip.html',context)
 
-def trip():
-    print("save")
 
-    start = request.GET["start"]
-    stop = request.GET["end"]
-    vehicleno = request.GET["vehicleno"]
-    distance = request.GET["distance"]
-    duration = request.GET["time"]
-    currentlocation1 = request.GET["location"]
-    currentlocation2 = request.GET["locations"]
-    currentlocation3 = [currentlocation1,currentlocation2]
-    queryset = AddTrip()
-    queryset.Start = start
-    queryset.Stop = stop
-    queryset.Vehicle_No = vehicleno
-    queryset.Current_Location = currentlocation3
-    queryset.Distance = distance
-    queryset.Duration = duration
-    queryset.save()
+
+
+

@@ -23,4 +23,4 @@ class ProfileAddForm(forms.ModelForm):
 class AddTripForm(forms.ModelForm):
     class Meta:
         model = AddTrip
-        fields = [ 'Start', 'Stop', 'Vehicle_No', 'Current_Location', 'Distance', 'Duration', 'Complete_Incomplete']
+        fields = [ 'Start', 'Stop', 'VehicleNo', 'CurrentLocation', 'Distance', 'Duration', 'Complete_Incomplete']

@@ -36,19 +36,17 @@ def trip():
 
     start = request.GET["start"]
     stop = request.GET["end"]
-    # startid = request.GET["startid"]
-    # endid = request.GET["endid"]
     vehicleno = request.GET["vehicleno"]
     distance = request.GET["distance"]
     duration = request.GET["time"]
-    currentlocatio = request.GET["location"]
-    currentlocati = request.GET["locations"]
-    currentlocation = [currentlocatio,currentlocati]
+    currentlocation1 = request.GET["location"]
+    currentlocation2 = request.GET["locations"]
+    currentlocation3 = [currentlocation1,currentlocation2]
     queryset = AddTrip()
     queryset.Start = start
     queryset.Stop = stop
     queryset.Vehicle_No = vehicleno
-    queryset.Current_Location = currentlocation
+    queryset.Current_Location = currentlocation3
     queryset.Distance = distance
     queryset.Duration = duration
     queryset.save()

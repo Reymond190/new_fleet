@@ -14,12 +14,13 @@ def tickets(request):
         if form3.is_valid():
             print("getting inside if")
             fs = form3.save(commit=False)
-
             fs.save()
             print("save")
         messages.success(request, 'Tickets Added')
 
     one = AddTickets.objects.all()
+    #if request.method == 'POST' and 'reymond3' in request.POST:
+
     context = {"form3": form3,'voot':one}
 
     return render(request, 'tickets/tickets.html', context)

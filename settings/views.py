@@ -21,4 +21,4 @@ def settings(request):
             fs.save()
             print("save")
         messages.success(request, 'Device Added')
-    return render(request,'setttings/settings.html',context)
+    return render(request,'settings/settings.html',context)

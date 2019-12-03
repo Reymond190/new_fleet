@@ -7,7 +7,7 @@ from .forms import HelpCenterform
 def helpcenter(request):
     l = Helpcenter.objects.all()
     form = HelpCenterform
-    context = {'form2': form, "device_list": l}
+    context = {'form2': form, "help": l}
     if request.method == 'POST' and 'button-name2' in request.POST:
         form2 = HelpCenterform(request.POST)
         if form2.is_valid():

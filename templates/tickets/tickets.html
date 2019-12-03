@@ -69,7 +69,7 @@ background-color: white;
 <div>
 <span class="left" STYLE="margin-top: 30px">TICKETS</span><span class="right"></span><br><br><br>
 
-<span class="add"><button type="button" class="btn btn-primary btn-lg add" data-toggle="modal">Add</button></span>
+<span class="add"><button type="button" class="btn btn-primary btn-lg add" data-target="#ticketForm" data-toggle="modal">Add</button></span>
 
 
 </div><br>
@@ -146,7 +146,7 @@ background-color: white;
         <h4>Do you want to delete?</h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes</button>
+        <button type="button"  class="btn btn-primary"><form class="small" id="reymond3"  method="post" action="{% url 'tickets' %}">Yes</form></button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">N0</button>
       </div>
     </div>

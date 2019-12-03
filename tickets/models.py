@@ -19,5 +19,5 @@ class AddTickets(models.Model):
 
 
     def save(self):
-        self.time = str(datetime.now().date())+","+str(datetime.now().time())
+        self.time = str(datetime.now().strftime("%Y-%m-%d %H:%M %p"))
         super(AddTickets, self).save()

@@ -69,7 +69,7 @@ background-color: white;
 <div>
 <span class="left" STYLE="margin-top: 30px">TICKETS</span><span class="right"></span><br><br><br>
 
-<span class="add"><button type="button" class="btn btn-primary btn-lg add" data-toggle="modal">Add</button></span>
+<span class="add"><button type="button" class="btn btn-primary btn-lg add" data-target="#ticketForm" data-toggle="modal">Add</button></span>
 
 
 </div><br>
@@ -91,7 +91,7 @@ background-color: white;
 
 {% for i in voot %}
 <tr>
-<td>{{ i.id }}</td>
+<td>{{ forloop.counter }}</td>
 <td>{{ i.Ticket_Name }}</td>
 <td>{{i.Description}}</td>
 <td>{{i.priority}}</td>
@@ -146,11 +146,41 @@ background-color: white;
         <h4>Do you want to delete?</h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes</button>
+        <form class="small" name="reymond3"  method="GET" ><button type="submit" name="reymond3"  class="btn btn-primary" >Yes</button></form>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">N0</button>
       </div>
     </div>
   </div>
 </div>
+
+<select id="select_dropdown">
+  <option value="joshua">joshua</option>
+  <option value="peter">peter</option>
+  .... ....
+</select>
+
+<script>
+
+    $(document).ready(function() {
+
+        $('#select_dropdown').change(function () {
+            var e = document.getElementById("select_dropdown");
+            var value = e.options[e.selectedIndex].value;
+
+            $.ajax({
+                url: "{% url 'tickets' %}",
+                type: "post",
+                data: value,
+                success: function (data) {
+
+                    alert(data.result);
+                }
+            });
+        });
+    })
+
+
+</script>
+
 
 {% endblock %}

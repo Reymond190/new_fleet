@@ -11,8 +11,8 @@ class Helpcenter(models.Model):
         ('Wrong datas in reports', 'Wrong datas in reports'),
         ('Problems in Graphs', 'Problems in Graphs' ),
         ('Problems in geofence', 'Problems in geofence'),
-
     )
+
 
     no = models.CharField(max_length=50,null=True)
     Title = models.CharField(max_length=50, null=True)

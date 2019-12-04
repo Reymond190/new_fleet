@@ -66,7 +66,7 @@ display: inline-block;
 </style>
 </head>
 <div class="sidenav" style="margin-left:20px;">
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal" style="height:40px;width:150px;margin-left:20px;"><p style=" font-size:20px; text-align: center;">Send</p></button><br><br>
+<button type="button" class="btn btn-info btn-lg"  data-toggle="modal" data-target="#exampleModal" style="height:40px;width:150px;margin-left:20px;"><p style=" font-size:20px; text-align: center;">Send</p></button><br><br>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/material-outlined/20/000000/reply-all.png">&nbsp;&nbsp;All</a><hr>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/ios/20/000000/star.png">&nbsp;&nbsp;&nbsp;Starred</a>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/windows/20/000000/warning-shield.png">&nbsp;&nbsp;&nbsp; Important</a>
@@ -88,20 +88,17 @@ display: inline-block;
 
 <div class="main" style="margin-top: 75px; margin-right: 0px; padding-left:61px;">
 <div class="search-container">
-<form id="del">
+<form action="/action_page.php">
 <input type="text" placeholder="Search Mail.." name="search" style="height:30px;width:95%;font-size:15px;border-radius:5px;">
 <button type="submit"><i class="fa fa-search"></i></button><hr>
-<i value="Delete" type="button" class="deleteIcon" style="float:right;"><img src="https://img.icons8.com/windows/20/000000/trash.png" style="float:right;"></i>
-<p style="font-size:15px;"><input type="checkbox" value="" id="checkall">&nbsp;Select All</p>
-<hr>
+<p style="font-size:15px;"><input type="checkbox" value="" id="checkall">&nbsp;Select All</p><hr>
 
-<div class="tempTable">
+
 {% for i in help %}
-<div id="del1"><span style="font-size:15px;"><input type="checkbox" value="" class="check">&nbsp;{{ i.Title }}</span>&nbsp;&nbsp;
-<p class="dot"><a href="#" style="color:black;text-decoration:none;font-size:14px;margin-left:15px;">{{ i.How_can_we_help_you }}</a></p><img src="https://img.icons8.com/ios/20/000000/star.png" style="float:right;"><img src="https://img.icons8.com/windows/20/000000/warning-shield.png" style="float:right;"><br><br>
-<p style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;{{i.message}}</p><hr></div>
+    <span style="font-size:15px;"><input type="checkbox" value="" class="check">&nbsp;{{ i.Title }}</span>&nbsp;&nbsp;
+    <p class="dot"><a href="#" style="color:black;text-decoration:none;font-size:14px;margin-left:15px;">{{ i.How_can_we_help_you }}</a></p><img src="https://img.icons8.com/windows/20/000000/trash.png" style="float:right;"><img src="https://img.icons8.com/ios/20/000000/star.png" style="float:right;"><img src="https://img.icons8.com/windows/20/000000/warning-shield.png" style="float:right;"><br><br>
+    <p style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;{{i.message}}</p><hr>
 {% endfor %}
-</div>
 </form>
 
 </div>
@@ -131,17 +128,15 @@ $("#checkall").removeAttr("checked");
 
 });
 });
-$("#del").on('click', 'i[value="Delete"]', function () {
-$('.tempTable #del1').has('input:checkbox:checked').remove();
-});
+
 </script>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-.
-<div class="modal-body">
-<div class="md-form ">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+                                                                                                                                                                                              .
+      <div class="modal-body">
+          <div class="md-form ">
 <form class="small" method="post" action="{% url 'helpcenter' %}">
 {% csrf_token %}
 
@@ -149,12 +144,13 @@ $('.tempTable #del1').has('input:checkbox:checked').remove();
 
 <div class="form-group " style="text-align: center">
 
-<input name="button-name2" type="submit" value="Submit" class="btn btn-primary">
+<input name="button-name2" type="submit" value="Add Device" class="btn btn-primary">
 
 </div></form></div>
-</div>
-</div>
-</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
+

@@ -1,6 +1,7 @@
 from django import forms
 from .models import Profile
 from trip.models import AddTrip
+from geofence.models import Geofence
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -24,3 +25,8 @@ class AddTripForm(forms.ModelForm):
     class Meta:
         model = AddTrip
         fields = [ 'Start', 'Stop', 'VehicleNo', 'CurrentLocation', 'Distance', 'Duration', 'Complete_Incomplete']
+
+class GeofenceForm(forms.ModelForm):
+    class Meta:
+        model = Geofence
+        fields = [ 'VehicleNo', 'Area', 'Radius', 'CurrentLocation']

@@ -16,7 +16,7 @@
 <div id="delete-button"><img src="https://img.icons8.com/color/30/000000/delete-forever.png" title="Delete Selected Shape"></div>
         <div id="radi"></div>
     </div>
-
+<!--icon: icons[location.status].icon,-->
 <script>
 
 var drawingManager;
@@ -24,8 +24,10 @@ var selectedShape;
 var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
 var selectedColor,count=0;
 var colorButtons = {};
-var map,radius="",center="",area="",acre="";
+var lats,lngs;
+var map,radius="",center="",area="",acre="",bounds="";
 var locations={{mygeo|safe}};
+console.log(locations);
 var infowindow;
  var icons = {
 Idle: {
@@ -231,12 +233,18 @@ var i=0;
         var selectedvehicle,marker;
 $("select#vno").change(function(){
       selectedvehicle = $(this).children("option:selected").val();
-console.log(location);
 marker = locations.map(function(location, i) {
+
 if(location.plate==selectedvehicle){
+lats = location.lat;
+lngs = location.lng;
 return new google.maps.Marker({
-position: location,
-icon: icons[location.status].icon,
+ position : {
+          lat : parseFloat( location.lat ),
+          lng : parseFloat( location.lng )
+      },
+icon :'{% static 'images/greencar.png'%}',
+
 title: location.plate,
 map:map
 });
@@ -246,11 +254,13 @@ $("#button").click(function(){
             location.reload(true);
         });
 $(document).ready(function(){
+
 $("#geo").click(function(){
+alert(bounds);
  $.ajax({
                 method: "GET",
-                url: '/geo',
-                data:{area:area,vno:selectedvehicle},
+                url: '/geofences/geo',
+                data:{area:area,vno:selectedvehicle,lats:lats,lngs:lngs,radius:radius},
         success: function(data){alert("successfully inserted");},
 
         });

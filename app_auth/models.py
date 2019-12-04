@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-import datetime
+
 
 class Profile(models.Model):
     Company_name = models.CharField(max_length=10, default="Amigait technology")
@@ -28,12 +28,8 @@ class DeviceManager(models.Manager):
 
 
 
-class Geofence(models.Model):
-    Area = models.CharField(max_length=50, null=True)
-    Vehicleno = models.CharField(max_length=80, null=True)
-    Radius = models.CharField(max_length=50, null=True)
-    PresentLocation =models.CharField(max_length=50, null=True)
-    Bounds = models.CharField(max_length=50, null=True)
+
+
 
 
 

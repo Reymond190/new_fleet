@@ -22,14 +22,9 @@ from home.views import home
 
 from django.contrib.auth import views as auth_views
 
-from app_auth.views import start, register, profile,\
-    ChartData, BarChart, Doughnut, track, map, \
-    reports,cluster,geofence,\
-    setting,tour\
-    ,detail,advance,get_ch,playback,geo
+from app_auth.views import start, register, profile, track, map,reports,cluster,tour,detail,advance,get_ch,playback
 
-
-
+from geofence.views import geofence
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',start,name='index' ),
@@ -53,6 +48,7 @@ urlpatterns = [
     path('', include('tickets.urls')),
     path('', include('settings.urls')),
     path('', include('helpcenter.urls')),
+    path('geofences', include('geofence.urls')),
     path('tour/', tour, name='tour'),
     path('search/',include('search_function.urls')),
     path('',include('vehicles.urls')),
@@ -60,7 +56,7 @@ urlpatterns = [
     path('detail/',detail,name='detail'),
     path('reports/',include('reports.urls')),
     path('advance/',advance,name='advance'),
-    path('geo/', geo, name='geo'),
+
     path('', include('trip.urls')),
     path("home/",home,name='home'),
 

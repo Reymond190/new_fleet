@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import UserRegisterForm, ProfileAddForm, AddTripForm
+from .forms import UserRegisterForm, ProfileAddForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.views import APIView
@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .models import Profile,Geofence
+from .models import Profile
 from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
 
@@ -270,25 +270,7 @@ def tour(request):
 
 
 
-def geofence(request):
-    # reload_and_store()
-    temp = get_temp()
-    y1 = json.loads(temp)
-    df1 = get_dataframe(y1)
-    df2 = filter_running(df1)
-    df3 = filter_idle(df1)
-    df4 = filter_stop(df1)
-    total = len(df1)
-    running = len(df2)
-    idle = len(df3)
-    stop = len(df4)
-    p1, result = funclu(df1)
-    queryset = vehicle.objects.all()
 
-    context = {
-        "mygeo": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
-    }
-    return render(request, 'main/geofence.html', context)
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -381,11 +363,11 @@ def funclu(po):
     #print(len(v_plate))
     data1 = "one"
     # v_status = list(po["status"])
-    v_status = "running"
+
     var1 = json.dumps(
-        [{'lat': country, 'lng': wins,'plate':num,'status':v_sta} for country, wins, num, v_sta in zip(lat_list, long_list,v_plate,v_status)]
+        [{'lat': country, 'lng': wins,'plate':num} for country, wins, num in zip(lat_list, long_list,v_plate)]
     )
-    #print(var1)
+    print(var1)
     return data1, var1
 
 def cluster(request):
@@ -534,8 +516,6 @@ def table_map(request):
 
 def playback(request):
     return render(request,"main/playback.html")
-def geo(request):
-  area = request.GET['area']
-  vno = request.GET['vno']
-  return render(request,"main/geofence.html")
+
+
 

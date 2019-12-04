@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 
 {% block content1 %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
  <style>
      .p {
 
@@ -19,7 +20,7 @@ background-color: transparent;
 
 <body>
 
- <div style="margin-top: 90px;" class="container">
+ <div style="margin-top: 10px;" class="container">
 
  {% if object_list is null %}
      <div class="row">
@@ -40,7 +41,7 @@ background-color: transparent;
 
  {% endif %}
      {% for i in object_list %}
-  <div style="margin-top: 10px;" class="card bg-dark text-white">
+  <div  class="card bg-dark text-white">
     <div class="card-body">
 
     <ul class="nav nav-pills card-header-pills">
@@ -78,10 +79,10 @@ background-color: transparent;
 <li class="nav-item">
 <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Status<br><b>{{ i.status }}</b></a>
 </li>&nbsp;&nbsp;
-    <li class="nav-item"><form method="get">
+    <li class="nav-item">
         {% csrf_token %}
-        <button class="p" style="background-color: transparent" value='{{ i.plateNumber }}' type="submit" name="viewbutton1"><a style="height:auto;width:auto;" data-toggle="modal" data-target="#modalContactForm"><img src="{% static 'images/mapview.png' %}" style="width:45px;height:45px;"></a></button>
-    </form>
+        <button class="p" id="pl" style="background-color: transparent" value='{{ i.plateNumber }}' type="submit" name="viewbutton1"><a style="height:auto;width:auto;" data-toggle="modal" data-target="#modalContactForm"><img src="{% static 'images/mapview.png' %}" style="width:45px;height:45px;"></a></button>
+
 </li>&nbsp;&nbsp;&nbsp;&nbsp;
    
 </ul>
@@ -110,6 +111,20 @@ background-color: transparent;
 </div>
 
     <script>
+    var vehicleno="";
+    var p;
+    $(document).ready(function(){
+
+ $("#pl").click(function(){
+  vehicleno = $("#pl").val();
+
+$.ajax({
+            type: "GET",
+            url: '/search/se',
+            data: {vehicleno:vehicleno},
+
+            success: function(data){alert(data);  }  });
+}); });
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -125,37 +140,20 @@ background-color: transparent;
             }
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-            var p = {{ plate|safe }};
+
+
+            console.log(p);
             var marker = new google.maps.Marker({
-                position: p[0],
-                icon: '{% static 'images/bluecar.png'%}',
-                title:"Hello World!"
+            position: p,
+            icon: '{% static 'images/greencar.png'%}',
+
+            map:map
             });
 marker.setMap(map);
+}
 
-
-
-        var drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.MARKER,
-          drawingControl: true,
-          drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
-          },
-          markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-          circleOptions: {
-            fillColor: '#ffff00',
-            fillOpacity: 0.2,
-            strokeWeight: 2,
-              strokeColor:'',
-            clickable: false,
-            editable: true,
-            zIndex: 1
-          }
-        });
-        drawingManager.setMap(map);
-      }
     </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing&callback=initMap"
          async defer></script>
 

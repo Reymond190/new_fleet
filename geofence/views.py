@@ -3,7 +3,7 @@ from django.core.serializers import json
 from django.shortcuts import render
 from pandas.io.json import json_normalize
 import json
-
+from googlegeocoder import GoogleGeocoder
 
 from background_task import background
 import requests
@@ -17,16 +17,20 @@ from .models import Geofence
 
 
 def geo(request):
+  geocoder = GoogleGeocoder("AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
   area = request.GET['area']
   vno = request.GET['vno']
   lat = request.GET['lats']
+  print(lat)
   lng = request.GET['lngs']
   radius = request.GET['radius']
+  cl = geocoder.get([lat,lng])
+
   i = Geofence()
   i.Area= area
   i.VehicleNo = vno
   i.Radius = radius
-  i.CurrentLocation = lat+','+lng
+  i.CurrentLocation = cl[0]
   i.save()
   print("save")
   return render(request,"main/geofence.html")
@@ -54,8 +58,8 @@ def geofence(request):
     df1 = json_normalize(y1)
     print(df1)
     p1, result = funclu(df1)
-
+    geoc = Geofence.objects.all()
     context = {
-      "mygeo": result
+      "mygeo": result,"geocall":geoc,
     }
     return render(request, 'main/geofence.html', context)

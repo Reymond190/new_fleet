@@ -22,12 +22,12 @@ def add_trip(request):
             duration = request.GET["time"]
             currentlocation1 = request.GET["location1"]
             currentlocation2 = request.GET["location2"]
-            currentlocation3 = [currentlocation1, currentlocation2]
+            currentlocation3 = currentlocation1 +','+ currentlocation2
             queryset = AddTrip()
             queryset.Start = start
             queryset.Stop = stop
-            queryset.Vehicle_No = vehicleno
-            queryset.Current_Location = currentlocation3
+            queryset.VehicleNo = vehicleno
+            queryset.CurrentLocation = currentlocation3
             queryset.Distance = distance
             queryset.Duration = duration
             queryset.save()

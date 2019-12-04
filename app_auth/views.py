@@ -237,7 +237,7 @@ def advance(request):
 
 
 def setting(request):
-    return render(request, 'main/../templates/setttings/settings.html')
+    return render(request, 'main/../templates/settings/settings.html')
 
 
 
@@ -326,7 +326,7 @@ def register(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
-def map (request):
+def map(request):
 
     # time2 = datetime.datetime.now()
     # time1 = time2 + timedelta(minutes=-5)

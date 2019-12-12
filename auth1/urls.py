@@ -48,7 +48,7 @@ urlpatterns = [
     path('', include('tickets.urls')),
     path('', include('settings.urls')),
     path('', include('helpcenter.urls')),
-    path('geofences', include('geofence.urls')),
+    path('geofences/', include('geofence.urls')),
     path('tour/', tour, name='tour'),
     path('search/',include('search_function.urls')),
     path('',include('vehicles.urls')),

@@ -29,4 +29,4 @@ class AddTripForm(forms.ModelForm):
 class GeofenceForm(forms.ModelForm):
     class Meta:
         model = Geofence
-        fields = [ 'VehicleNo', 'Area', 'Radius', 'CurrentLocation']
+        fields = [ 'VehicleNo', 'Area', 'Radius', 'CurrentLocation','Bounds','CenterLocation']

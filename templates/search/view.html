@@ -2,7 +2,8 @@
 {% load static from staticfiles %}
 
 {% block content1 %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
  <style>
      .p {
 
@@ -20,24 +21,20 @@ background-color: transparent;
 
 <body>
 
- <div style="margin-top: 10px;" class="container">
-
- {% if object_list is null %}
-     <div class="row">
+ <div style="margin-top: 10px;text-align:center" class="container-fluid">
+<div class="row">
             <div class="col-12">
+ {% if object_list is null %}
+
                No results for <b>{{ request.GET.q }}</b>
-                <hr/>
-            </div>
-        </div>
+
 
      {% else %}
-     <div class="row">
-            <div class="col-12">
-               Searched for <b>{{ request.GET.q }}</b>
-                <hr/>
+              <h3>Searched for</h3>  <b>{{ request.GET.q }}</b>
+
+ <hr/>
             </div>
         </div>
-
 
  {% endif %}
      {% for i in object_list %}
@@ -81,7 +78,7 @@ background-color: transparent;
 </li>&nbsp;&nbsp;
     <li class="nav-item">
         {% csrf_token %}
-        <button class="p" id="pl" style="background-color: transparent" value='{{ i.plateNumber }}' type="submit" name="viewbutton1"><a style="height:auto;width:auto;" data-toggle="modal" data-target="#modalContactForm"><img src="{% static 'images/mapview.png' %}" style="width:45px;height:45px;"></a></button>
+        <button class="p" id="pl" style="background-color: transparent" value='{{ i.plateNumber }}' type="submit" name="viewbutton1" onclick="sea(this.value)"><a style="height:auto;width:auto;" data-toggle="modal" ><img src="{% static 'images/mapview.png' %}" style="width:45px;height:45px;"></a></button>
 
 </li>&nbsp;&nbsp;&nbsp;&nbsp;
    
@@ -113,48 +110,37 @@ background-color: transparent;
     <script>
     var vehicleno="";
     var p;
-    $(document).ready(function(){
 
- $("#pl").click(function(){
-  vehicleno = $("#pl").val();
+
+  function sea(vehicleno){
+
 
 $.ajax({
             type: "GET",
             url: '/search/se',
             data: {vehicleno:vehicleno},
 
-            success: function(data){alert(data);  }  });
-}); });
+            success: function(data){
+            $('#modalContactForm').modal('show');
 
-      function initMap() {
+          console.log(data.lat);
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 28.7041, lng: 77.1025},
-          zoom: 10
+          center: {lat:data.lat,lng:data.long},
+          zoom: 8
         });
 
-
-          var myLatlng = new google.maps.LatLng(29.7041,80.1025);
-            var mapOptions = {
-            zoom: 4,
-            center: myLatlng
-            }
-            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-
-
-            console.log(p);
             var marker = new google.maps.Marker({
-            position: p,
+            position: {lat:data.lat,lng:data.long},
             icon: '{% static 'images/greencar.png'%}',
 
             map:map
             });
-marker.setMap(map);
 }
-
+  });
+}
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing"
          async defer></script>
 
 {% endblock %}

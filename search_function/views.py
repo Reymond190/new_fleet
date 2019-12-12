@@ -61,7 +61,13 @@ def se(request):
     y1 = json.loads(x2)
     df11 = json_normalize(y1)
     print(df11)
-    context = {
-        'object_li': df11
+    lati =df11['latitude']
+    long = df11['longitude']
+    data = {
+        'lat':float(lati),'long':float(long)
+
     }
-    return JsonResponse(df11)
+
+
+
+    return JsonResponse(data)

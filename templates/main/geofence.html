@@ -10,9 +10,10 @@
         name="search" ><option>Select Vehicle No..</option></select>
 
    &nbsp;&nbsp; <input type="submit" class="btn btn-primary" id="geo">&nbsp;&nbsp;
-    <button id="button" class="btn btn-default">Select New Vehicle</button>
+    <button id="button" class="btn btn-secondary">Select New Vehicle</button>
 </div>
-    <div id="map"></div>
+<div id="mapp">
+    <div id="map"></div></div>
     <div id="panel">
 <div id="delete-button"><img src="https://img.icons8.com/color/30/000000/delete-forever.png" title="Delete Selected Shape"></div>
         <div id="radi"></div>
@@ -116,7 +117,7 @@ var area;
 function initialize() {
    map = new google.maps.Map(document.getElementById('map'), {
    center: {lat: 22.9734, lng: 78.6569},
-          zoom: 5,
+          zoom: 4,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
 
     zoomControl: true
@@ -280,12 +281,11 @@ function myFunction(ve){
             vcl = data.cL;
             vcl=JSON.parse(vcl);
             located = located.split(",");
-           console.log(vcl[0]);
 
             $('#modalContactForm1').modal('show');
             map = new google.maps.Map(document.getElementById('map1'), {
-          center: {lat: 22.9734, lng: 78.6569},
-          zoom: 5
+          center: {lat:parseFloat(vcl[0].lat),lng:parseFloat(vcl[0].lng)},
+          zoom: 8
         });
          var cityCircle = new google.maps.Circle({
       strokeColor: '#FF0000',
@@ -317,16 +317,17 @@ function myFunction(ve){
     </script>
 <div class="container-fluid">
     <div class="row">
-        <table class=" table table-striped table-dark table-bordered ">
+        <table class=" table table-striped table-dark table-bordered" style="margin-bottom:0px;padding-bottom:0px;">
             <thead class="table-fixed" style="display:block;">
             <tr>
-                <th>S.NO</th>
+                <th>S.No</th>
 
                 <th>Vehicle No</th>
                 <th>Current Location</th>
                 <th>Area</th>
                 <th>Radius</th>
-                <th></th>
+                <th>Review</th>
+                <th>Remove</th>
 
             </tr>
             </thead>
@@ -337,7 +338,8 @@ function myFunction(ve){
                 <td>{{ i.CurrentLocation }}</td>
                 <td>{{ i.Area }}</td>
                 <td>{{ i.Radius }}</td>
-                <td> <button   value='{{ i.VehicleNo }}'  onClick='myFunction(this.value)' >Click Here </button></td>
+                <td> <button   value='{{ i.VehicleNo }}'  class="btn" style="background-color:white;" onClick='myFunction(this.value)' >Click Here </button></td>
+                <td> <button class="btn" style="background-color:white;"><img src="{% static 'images/delete.png'%}" height="20px;"></button></td>
             </tr>
             {% endfor %}
             </tbody>

@@ -1,28 +1,27 @@
 
-     table {
-  float: left;
-  width: 100%;
+table {
+float: left;
+width: 100%;
 }
 thead {
 
-  display: block;
-  float: left;
-  width: 100%;
+display: block;
+float: left;
+width: 100%;
 }
 
 tr {
-  float: left;
-  width: 100%;
+float: left;
+width: 100%;
 }
 
 th{
-  float: left;
-  text-align: center;
-  width: 14.3% !important;
+float: left;
+text-align: center;
+width: 14% !important;
 }
 td {
-  float: left;
-  text-align: center;
-  width: 14% !important;
+float: left;
+text-align: center;
+width: 14.2% !important;
 }
-

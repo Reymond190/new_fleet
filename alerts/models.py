@@ -10,5 +10,5 @@ class Alert(models.Model):
     contact_no = models.CharField(null = True,max_length=10)
     action = models.CharField(null = True,max_length=10)
     latitude = models.CharField(null = True,max_length=10)
-    longtude = models.CharField(null = True,max_length=10)
+    longitude = models.CharField(null = True,max_length=10)
 

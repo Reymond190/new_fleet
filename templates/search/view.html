@@ -11,11 +11,32 @@
 -webkit-writing-mode: horizontal-tb !important;
  display: inline-block;
  border: none;
- margin-left: 10px;
- border-radius: 10px;
-
-background-color: transparent;
+margin:0px;
+ border-radius: 8px;
+padding:0px;
+background-color: gray;
+height:50px;
 }
+
+table td{
+padding:7px;
+
+}
+table td a{
+background-color:gray;
+color:white;
+height:50px;
+font-size:12px;
+width:auto;
+text-align:center;
+
+}
+a:link {
+  text-decoration: none;
+  color:white;
+}
+a:hover{color:white;}
+.card-header-pills{margin-left:20px;text-align:center;}
  </style>
 
 
@@ -39,50 +60,50 @@ background-color: transparent;
  {% endif %}
      {% for i in object_list %}
   <div  class="card bg-dark text-white">
-    <div class="card-body">
+    <div class="card-body" >
 
-    <ul class="nav nav-pills card-header-pills">
-    &nbsp;&nbsp;<li class="nav-item">
+    <table class="nav nav-pills card-header-pills" style="align:center;"><tr>
+        <td class="nav-item">
         {% if i.status == 'Running'%}
-            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/greenview.png' %}" style="width:40px;height:40px;"></a>
+            <a class="nav-link " href="#"><img src="{% static 'images/greenview.png' %}" style="width:40px;height:40px;"></a>
             {% elif i.status == 'Stop'  %}
-            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/redview.png' %}" style="width:40px;height:40px;"></a>
+            <a class="nav-link" href="#"><img src="{% static 'images/redview.png' %}" style="width:40px;height:40px;"></a>
             {% elif i.status == 'Idle' %}
-            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/blueview.png' %}" style="width:40px;height:40px;"></a>
+            <a class="nav-link" href="#" ><img src="{% static 'images/blueview.png' %}" style="width:40px;height:40px;"></a>
             {% else %}
-            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/blackview.png' %}" style="width:40px;height:40px;"></a>
+            <a class="nav-link " href="#"><img src="{% static 'images/blackview.png' %}" style="width:40px;height:40px;"></a>
         {% endif %}
 
 
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:145px;">Vehicle number<br><b>{{ i.plateNumber }}</b></a>
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active"  href="#" style="background-color:gray;height:auto;font-size:10px;width:270px;"><b>{{ i.location}}</b></a>
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:70px;">Engine<br><b>{{ i.engine }}</b></a>
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:100px;">Date<br><b>9/10/2019</b></a>
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Name<br><b>{{ i.name }}</b></a>
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Speed<br><b>{{ i.speed }}</b></a>
-</li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Status<br><b>{{ i.status }}</b></a>
-</li>&nbsp;&nbsp;
-    <li class="nav-item">
+</td>
+<td  class="nav-item">
+<a href="#"  class="nav-link" >Vehicle number<br><b>{{ i.plateNumber }}</b></a>
+</td>
+<td class="nav-item">
+<a class="nav-link"  href="#" style="width:320px;"><b>{{ i.location}}</b></a>
+</td>
+<td class="nav-item">
+<a class="nav-link " href="#" >Engine<br><b>{{ i.engine }}</b></a>
+</td>
+<td class="nav-item">
+<a class="nav-link " href="#" >Date<br><b>9/10/2019</b></a>
+</td>
+<td class="nav-item">
+<a class="nav-link " href="#" style="width:150px;">Name<br><b>{{ i.name }}</b></a>
+</td>
+<td class="nav-item">
+<a class="nav-link " href="#" >Speed<br><b>{{ i.speed }}</b></a>
+</td>
+<td class="nav-item">
+<a class="nav-link " href="#" style="width:110px;">Status<br><b>{{ i.status }}</b></a>
+</td>
+    <td class="nav-item">
         {% csrf_token %}
-        <button class="p" id="pl" style="background-color: transparent" value='{{ i.plateNumber }}' type="submit" name="viewbutton1" onclick="sea(this.value)"><a style="height:auto;width:auto;" data-toggle="modal" ><img src="{% static 'images/mapview.png' %}" style="width:45px;height:45px;"></a></button>
+        <button class="p" id="pl"  value='{{ i.plateNumber }}' type="submit" name="viewbutton1" onclick="sea(this.value)"><a style="height:auto;width:auto;" data-toggle="modal" ><img src="{% static 'images/mapview.png' %}" style="width:25px;height:25px;"></a><br><p style="color:white;font-size:10px">Click Here</p></button>
 
-</li>&nbsp;&nbsp;&nbsp;&nbsp;
-   
-</ul>
+</td>
+    </tr>
+</table>
  </div>
 </div>
       {% endfor %}

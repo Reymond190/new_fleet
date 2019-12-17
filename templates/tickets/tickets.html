@@ -113,10 +113,10 @@ background-color: white;
 </table>
 </div>
 
-<div class="col-lg-2">
-<h5 style="font-size:12px;"><b>&nbsp;&nbsp;Ticket Date:</b>&nbsp;March 15,2016<br><br><b>&nbsp;&nbsp;Ticket Status:</b>&nbsp;
-<button>Pending</button><br><br><b>&nbsp;&nbsp;Ticket ID:</b>&nbsp;#1234567</h5>
-</div></div></div>
+<!--<div class="col-lg-2">-->
+<!--<h5 style="font-size:12px;"><b>&nbsp;&nbsp;Ticket Date:</b>&nbsp;March 15,2016<br><br><b>&nbsp;&nbsp;Ticket Status:</b>&nbsp;-->
+<!--<button>Pending</button><br><br><b>&nbsp;&nbsp;Ticket ID:</b>&nbsp;#1234567</h5>-->
+<!--</div></div></div>-->
 
 <div class="modal fade" id="ticketForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -154,7 +154,7 @@ background-color: white;
         <h4>Do you want to delete?</h4>
       </div>
       <div class="modal-footer">
-        <form class="small" name="reymond3"  method="GET" ><button type="submit" name="reymond3"  class="button4 btn btn-primary" >Yes</button></form>
+        <form class="small"   method="GET" ><button type="submit"   class="button4 btn btn-primary" >Yes</button></form>
           <button type="button" value="one" class="btn btn-secondary btnDelete" data-dismiss="modal">N0</button>
       </div>
     </div>
@@ -171,7 +171,7 @@ background-color: white;
     <script>
 
   $(".button2").click(function (evt) {
-  var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(1)").text();
+  var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(2)").text();
   console.log("cell 2 : "+cell2);
     $(".button4").click(function (){
   $.ajax({
@@ -183,7 +183,7 @@ background-color: white;
         }
 
     });
-
+location.reload();
 });
 
 });

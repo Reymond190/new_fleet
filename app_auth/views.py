@@ -33,7 +33,7 @@ def get_api():
     time2 = time2.strftime("%Y-%m-%d %H:%M:00")
     time1 = str(time1)
     time2 = str(time2)
-    r1 = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/' + time1 + '/' + time2,
+    r1 = requests.get('https://lnt.tracalogic.co/Web/ktrack/larsentoubro/2019-12-13' + time1 + '/' + time2,
                       auth=HTTPBasicAuth('admin', 'admin'))
     x1 = r1.json()
     x2 = json.dumps(x1)
@@ -205,18 +205,46 @@ def detail(request):
     return render(request, 'main/details.html',context)
 
 def advance(request):
-    r1 = requests.get('http://13.232.118.209/path')
-    x1 = r1.json()
-    x2 = json.dumps(x1)
-    y1 = json.loads(x2)
-    df1 = json_normalize(y1)
-    df2 = df1.loc[(df1["engine_current"] == "ON") & (df1["current_speed"] > 0)]
-    df3 = df1.loc[(df1["engine_current"] == "ON") & (df1["current_speed"] == 0)]
-    df4 = df1.loc[(df1["engine_current"] == "OFF") & (df1["current_speed"] == 0)]
+    #r1 = requests.get('https://lnt.tracalogic.co/Web/ktrack/larsentoubro/2019-12-13 14:43:00/2019-12-13 14:43:10')    #http://13.232.118.209/path
+    # x1 = r1.json()
+    # x2 = json.dumps(x1)
+    # y1 = json.loads(x2)
+    # df1 = json_normalize(y1)
+    # print(df1["assetHistory"])
+    # df2 = df1.loc[(df1["engine_current"] == "ON") & (df1["current_speed"] > 0)]
+    # df3 = df1.loc[(df1["engine_current"] == "ON") & (df1["current_speed"] == 0)]
+    # df4 = df1.loc[(df1["engine_current"] == "OFF") & (df1["current_speed"] == 0)]
+    # total = len(df1)
+    # running = len(df2)
+    # idle = len(df3)
+    # stop = len(df4)
+    # queryset = vehicle.objects.all()
+    # if request.method == 'GET' and 'totalbutton' in request.GET:
+    #     p1, result = funclu(df1)
+    # elif request.method == 'GET' and 'runningbutton' in request.GET:
+    #     p1, result = funclu(df2)
+    # elif request.method == 'GET' and 'idlebutton' in request.GET:
+    #     p1, result = funclu(df3)
+    # elif request.method == 'GET' and 'stopbutton' in request.GET:
+    #     p1, result = funclu(df4)
+    # else:
+    #     p1, result = funclu(df1)
+    #
+    # context = {
+    #     "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
+    # }
+    # return render(request,"main/advanced.html",context)
+    y1 = get_api()
+    df1 = get_dataframe(y1)
+    df2 = filter_running(df1)
+    df3 = filter_idle(df1)
+    df4 = filter_stop(df1)
     total = len(df1)
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
+    p1, result = funclu(df1)
+    print(result)
     queryset = vehicle.objects.all()
     if request.method == 'GET' and 'totalbutton' in request.GET:
         p1, result = funclu(df1)
@@ -232,8 +260,8 @@ def advance(request):
     context = {
         "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
     }
-    return render(request,"main/advanced.html",context)
 
+    return render(request,"main/advanced.html",context)
 
 
 def setting(request):
@@ -362,10 +390,10 @@ def funclu(po):
     v_plate = list(po["plateNumber"])
     #print(len(v_plate))
     data1 = "one"
-    # v_status = list(po["status"])
+    v_status = list(po["status"])
 
     var1 = json.dumps(
-        [{'lat': country, 'lng': wins,'plate':num} for country, wins, num in zip(lat_list, long_list,v_plate)]
+        [{'lat': country, 'lng': wins,'plate':num,'status':status} for country, wins, num , status in zip(lat_list, long_list,v_plate,v_status)]
     )
     print(var1)
     return data1, var1

@@ -31,7 +31,7 @@ def v1(request):
     print('hello')
     veh = request.GET['dataa']
     i = str(veh)
-    a = AddTickets.objects.get(id=i)
+    a = AddTickets.objects.get(Ticket_Name=i)
     a.delete()
     print (a.Ticket_Name)
     print(veh)

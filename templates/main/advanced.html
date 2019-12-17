@@ -5,9 +5,11 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="{% static 'css/style8.css' %}">
-<script>var locations = {{ myfile|safe }};</script>
+
 <script type="text/javascript" src="{% static 'js/style8.js' %}"></script>
 <script>
+var locations = {{ myfile|safe }};
+console.log(locations);
     function CenterControl(controlDiv, map) {
 
 // Set CSS for the control border.

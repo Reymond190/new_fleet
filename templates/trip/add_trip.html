@@ -7,12 +7,12 @@
     th{
   float: left;
   text-align: center;
-  width: 12% !important;
+  width: 11% !important;
 }
 td {
   float: left;
   text-align: center;
-  width: 12.1% !important;
+  width: 11.1% !important;
 }
 </style>
     <div style="display: none">
@@ -183,7 +183,8 @@ var vehicleno=document.getElementById("vno").value;
                 url: '/add_trip',
                 data:{start: start,end:end,startid:startid,endid:endid,vehicleno:vehicleno,distance:distance,time:tim,location1:location1,location2:location2},
                 success: function(data){alert("success");
-                console.log(data);},
+                console.log(data);
+                location.reload();},
         });
 }
 
@@ -199,22 +200,25 @@ var vehicleno=document.getElementById("vno").value;
                 <th>Start</th>
                 <th>Stop</th>
                 <th>Vehicle No</th>
-                <th>Current Location</th>
+                <th style="font-size:14px;">Current Location</th>
                 <th>Distance</th>
                 <th>Duration</th>
-                <th>Complete/Incomplete</th>
+                <th style="font-size:14px;">Complete/Incomplete</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
                 {% for i in trip %}
             <tr><td>{{ i.id }}</td>
-                <td>{{ i.Start }}</td>
-                <td>{{ i.Stop }}</td>
-                <td>{{ i.VehicleNo }}</td>
-                <td>{{ i.CurrentLocation }}</td>
-                <td>{{ i.Distance }}</td>
-                <td>{{ i.Duration }}</td>
-                <td><input type="checkbox"></td></tr>
+                <td  style="font-size:12px;">{{ i.Start }}</td>
+                <td style="font-size:12px;">{{ i.Stop }}</td>
+                <td style="font-size:12px;">{{ i.VehicleNo }}</td>
+                <td style="font-size:12px;">{{ i.CurrentLocation }}</td>
+                <td style="font-size:12px;">{{ i.Distance }}</td>
+                <td style="font-size:12px;">{{ i.Duration }}</td>
+                <td><input type="checkbox"></td>
+            <td> <button class="btn" style="background-color:white;"><img src="{% static 'images/delete.png'%}" height="20px;"></button></td>
+</tr>
                     {% empty %}
                     <tr><td>empty</td>
                 <td>empty</td>
@@ -223,7 +227,9 @@ var vehicleno=document.getElementById("vno").value;
                 <td>empty</td>
                 <td>empty</td>
                 <td>empty</td>
-                <td><input type="checkbox"></td></tr>
+                <td><input type="checkbox"></td>
+
+                               </tr>
 
             {% endfor %}
             </tbody>

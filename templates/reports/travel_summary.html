@@ -603,38 +603,38 @@ function sortListDir(z) {
 </thead>
 <tbody>
 
-<tr>
-{% for key in one1.items %}
-
-  <td>{{ key }}</td>
-{% endfor %}
-</tr>
-
-
-
-<!--{% for i in object_list %}-->
 <!--<tr>-->
-<!--<td>{{ i.companyId }}</td>-->
-<!--<td>{{ forloop.counter }}</td>-->
-<!--<td>{{ i.plateNumber }}</td>-->
-<!--<td>{{ i.name }}</td>-->
-<!--<td>{{ i.deviceImeiNo }}</td>-->
-<!--<td>{{ i.location }}</td>-->
-<!--<td>{{ i.direction }}</td>-->
-<!--<td>{{ i.status }}</td>-->
-<!--<td>{{ i.status }}</td>-->
-<!--<td>{{ i.status }}</td>-->
-<!--<td>{{ i.status }}</td>-->
-<!--<td>{{ forloop.counter}}</td>-->
-<!--<td>{{ forloop.counter}}</td>-->
-<!--<td>{{ i.speed }}</td>-->
-<!--<td>{{ i.speed }}</td>-->
-<!--<td>{{ i.speed }}</td>-->
-<!--<td>no data</td>-->
-<!--<td>{{ i.location }}</td>-->
-<!--<td><img src="http://13.127.144.213/images/Play.png"> </td>-->
-<!--</tr>-->
+<!--{% for key in one1.items %}-->
+
+<!--  <td>{{ key }}</td>-->
 <!--{% endfor %}-->
+<!--</tr>-->
+
+
+
+{% for i in object_list %}
+<tr>
+<td>{{ i.companyId }}</td>
+<td>{{ forloop.counter }}</td>
+<td>{{ i.plateNumber }}</td>
+<td>{{ i.name }}</td>
+<td>{{ i.deviceImeiNo }}</td>
+<td>{{ i.location }}</td>
+<td>{{ i.direction }}</td>
+<td>{{ i.status }}</td>
+<td>{{ i.status }}</td>
+<td>{{ i.status }}</td>
+<td>{{ i.status }}</td>
+<td>{{ forloop.counter}}</td>
+<td>{{ forloop.counter}}</td>
+<td>{{ i.speed }}</td>
+<td>{{ i.speed }}</td>
+<td>{{ i.speed }}</td>
+<td>no data</td>
+<td>{{ i.location }}</td>
+<td><img src="http://13.127.144.213/images/Play.png"> </td>
+</tr>
+{% endfor %}
 </tbody>
 </table>
 </div>

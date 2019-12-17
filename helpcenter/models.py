@@ -11,6 +11,7 @@ class Helpcenter(models.Model):
         ('Wrong datas in reports', 'Wrong datas in reports'),
         ('Problems in Graphs', 'Problems in Graphs' ),
         ('Problems in geofence', 'Problems in geofence'),
+        ('Others', 'Others'),
     )
 
 

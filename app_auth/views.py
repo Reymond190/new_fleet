@@ -234,7 +234,8 @@ def advance(request):
     #     "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
     # }
     # return render(request,"main/advanced.html",context)
-    y1 = get_api()
+    temp = get_temp()
+    y1 = json.loads(temp)
     df1 = get_dataframe(y1)
     df2 = filter_running(df1)
     df3 = filter_idle(df1)

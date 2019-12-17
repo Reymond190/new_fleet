@@ -22,3 +22,14 @@ def settings(request):
             print("save")
         messages.success(request, 'Device Added')
     return render(request, 'settings/settings.html', context)
+
+
+def v2(request):
+    print('hello')
+    veh = request.GET['dataa']
+    i = str(veh)
+    a = AddDevice.objects.get(Device_Id=i)
+    a.delete()
+    print (a.Ticket_Name)
+    print(veh)
+    return JsonResponse(veh)

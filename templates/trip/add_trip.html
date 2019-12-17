@@ -215,6 +215,16 @@ var vehicleno=document.getElementById("vno").value;
                 <td>{{ i.Distance }}</td>
                 <td>{{ i.Duration }}</td>
                 <td><input type="checkbox"></td></tr>
+                    {% empty %}
+                    <tr><td>empty</td>
+                <td>empty</td>
+                <td>empty</td>
+                <td>empty</td>
+                <td>empty</td>
+                <td>empty</td>
+                <td>empty</td>
+                <td><input type="checkbox"></td></tr>
+
             {% endfor %}
             </tbody>
         </table>

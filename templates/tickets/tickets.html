@@ -92,12 +92,22 @@ background-color: white;
 {% for i in voot %}
 <tr>
 <td>{{ forloop.counter }}</td>
-<td>{{ i.Ticket_Name }}</td>
+<td id="jose201">{{ i.Ticket_Name }}</td>
 <td>{{i.Description}}</td>
 <td>{{i.priority}}</td>
 <td>{{i.time}}</td>
-<td><button type="button" class="btn btn-outline-info"  data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
+<td><button type="button" class="btn btn-outline-info button2"  data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
 </tr>
+    {% empty %}
+    <tr>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+</tr>
+
 {% endfor %}
 </tbody>
 </table>
@@ -127,8 +137,6 @@ background-color: white;
 <div class="form-group " style="text-align: center">
 <input name="button-name2" type="submit" value="Submit" class="btn btn-primary">
 </div>
-
-
 </form>
 
 
@@ -146,41 +154,41 @@ background-color: white;
         <h4>Do you want to delete?</h4>
       </div>
       <div class="modal-footer">
-        <form class="small" name="reymond3"  method="GET" ><button type="submit" name="reymond3"  class="btn btn-primary" >Yes</button></form>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">N0</button>
+        <form class="small" name="reymond3"  method="GET" ><button type="submit" name="reymond3"  class="button4 btn btn-primary" >Yes</button></form>
+          <button type="button" value="one" class="btn btn-secondary btnDelete" data-dismiss="modal">N0</button>
       </div>
     </div>
   </div>
 </div>
 
-<select id="select_dropdown">
-  <option value="joshua">joshua</option>
-  <option value="peter">peter</option>
-  .... ....
-</select>
-
-<script>
-
-    $(document).ready(function() {
-
-        $('#select_dropdown').change(function () {
-            var e = document.getElementById("select_dropdown");
-            var value = e.options[e.selectedIndex].value;
-
-            $.ajax({
-                url: "{% url 'tickets' %}",
-                type: "post",
-                data: value,
-                success: function (data) {
-
-                    alert(data.result);
-                }
-            });
-        });
-    })
 
 
+
+
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>#}
+
+
+    <script>
+
+  $(".button2").click(function (evt) {
+  var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(1)").text();
+  console.log("cell 2 : "+cell2);
+    $(".button4").click(function (){
+  $.ajax({
+        method: "GET",
+        url: '/v1/',
+        data: {
+            dataa:cell2
+
+        }
+
+    });
+
+});
+
+});
 </script>
+
 
 
 {% endblock %}

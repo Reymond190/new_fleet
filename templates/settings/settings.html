@@ -87,9 +87,20 @@ background-color: #f2f2f2;
 <td>{{i.Driver_Name}}</td>
 <td>{{i.Vehicle_Licence_No }}</td>
 <td>Loading...</td>
-<td><button type="button" style="font-size: 14px" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
+<td><button type="button" style="font-size: 14px" class=" button2 btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
 </td>
 </tr>
+    {% empty %}
+    <tr>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+<td>empty</td>
+</tr>
+
 {% endfor %}
 
 </tbody>
@@ -138,10 +149,34 @@ aria-hidden="true">
 <p style="font-size: 18px">Are sure you want to delete device?</p>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-danger">Yes</button>
+    <form class="small" name="reymond3"  method="GET" >
+<button type="submit" class="button4 btn btn-danger">Yes</button>
 <button type="button" class="btn btn-primary" data-dismiss="modal">N0</button>
+    </form>
 </div>
 </div>
 </div>
 </div>
+
+
+<script>
+
+  $(".button2").click(function (evt) {
+  var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(1)").text();
+  console.log("cell 2 : "+cell2);
+    $(".button4").click(function (){
+  $.ajax({
+        method: "GET",
+        url: '/v2/',
+        data: {
+            dataa:cell2
+
+        }
+
+    });
+
+});
+
+});
+</script>
 {% endblock %}

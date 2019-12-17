@@ -85,7 +85,6 @@ def geofence(request):
 def g1(request):
     i = Geofence()
     veh = request.GET['veh']
-
     r1 = requests.get(' http://13.232.118.209/path/'+veh)
     x1 = r1.json()
     x2 = json.dumps(x1)

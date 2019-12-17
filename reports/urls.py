@@ -9,6 +9,7 @@ from .views import travel_summary,detail_travel_summary,trip_summary,\
     vehicle_location,sms_email,vehicle_status,system_log,report_generator,device_log,\
     analog_data,personal_report,rfid_data,actual_trip_summary
 
+
 urlpatterns = [
     path('travel_summary/', travel_summary, name='travel'),
     path('detail_travel_summary/', detail_travel_summary, name='detail_travel'),
@@ -30,8 +31,6 @@ urlpatterns = [
     path('analog_data/', analog_data, name='analog_data'),
     path('personal_report/', personal_report, name='personal_report'),
     path('rfid_data/', rfid_data, name='rfid_data'),
-    path('actual_trip_summary/',actual_trip_summary, name='actual_trip_summary'),
-
-
+    path('actual_trip_summary/',actual_trip_summary, name='actual_trip_summary')
 
 ]

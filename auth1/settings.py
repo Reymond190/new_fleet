@@ -49,13 +49,13 @@ INSTALLED_APPS = [
     'tickets',
     'settings',
     'helpcenter',
-    'corsheaders',
+    # 'corsheaders',
     'geofence',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,23 +87,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'auth1.wsgi.application'
 
-CORS_ALLOW_HEADERS = [
-'accept',
-'accept-encoding',
-'authorization',
-'content-type',
-'dnt',
-'origin',
-'user-agent',
-'x-csrftoken',
-'x-requested-with',
-]
-
-CORS_ALLOW_METHODS = (
-'GET',
-'POST',
-'OPTIONS',
-)
+# CORS_ALLOW_HEADERS = [
+# 'accept',
+# 'accept-encoding',
+# 'authorization',
+# 'content-type',
+# 'dnt',
+# 'origin',
+# 'user-agent',
+# 'x-csrftoken',
+# 'x-requested-with',
+# ]
+#
+# CORS_ALLOW_METHODS = (
+# 'GET',
+# 'POST',
+# 'OPTIONS',
+# )
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

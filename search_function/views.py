@@ -65,7 +65,6 @@ def se(request):
     long = df11['longitude']
     data = {
         'lat':float(lati),'long':float(long)
-
     }
 
 

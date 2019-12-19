@@ -94,8 +94,9 @@ def ac_misused_summary(request):
     queryset = vehicle.objects.all()
     x = datetime.datetime.now()
     p = x.date()
+    p1 = get_api()
     print(p)
-    context = {"object_list":queryset,'date':p}
+    context = {"object_list":queryset,'date':p,'one1':p1}
     return render(request, 'reports/ac_misused_summary.html',context)
 
 def speed_vs_distance(request):

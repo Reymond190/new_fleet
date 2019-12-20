@@ -567,6 +567,7 @@ function sortListDir(z) {
 <li><a href="#">nn</a></li>
 <li><a href="#">nbn</a></li>
 </ul>
+  <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">VehicleNumber</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Trip Name</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Trip Start Location</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Trip End Location</a></th>
@@ -577,19 +578,22 @@ function sortListDir(z) {
 </tr>
 </thead>
 <tbody>
+
 {% for i in object_list %}
 		<tr>
-		<td>{{ i.companyId }}</td>
-		<td>{{ forloop.counter }}</td>
+          <td>--</td>
+          <td>--</td>
+		<td>{{ i.VehicleNo }}</td>
 		<td>Local</td>
-		<td>{{ i.location }}</td>
-		<td>{{ i.location }}</td>
-		<td>00-00</td>
-		<td>00-00</td>
+		<td>{{ i.Start }}</td>
+		<td>{{ i.Stop }}</td>
+		<td>{{ i.Duration }}</td>
+		<td>{{ i.Distance }}</td>
 		<td>--</td>
-		<td>2</td>
+		<td>--</td>
 		</tr>
 {% endfor %}
+
 </tbody>
 </table>
 </div>

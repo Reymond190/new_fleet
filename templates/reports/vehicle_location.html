@@ -2,6 +2,7 @@
 {% load static %}
 {% block content1%}
   <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+ <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU"></script>
 <style>
 .scrollit {
 width: auto;
@@ -587,21 +588,60 @@ function sortListDir(z) {
 </tr>
 </thead>
 <tbody>
-{% for i in object_list %}
-		<tr>
-		<td>{{ i.companyId }}</td>
-		<td>{{ forloop.counter }}</td>
-		<td>{{ i.plateNumber }}</td>
-		<td>{{ i.name }}</td>
-		<td>{{ i.deviceImeiNo }}</td>
-		<td>{{ i.location }}</td>
-		<td>--</td>
-		<td>{{ i.speed }}</td>
-		<td>{{ i.status }}</td>
-		</tr>
-{% endfor %}
+
+<!--{% for i in object_list %}-->
+<!--		<tr>-->
+<!--		<td>{{ i.companyId }}</td>-->
+<!--		<td>{{ forloop.counter }}</td>-->
+<!--		<td>{{ i.plateNumber }}</td>-->
+<!--		<td>{{ i.name }}</td>-->
+<!--		<td>{{ i.deviceImeiNo }}</td>-->
+<!--		<td>{{ i.location }}</td>-->
+<!--		<td>&#45;&#45;</td>-->
+<!--		<td>{{ i.speed }}</td>-->
+<!--		<td>{{ i.status }}</td>-->
+<!--		</tr>-->
+<!--{% endfor %}-->
 
 </tbody>
+
 </table>
 </div>
+<script>
+  var x = {{ one1|safe}};
+  console.log(x);
+var myObj = JSON.stringify(x);
+
+var my = JSON.parse(myObj);
+ var count = Object.keys(my).length;
+for(var i=0;i<=count;i++){
+
+             var $tr = "<tr><td>--</td><td>--</td><td>"+my["vin"][i]+"</td><td>--</td><td>"+my["deviceImeiNo"][i]+"</td><td>" +my["latitude"][i]+","+my["longitude"][i]+ "</td><td>-</td><td>" + my["current_speed"][i]+ "</td><td>--</td></tr>";
+           $("table tbody").append($tr);
+
+          }
+
+  var cl=0;
+ function  GetAddress(lat,lng,callback) {
+
+            var latlng = new google.maps.LatLng(lat, lng);
+
+            var geocoder =  new google.maps.Geocoder();
+
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+
+                    callback(results[0].formatted_address);
+                    }
+
+                }
+i++;
+            });
+
+
+        }
+
+</script>
 {% endblock %}

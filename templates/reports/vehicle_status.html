@@ -589,28 +589,42 @@ function sortListDir(z) {
 </tr>
 </thead>
 <tbody>
-{% for i in object_list %}
-		<tr>
-		<td>{{ i.companyId }}</td>
-		<td>{{ forloop.counter }}</td>
-		<td>car</td>
-		<td>Volkswagan</td>
-		<td>polo</td>
-		<td>{{ i.plateNumber }}</td>
-		<td>{{ i.deviceImeiNo }}</td>
-		<td>GT800</td>
-		<td>General</td>
-		<td>{{ i.deviceImeiNo }}</td>
-		<td><img src="http://13.127.144.213/images/ignition_red.png"></td>
-		<td><img src="http://13.127.144.213/images/battery_green.png"></td>
-		<td><img src="http://13.127.144.213/images/signal_green.png"></td>
-		<td>100</td>
-		<td>19.10.2019(14:44:43)</td>
-		<td>{{ i.location }}</td>
-		<td>{{ i.status }}</td>
-		</tr>
+<script>
+  var x = {{ one1|safe}};
+  console.log(x);
+var myObj = JSON.stringify(x);
 
-{% endfor %}
+var my = JSON.parse(myObj);
+ var count = Object.keys(my).length;
+for(var i=0;i<=count;i++){
+        var $tr = "<tr></td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>"+my["vin"][i]+"</td><td>"+my["deviceImeiNo"][i]+"</td><td>--</td><td>--</td><td>--</td><td>" + my["engine_current"][i] + "</td><td>--</td><td>--</td><td>--</td><td>" + my["date"][i]+","+my["time"][i] + "</td><td>" + my["latitude"][i]+","+my["longitude"][i] + "</td><td>-</td></tr>";
+           $("table tbody").append($tr);
+    }
+
+
+</script>
+<!--{% for i in object_list %}-->
+<!--		<tr>-->
+<!--		<td>{{ i.companyId }}</td>-->
+<!--		<td>{{ forloop.counter }}</td>-->
+<!--		<td>car</td>-->
+<!--		<td>Volkswagan</td>-->
+<!--		<td>polo</td>-->
+<!--		<td>{{ i.plateNumber }}</td>-->
+<!--		<td>{{ i.deviceImeiNo }}</td>-->
+<!--		<td>GT800</td>-->
+<!--		<td>General</td>-->
+<!--		<td>{{ i.deviceImeiNo }}</td>-->
+<!--		<td><img src="http://13.127.144.213/images/ignition_red.png"></td>-->
+<!--		<td><img src="http://13.127.144.213/images/battery_green.png"></td>-->
+<!--		<td><img src="http://13.127.144.213/images/signal_green.png"></td>-->
+<!--		<td>100</td>-->
+<!--		<td>19.10.2019(14:44:43)</td>-->
+<!--		<td>{{ i.location }}</td>-->
+<!--		<td>{{ i.status }}</td>-->
+<!--		</tr>-->
+
+<!--{% endfor %}-->
 </tbody>
 </table>
 </div>

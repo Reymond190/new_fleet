@@ -8,6 +8,7 @@ from pandas.io.json import json_normalize
 from vehicles.models import vehicle
 from datetime import date
 import json
+from trip.models import AddTrip
 from django.template.defaulttags import register
 from app_auth.views import get_temp,get_dataframe,listfun
 
@@ -54,16 +55,18 @@ def idle_summary(request):
     queryset = vehicle.objects.all()
     x = datetime.datetime.now()
     p = x.date()
+    p1 = get_api()
     print(p)
-    context = {"object_list":queryset,'data':p}
+    context = {"object_list":queryset,'data':p,'one1':p1}
     return render(request, 'reports/idle_summary.html',context)
 
 def idle_detail_summary(request):
     queryset = vehicle.objects.all()
     x = datetime.datetime.now()
     p = x.date()
+    p1 = get_api()
     print(p)
-    context = {"object_list":queryset,'date':p}
+    context = {"object_list":queryset,'date':p,'one1':p1}
     return render(request, 'reports/idle_detail_summary.html',context)
 
 def inactive_summary(request):
@@ -86,8 +89,9 @@ def ac_summary(request):
     queryset = vehicle.objects.all()
     x = datetime.datetime.now()
     p = x.date()
+    p1=get_api()
     print(p)
-    context = {"object_list":queryset,'date':p}
+    context = {"object_list":queryset,'date':p,'one1':p1}
     return render(request, 'reports/ac_summary.html',context)
 
 def ac_misused_summary(request):
@@ -108,11 +112,13 @@ def speed_vs_distance(request):
     return render(request, 'reports/speed_vs_distance.html',context)
 
 def vehicle_location(request):
+
     queryset = vehicle.objects.all()
     x = datetime.datetime.now()
     p = x.date()
+    p1 = get_api()
     print(p)
-    context = {"object_list":queryset,'date':p}
+    context = {"object_list":queryset,'date':p,'one1':p1}
     return render(request, 'reports/vehicle_location.html',context)
 
 def sms_email(request):
@@ -124,12 +130,13 @@ def sms_email(request):
     return render(request, 'reports/sms_email.html',context)
 
 def vehicle_status(request):
-    queryset = vehicle.objects.all()
-    x = datetime.datetime.now()
-    p = x.date()
-    print(p)
-    context = {"object_list":queryset,'date':p}
-    return render(request, 'reports/vehicle_status.html',context)
+        queryset = vehicle.objects.all()
+        x = datetime.datetime.now()
+        p1 = get_api()
+        p = x.date()
+        print(p)
+        context = {"object_list": queryset, 'date': p, 'one1': p1}
+        return render(request, 'reports/vehicle_status.html', context)
 
 def system_log(request):
     queryset = vehicle.objects.all()
@@ -173,11 +180,12 @@ def report_generator(request):
 
 
 def actual_trip_summary(request):
-    queryset = vehicle.objects.all()
+    queryset = AddTrip.objects.all()
     x = datetime.datetime.now()
     p = x.date()
+    p1=get_api()
     print(p)
-    context = {"object_list":queryset,'date':p}
+    context = {"object_list":queryset,'date':p,'one1':p1}
     return render(request, 'reports/actual_trip_summary.html',context)
 
 def rfid_data(request):

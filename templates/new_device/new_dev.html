@@ -159,23 +159,4 @@ aria-hidden="true">
 </div>
 
 
-<script>
-
-  $(".button2").click(function (evt) {
-  var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(1)").text();
-  console.log("cell 2 : "+cell2);
-    $(".button4").click(function (){
-  $.ajax({
-        method: "GET",
-        url: '/v2/',
-        data: {
-            dataa:cell2
-        }
-
-    });
-
-});
-
-});
-</script>
 {% endblock %}

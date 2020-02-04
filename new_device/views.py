@@ -1,20 +1,15 @@
 import json
 
 import requests
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.shortcuts import render
 
+# Create your views here.
 from auth1.settings import API_URL1
-from .models import AddDevice
-from django.views.decorators.cache import cache_control
-from .forms import  AddDeviceform
+from new_device.form import AddDeviceform
+from new_device.models import AddDevice
 
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-@login_required
-def settings(request):
+def new_dev(request):
     l = AddDevice.objects.all()
     form = AddDeviceform
     context = {'form2':form,"device_list":l}
@@ -36,27 +31,4 @@ def settings(request):
             headers = {'Content-type': 'application/json'}
             r = requests.post(API_URL1, data=json.dumps(data), headers=headers)
             print(r.status_code)
-
-            print("getting inside if")
-            fs = form2.save(commit=False)
-            fs.user = request.user
-            fs.save()
-            print("save")
-        messages.success(request, 'Device Added')
-    return render(request, 'settings/settings.html', context)
-
-
-def v2(request):
-    print('hello')
-    veh = request.GET['dataa']
-    i = str(veh)
-    a = AddDevice.objects.get(Device_Id=i)
-    a.delete()
-    print (a.Ticket_Name)
-    print(veh)
-    return JsonResponse(veh)
-
-
-'''
-
- '''
+    return render(request, 'new_device/new_dev.html', context)

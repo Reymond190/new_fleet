@@ -51,3 +51,5 @@ def username_exists(request):
         else:
             data['msg'] = username + ' does not exists.'
     return JsonResponse(data)
+
+

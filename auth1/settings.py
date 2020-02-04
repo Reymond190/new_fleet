@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'settings',
     'helpcenter',
     # 'corsheaders',
+    'new_device',
     'geofence',
 ]
 
@@ -174,5 +175,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
 
-
-
+API_URL1 = 'http://13.235.62.229/add_device/'

@@ -52,6 +52,7 @@ def geo(request):
     }
   return JsonResponse(data)
 
+
 def funclu(po):
     lat_list = list(po["latitude"])
     long_list = list(po["longitude"])
@@ -63,7 +64,6 @@ def funclu(po):
     var1 = json.dumps(
       [{'lat': country, 'lng': wins, 'plate': num} for country, wins, num in zip(lat_list, long_list, v_plate)]
     )
-
     return data1, var1
 
 

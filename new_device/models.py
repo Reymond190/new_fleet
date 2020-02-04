@@ -1,10 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.conf import settings
 
 # Create your models here.
 class AddDevice(models.Model):
-
     CHOICES_1 = (
         ('Prime 07', 'Prime 07'),
         ('Benley 140', 'Benley 140'),
@@ -57,8 +54,6 @@ class AddDevice(models.Model):
         ('UTC+14:00', 'UTC++14:00'),
     )
 
-    User = settings.AUTH_USER_MODEL
-    user = models.ForeignKey(User, null=True,on_delete=models.PROTECT)
     Driver_Name = models.CharField(max_length=200,null=True)
     Device_Id = models.CharField(max_length=100,null=True)
     Vehicle_Number = models.CharField(max_length=20,null=True)

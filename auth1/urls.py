@@ -39,7 +39,7 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('map/', map, name='map'),
     path('chart/', get_ch, name='chart'),
-
+    path('', include('new_device.urls')),
     path('track/', track.as_view()),
     path('geofence/', geofence, name='geofence'),
 

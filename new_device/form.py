@@ -5,4 +5,3 @@ class AddDeviceform(forms.ModelForm):
     class Meta:
         model = AddDevice
         fields = '__all__'
-

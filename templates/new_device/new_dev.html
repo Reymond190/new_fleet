@@ -44,7 +44,7 @@ background-color: #f2f2f2;
 </style>
 </head>
 <div class="sidenavs" style="margin-top:40px; margin-left:20px;">
-<a href="{%url 'settings'%}" style="color:black;text-decoration:none;"><h2>Settings</h2></a><hr>
+<a href="{%url 'settings'%}" style="color:black;text-decoration:none;"><h2>Add Device</h2></a><hr>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/ios/20/000000/star.png">&nbsp;&nbsp;&nbsp;Devices</a>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/android/20/000000/checkmark.png">&nbsp;&nbsp;&nbsp; Done</a>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/windows/20/000000/trash.png">&nbsp;&nbsp;&nbsp; Trashed</a>
@@ -55,9 +55,34 @@ background-color: #f2f2f2;
 <a href="#"><img src="{%static 'images/yelloo.png'%}" style="height:10px;">&nbsp;&nbsp;&nbsp;No Data</a>
 <a href="#"><img src="{%static 'images/red.png'%}" style="height:10px;">&nbsp;&nbsp;&nbsp;Alert</a>
 </div>
-<div class="main" style=" margin-right: 0px; padding-left:61px;">
-<title>sidebar with table</title>
-<table class="table table-hover" Style="width:100%;">
+
+
+
+<div class="container-fluid  " ><div class="row"><div class="col-lg-6  col-md-9 col-sm-6" style=" margin-right: 0px; padding-left:220px;">
+<table id="tbl" class="table table-hover" Style="width:100%;">
+<thead style="background-color:#d9d9d9">
+<tr style="font-size:13px;">
+<th>device_imei</th>
+<th>incoming_addr</th>
+<th>db_time</th>
+<th>db_date</th>
+ <th>action</th>
+</tr>
+</thead>
+<tbody style="font-size:14px;">
+<tr>
+    <td>test</td>
+    <td>test</td>
+    <td>test</td>
+    <td>test</td>
+    <td><h2><span>
+<a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float:right;font-size:13px;">Add</a></span></h2></td>
+
+</tr>
+
+</tbody>
+</table>
+    <table class="table table-hover" Style="width:100%;">
 <thead>
 <tr>
 <h2><span>
@@ -65,47 +90,24 @@ background-color: #f2f2f2;
 </tr>
 </thead>
 </table>
-
-<table class="table table-hover" Style="width:100%;">
+</div>
+<div class="col-lg-6  col-md-3 col-sm-6" style=" margin-right: 0px; padding-left:200px;">
+<table id="tbl1" class="table table-hover" Style="width:100%;">
 <thead style="background-color:#d9d9d9">
 <tr style="font-size:13px;">
-<th>Device Id</th>
-<th>Device Type</th>
-<th>IMEI No</th>
-<th>Driver Name</th>
-<th>Licence Id</th>
-<th>Status</th>
-<th>Action</th>
+<th>device_imei</th>
+<th>incoming_addr</th>
+<th>db_time</th>
+<th>db_date</th>
 </tr>
 </thead>
 <tbody style="font-size:14px;">
-{% for i in device_list %}
-<tr>
-<td>{{i.Device_Id}}</td>
-<td>{{i.Device_Model}}</td>
-<td>{{i.IMEI_Number}}</td>
-<td>{{i.Driver_Name}}</td>
-<td>{{i.Vehicle_Licence_No }}</td>
-<td>Loading...</td>
-<td><button type="button" style="font-size: 14px" class=" button2 btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" >Delete</button></td>
-</td>
-</tr>
-    {% empty %}
-    <tr>
-<td>empty</td>
-<td>empty</td>
-<td>empty</td>
-<td>empty</td>
-<td>empty</td>
-<td>empty</td>
-<td>empty</td>
-</tr>
-
-{% endfor %}
-
 </tbody>
 </table>
 </div>
+</div>
+</div>
+
 <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -160,22 +162,21 @@ aria-hidden="true">
 
 
 <script>
+$(document).ready(function () {
+    $.getJSON('http://13.235.62.229/login/',
+    function (json) {
 
-  $(".button2").click(function (evt) {
-  var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(1)").text();
-  console.log("cell 2 : "+cell2);
-    $(".button4").click(function (){
-  $.ajax({
-        method: "GET",
-        url: '/v2/',
-        data: {
-            dataa:cell2
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].device_imei + "</td>");
+            tr.append("<td>" + json[i].incoming_addr + "</td>");
+            tr.append("<td>" + json[i].db_time + "</td>");
+            tr.append("<td>" + json[i].db_date + "</td>");
+            tr.append("<td>" +  + "</td>");
+            $('#tbl').append(tr);
         }
-
     });
-
-});
-
 });
 </script>
 {% endblock %}

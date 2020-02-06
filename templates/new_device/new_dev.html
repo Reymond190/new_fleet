@@ -42,12 +42,17 @@ padding: 0px 0px;
 background-color: #f2f2f2;
 }
 </style>
+
 </head>
 <div class="sidenavs" style="margin-top:40px; margin-left:20px;">
-<a href="{%url 'settings'%}" style="color:black;text-decoration:none;"><h2>Add Device</h2></a><hr>
+<a href="{%url 'new_dev'%}" style="color:black;text-decoration:none;"><h2>Add Device</h2></a><hr>
 <a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/ios/20/000000/star.png">&nbsp;&nbsp;&nbsp;Devices</a>
-<a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/android/20/000000/checkmark.png">&nbsp;&nbsp;&nbsp; Done</a>
-<a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/windows/20/000000/trash.png">&nbsp;&nbsp;&nbsp; Trashed</a>
+<a href="#" style="color:black;text-decoration:none;"><img src="https://img.icons8.com/android/20/000000/checkmark.png">&nbsp;&nbsp;&nbsp; Done</a><br>
+<span>
+        <button class="btn btn-primary btn-rounded mb-4" style="color:white;text-decoration:none;width: 160px;height: 40px;" type="submit" name="viewbutton1" onclick="sea(this.value)"><p style="color:white;font-size:15px">Location</p><a data-toggle="modal" ></a></button>
+    </span>
+    <sapn><a href="" style="color:white;text-decoration:none;width: 160px;" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float:right;font-size:15px;">Add Device</a>
+</sapn>
 <hr>
 
 <a href="#"><img src="{%static 'images/green.png'%}" style="height:10px;">&nbsp;&nbsp;&nbsp;Active</a>
@@ -56,17 +61,15 @@ background-color: #f2f2f2;
 <a href="#"><img src="{%static 'images/red.png'%}" style="height:10px;">&nbsp;&nbsp;&nbsp;Alert</a>
 </div>
 
-<h2><span>
-<a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float:right;font-size:13px;">Add Device</a></span></h2>
-
-
-
 <div class="container-fluid  " ><div class="row"><div class="col-lg-6  col-md-9 col-sm-6" style=" margin-right: 0px; padding-left:220px;">
+<h2 style="font-size: 25px">Incoming Device Requests:</h2>
+
+
 <table id="tb1" class="table table-hover" Style="width:100%;">
 <thead style="background-color:#d9d9d9">
 <tr style="font-size:13px;">
 <th>device_imei</th>
-<th>incoming_addr</th>
+<th>From IP/Port</th>
 <th>db_time</th>
 <th>db_date</th>
 </tr>
@@ -83,6 +86,7 @@ background-color: #f2f2f2;
 </table>
 </div>
 <div class="col-lg-6  col-md-3 col-sm-6" style=" margin-right: 0px; padding-left:200px;">
+    <h2 style="font-size: 25px">Connected Devices:</h2>
 <table id="tb2" class="table table-hover" Style="width:100%;">
 <thead style="background-color:#d9d9d9">
 <tr style="font-size:13px;">
@@ -114,7 +118,7 @@ aria-hidden="true">
 </div>
 <div class="modal-body ">
 <div class="md-form ">
-<form class="small" method="post" action="{% url 'settings' %}">
+<form class="small" method="post" action="{% url 'new_dev' %}">
 {% csrf_token %}
 
 <div >{{ form2|crispy}}</div>
@@ -186,4 +190,59 @@ $(document).ready(function () {
     });
 });
 </script>
+    <div class="modal fade" id="modalContactForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Current Vehicle Location</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <div class="md-form ">
+            <div id="map" style="height: 500px;width: 450px;"></div>
+        </div></div>
+
+
+    </div>
+  </div>
+</div>
+
+    <script>
+    var vehicleno="";
+    var p;
+
+
+  function sea(vehicleno){
+
+
+$.ajax({
+            type: "GET",
+            url: '/search/se',
+            data: {vehicleno:vehicleno},
+
+            success: function(data){
+            $('#modalContactForm2').modal('show');
+
+          console.log(data.lat);
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat:data.lat,lng:data.long},
+          zoom: 8
+        });
+
+            var marker = new google.maps.Marker({
+            position: {lat:data.lat,lng:data.long},
+            icon: '{% static 'images/greencar.png'%}',
+
+            map:map
+            });
+}
+  });
+}
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing"
+         async defer></script>
 {% endblock %}

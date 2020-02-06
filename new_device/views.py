@@ -4,15 +4,15 @@ import requests
 from django.shortcuts import render
 
 # Create your views here.
+from pandas.io.json import json_normalize
+
 from auth1.settings import API_URL1
 from new_device.form import AddDeviceform
 from new_device.models import AddDevice
 
 
 def new_dev(request):
-    l = AddDevice.objects.all()
     form = AddDeviceform
-    context = {'form2':form,"device_list":l}
     if request.method == 'POST' and 'button-name2' in request.POST:
         form2 = AddDeviceform(request.POST)
         if form2.is_valid():
@@ -31,4 +31,20 @@ def new_dev(request):
             headers = {'Content-type': 'application/json'}
             r = requests.post(API_URL1, data=json.dumps(data), headers=headers)
             print(r.status_code)
+    context = {'form2': form}
     return render(request, 'new_device/new_dev.html', context)
+
+def se(request):
+    vehicle1 = request.GET['vehicleno']
+    print(vehicle1)
+    r1 = requests.get('http://13.235.62.229/location/')
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df11 = json_normalize(y1)
+    print(df11)
+    lati =df11['latitude']
+    long = df11['longitude']
+    data = {
+        'lat':float(lati),'long':float(long)
+    }

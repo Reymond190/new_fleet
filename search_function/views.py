@@ -55,7 +55,7 @@ def searchlistview(request,*args,**kwargs):
 def se(request):
     vehicle1 = request.GET['vehicleno']
     print(vehicle1)
-    r1 = requests.get('http://13.232.118.209/path/' + (vehicle1) + '/')
+    r1 = requests.get('http://13.235.62.229/location/')
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)

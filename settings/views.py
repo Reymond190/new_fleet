@@ -36,7 +36,6 @@ def settings(request):
             headers = {'Content-type': 'application/json'}
             r = requests.post(API_URL1, data=json.dumps(data), headers=headers)
             print(r.status_code)
-
             print("getting inside if")
             fs = form2.save(commit=False)
             fs.user = request.user

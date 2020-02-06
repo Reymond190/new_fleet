@@ -56,52 +56,46 @@ background-color: #f2f2f2;
 <a href="#"><img src="{%static 'images/red.png'%}" style="height:10px;">&nbsp;&nbsp;&nbsp;Alert</a>
 </div>
 
+<h2><span>
+<a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float:right;font-size:13px;">Add Device</a></span></h2>
+
 
 
 <div class="container-fluid  " ><div class="row"><div class="col-lg-6  col-md-9 col-sm-6" style=" margin-right: 0px; padding-left:220px;">
-<table id="tbl" class="table table-hover" Style="width:100%;">
+<table id="tb1" class="table table-hover" Style="width:100%;">
 <thead style="background-color:#d9d9d9">
 <tr style="font-size:13px;">
 <th>device_imei</th>
 <th>incoming_addr</th>
 <th>db_time</th>
 <th>db_date</th>
- <th>action</th>
 </tr>
 </thead>
 <tbody style="font-size:14px;">
-<tr>
-    <td>test</td>
-    <td>test</td>
-    <td>test</td>
-    <td>test</td>
-    <td><h2><span>
-<a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float:right;font-size:13px;">Add</a></span></h2></td>
 
-</tr>
 
 </tbody>
 </table>
     <table class="table table-hover" Style="width:100%;">
 <thead>
-<tr>
-<h2><span>
-<a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm" style="float:right;font-size:13px;">Add Device</a></span></h2>
-</tr>
+
 </thead>
 </table>
 </div>
 <div class="col-lg-6  col-md-3 col-sm-6" style=" margin-right: 0px; padding-left:200px;">
-<table id="tbl1" class="table table-hover" Style="width:100%;">
+<table id="tb2" class="table table-hover" Style="width:100%;">
 <thead style="background-color:#d9d9d9">
 <tr style="font-size:13px;">
-<th>device_imei</th>
-<th>incoming_addr</th>
-<th>db_time</th>
-<th>db_date</th>
+<th>Device Id</th>
+<th>Vehicle Number</th>
+<th>IMEI Number</th>
+<th>Device Model</th>
 </tr>
 </thead>
 <tbody style="font-size:14px;">
+<tr>
+
+</tr>
 </tbody>
 </table>
 </div>
@@ -173,8 +167,21 @@ $(document).ready(function () {
             tr.append("<td>" + json[i].incoming_addr + "</td>");
             tr.append("<td>" + json[i].db_time + "</td>");
             tr.append("<td>" + json[i].db_date + "</td>");
-            tr.append("<td>" +  + "</td>");
-            $('#tbl').append(tr);
+            $('#tb1').append(tr);
+        }
+    });
+
+    $.getJSON('http://13.235.62.229/add_device/',
+    function (json) {
+
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].Driver_Name + "</td>");
+            tr.append("<td>" + json[i].Vehicle_Number + "</td>");
+            tr.append("<td>" + json[i].IMEI_Number + "</td>");
+            tr.append("<td>" + json[i].Device_Model + "</td>");
+            $('#tb2').append(tr);
         }
     });
 });

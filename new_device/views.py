@@ -1,6 +1,7 @@
 import json
 
 import requests
+from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -35,16 +36,16 @@ def new_dev(request):
     return render(request, 'new_device/new_dev.html', context)
 
 def se(request):
-    vehicle1 = request.GET['vehicleno']
-    print(vehicle1)
     r1 = requests.get('http://13.235.62.229/location/')
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)
     df11 = json_normalize(y1)
-    print(df11)
     lati =df11['latitude']
     long = df11['longitude']
-    data = {
-        'lat':float(lati),'long':float(long)
-    }
+    imei = df11['device_imei']
+    data = x1
+    print(data)
+    print(type(data))
+
+    return JsonResponse(data,safe=False)

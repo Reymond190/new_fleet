@@ -16,7 +16,7 @@ from vehicles.models import vehicle
 import json
 
 
-from background_task import background
+#
 import requests
 from datetime import timedelta
 import datetime
@@ -265,8 +265,8 @@ def advance(request):
     return render(request,"main/advanced.html",context)
 
 
-def setting(request):
-    return render(request, 'main/../templates/settings/settings.html')
+# def setting(request):
+#     return render(request, 'main/../templates/settings/settings.html')
 
 
 
@@ -276,8 +276,8 @@ def tour(request):
 # class devicelistview(ListView):
 #     queryset = AddDevice.objects.all()
 #     template_name = 'main/class.html'
-#
-#
+
+
 #     def get_queryset(self,*args,**kwargs):
 #         request = self.request
 #         pk = self.kwargs.get('pk')
@@ -420,6 +420,8 @@ def cluster(request):
 
     return render(request, 'main/cluster.html',context)
 
+
+
 def get_ch(request):
     line = LineData()
     chart = ChartData()
@@ -427,6 +429,8 @@ def get_ch(request):
     print(bar)
     context={"line":line,"chart":chart,"bar":bar}
     return render(request, 'main/chart.html',context)
+
+
 
 def LineData():
 

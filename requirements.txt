@@ -1,9 +1,9 @@
 DateTime==4.3
 Django
 django-crispy-forms
-djangorestframework==3.10.2
-numpy==1.17.0
-pandas==0.25.0
+djangorestframework
+numpy
+pandas
 python-dateutil==2.8.0
 six==1.12.0
 sqlparse==0.3.0

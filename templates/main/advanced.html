@@ -28,10 +28,9 @@ controlUI.style.backgroundColor='white';
 controlUI.style.height='30px';
 controlUI.style.width='35px';
 controlDiv.appendChild(controlUI);
-
-
-
 }
+
+
 function CenterControl2(controlDiv, map) {
 
 // Set CSS for the control border.
@@ -94,9 +93,9 @@ controlUI.style.backgroundColor='white';
 controlUI.style.height='30px';
 controlUI.style.width='35px';
 controlDiv.appendChild(controlUI);
-
-
 }
+
+
 function CenterControl5(controlDiv, map) {
 
 // Set CSS for the control border.
@@ -238,13 +237,37 @@ var mark = marker[j];
  document.getElementById('im').src = icons[locations[j].status].icon ;
 document.getElementById('vno').innerHTML = locations[j].plate ;
 
+
 $("#mySidenav").toggle();
         document.getElementById("mySidenav").style.width = "250px";
 }}(j));
 }
 
 }
-var locations = {{ myfile|safe }};
+
+
+//start
+var locations;
+$.ajax({
+            type: "GET",
+            url: 'ajax/',
+            data: {},
+
+            success: function(data){
+            $('#modalContactForm2').modal('show');
+
+          console.log(data.lat);
+          locations = data;
+
+
+
+
+}
+  });
+//end
+
+
+
 
 
 

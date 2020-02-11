@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'helpcenter',
     # 'corsheaders',
     'new_device',
+    'advanced',
     'geofence',
 ]
 

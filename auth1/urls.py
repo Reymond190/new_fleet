@@ -40,6 +40,7 @@ urlpatterns = [
     path('map/', map, name='map'),
     path('chart/', get_ch, name='chart'),
     path('new_dev/', include('new_device.urls')),
+    path('adv/', include('advanced.urls')),
     path('track/', track.as_view()),
     path('geofence/', geofence, name='geofence'),
 

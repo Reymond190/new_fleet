@@ -165,6 +165,14 @@ $(document).ready(function () {
     function (json) {
 
         var tr;
+        if(json.length === 0){
+            tr = $('<tr/>');
+            tr.append("<td>" + "Not connected" + "</td>");
+            tr.append("<td>" + "Not connected" + "</td>");
+            tr.append("<td>" + "Not connected" + "</td>");
+            tr.append("<td>" + "Not connected" + "</td>");
+            $('#tb1').append(tr);
+        }
         for (var i = 0; i < json.length; i++) {
             tr = $('<tr/>');
             tr.append("<td>" + json[i].device_imei + "</td>");
@@ -228,31 +236,11 @@ $.ajax({
 
           console.log(data.lat);
 
-
-          //new
-
       var locations = data;
       var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 6,
-      center: new google.maps.LatLng(13.0827, 80.2707),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
-      geocoder = new google.maps.Geocoder();
-
-      geocoder.geocode({
-            'latLng': event.latLng
-        }, function (results, status) {
-            if (google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-                    alert(results[0].formatted_address);
-                } else {
-                    alert('No results found');
-                }
-            } else {
-                alert('Geocoder failed due to: ' + status);
-            }
-        });
 
     var infowindow = new google.maps.InfoWindow();
 
@@ -264,37 +252,8 @@ $.ajax({
         map: map,
           animation: google.maps.Animation.DROP,
           icon: '{% static 'images/redcar.png'%}'
-
       });
 
-    var dev_imei = locations[i][6],
-    speed = locations[i][0],
-    address = locations[i][3],
-    direction = locations[i][4],
-    type = locations[i][5],
-    listed_on = locations[i][7],
-    prop_url = locations[i][8];
-
-
-    content = "<div class='map_info_wrapper'><a href="+prop_url+"><div class='img_wrapper'><img src="+property_img+"></div>"+
-    "<div class='property_content_wrap'>"+
-    "<div class='property_title'>"+
-    "<span>"+title+"</span>"+
-    "</div>"+
-
-    "<div class='property_price'>"+
-    "<span>"+price+"</span>"+
-    "</div>"+
-
-    "<div class='property_bed_type'>"+
-    "<span>"+bedrooms+"</span>"+
-    "<ul><li>"+type+"</li></ul>"+
-    "</div>"+
-
-    "<div class='property_listed_date'>"+
-    "<span>Listed on "+listed_on+"</span>"+
-    "</div>"+
-    "</div></a></div>";
 
     map.setCenter(marker.getPosition());
     map.setZoom(21);
@@ -306,10 +265,7 @@ $.ajax({
         }
       })(marker, i));
 
-
     }
-
-
 }
   });
 }

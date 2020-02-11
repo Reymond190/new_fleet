@@ -238,6 +238,22 @@ $.ajax({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+      geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({
+            'latLng': event.latLng
+        }, function (results, status) {
+            if (google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    alert(results[0].formatted_address);
+                } else {
+                    alert('No results found');
+                }
+            } else {
+                alert('Geocoder failed due to: ' + status);
+            }
+        });
+
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
@@ -248,9 +264,47 @@ $.ajax({
         map: map,
           animation: google.maps.Animation.DROP,
           icon: '{% static 'images/redcar.png'%}'
+
       });
 
+    var dev_imei = locations[i][6],
+    speed = locations[i][0],
+    address = locations[i][3],
+    direction = locations[i][4],
+    type = locations[i][5],
+    listed_on = locations[i][7],
+    prop_url = locations[i][8];
 
+
+    content = "<div class='map_info_wrapper'><a href="+prop_url+"><div class='img_wrapper'><img src="+property_img+"></div>"+
+    "<div class='property_content_wrap'>"+
+    "<div class='property_title'>"+
+    "<span>"+title+"</span>"+
+    "</div>"+
+
+    "<div class='property_price'>"+
+    "<span>"+price+"</span>"+
+    "</div>"+
+
+    "<div class='property_bed_type'>"+
+    "<span>"+bedrooms+"</span>"+
+    "<ul><li>"+type+"</li></ul>"+
+    "</div>"+
+
+    "<div class='property_listed_date'>"+
+    "<span>Listed on "+listed_on+"</span>"+
+    "</div>"+
+    "</div></a></div>";
+
+    map.setCenter(marker.getPosition());
+    map.setZoom(21);
+
+    google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i].device_imei);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
 
 
     }
@@ -298,6 +352,6 @@ $.ajax({
 {#    }#}
 {#  </script>#}
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing"
-         async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing"
+             async defer></script>
 {% endblock %}

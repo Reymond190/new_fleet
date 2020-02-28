@@ -25,7 +25,7 @@ SECRET_KEY = 'vx1rvih8l2n+879ur6^!h4nn2dc1l1agirx&d7!^3evse^v50z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','fleet1.jvnrdgmavn.ap-south-1.elasticbeanstalk.com','http://raydep-env.3fxwfa9mwd.ap-south-1.elasticbeanstalk.com/','13.232.156.247']
+ALLOWED_HOSTS = ['127.0.0.1','fleet1.jvnrdgmavn.ap-south-1.elasticbeanstalk.com','13.232.156.247','13.233.123.225','ec2-13-233-123-225.ap-south-1.compute.amazonaws.com']
 
 #'fleet1.jvnrdgmavn.ap-south-1.elasticbeanstalk.com'
 

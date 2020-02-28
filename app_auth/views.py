@@ -54,7 +54,7 @@ def profile(request):
 
 
 def reload_and_store():
-    f = open('venv/temp.json', 'w+')
+    f = open('temp.json', 'w+')
     if f.read() is not None:
         f.truncate(0)
     x = get_api()
@@ -64,7 +64,7 @@ def reload_and_store():
 
 
 def get_temp():
-    f = open('venv/temp.json', 'r+')
+    f = open('temp.json', 'r+')
     content = f.read()
     return content
 

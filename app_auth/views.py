@@ -52,6 +52,7 @@ def profile(request):
             messages.success(request, 'Profile is updated!')
     return render(request,'main/profile.html',context)
 
+
 def reload_and_store():
     f = open('venv/temp.json', 'w+')
     if f.read() is not None:
@@ -59,6 +60,7 @@ def reload_and_store():
     x = get_api()
     json.dump(x, f)
     f.close()
+
 
 
 def get_temp():

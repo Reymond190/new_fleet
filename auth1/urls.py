@@ -57,7 +57,6 @@ urlpatterns = [
     path('detail/',detail,name='detail'),
     path('reports/',include('reports.urls')),
     path('advance/',advance,name='advance'),
-
     path('', include('trip.urls')),
     path("home/",home,name='home'),
 

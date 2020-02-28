@@ -5,6 +5,8 @@ from django.db.models import Q
 from django.views.generic import ListView
 from requests.auth import HTTPBasicAuth
 from pandas.io.json import json_normalize
+
+from auth1.settings import API_REPORTS
 from vehicles.models import vehicle
 from datetime import date
 import json
@@ -198,7 +200,7 @@ def rfid_data(request):
 
 
 def get_api():
-    r1 = requests.get(' http://13.232.118.209/path')
+    r1 = requests.get(API_REPORTS)
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)

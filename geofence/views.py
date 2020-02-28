@@ -90,7 +90,6 @@ def g1(request):
     x2 = json.dumps(x1)
     y1 = json.loads(x2)
     df1 = json_normalize(y1)
-
     p1, result = funclu(df1)
 
     if(Geofence.objects.filter(VehicleNo__iexact=veh).exists()):

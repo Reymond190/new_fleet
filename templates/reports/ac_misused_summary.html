@@ -593,6 +593,7 @@ var myObj = JSON.stringify(x);
 
 var my = JSON.parse(myObj);
  var count = Object.keys(my).length;
+ console.log(count);
 for(var i=0;i<count;i++){
 
            var $tr = "<tr></td><td>--</td><td>--</td><td>"+my["vin"][i]+"</td><td>--</td><td>"+my["deviceImeiNo"][i]+"</td><td>" + my["startlocation"][i] + "</td><td>" + my["distance"][i] + "</td><td>" + my["running"][i] + "</td><td>" + my["average"][i] + "</td></tr>";
@@ -603,30 +604,7 @@ for(var i=0;i<count;i++){
 
 
 </script>
-<!--{% for i in object_list %}-->
-<!--		<tr>-->
-<!--		<td>{{ i.companyId }}</td>-->
-<!--		<td>{{ forloop.counter }}</td>-->
-<!--		<td>{{ i.plateNumber }}</td>-->
-<!--		<td>driver</td>-->
-<!--		<td>{{ i.deviceImeiNo }}</td>-->
-<!--		<td>10</td>-->
-<!--		<td>00.17</td>-->
-<!--		<td>00.12</td>-->
-<!--		<td>00.20</td>-->
-<!--		</tr>-->
-<!--{% endfor %}-->
-<!--<tr>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--</tr>-->
+
 
 </tbody>
 </table>

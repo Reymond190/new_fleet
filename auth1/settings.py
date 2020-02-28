@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['127.0.0.1','fleet1.jvnrdgmavn.ap-south-1.elasticbeanstalk.com'
 #'fleet1.jvnrdgmavn.ap-south-1.elasticbeanstalk.com'
 
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -177,3 +178,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 
 API_URL1 = 'http://13.235.62.229/add_device/'
+
+API_REPORTS = 'http://13.232.41.131/path/'

@@ -4,6 +4,7 @@ from .models import Helpcenter
 from .forms import HelpCenterform
 # Create your views here.
 
+
 def helpcenter(request):
     l = Helpcenter.objects.all()
     form = HelpCenterform
@@ -18,3 +19,6 @@ def helpcenter(request):
             print("save")
         messages.success(request, 'Message Added')
     return render(request, 'help_center/helpcenter.html',context)
+
+
+

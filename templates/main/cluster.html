@@ -139,6 +139,7 @@ $('#myModal3').modal('show');
 });
 }
 var locations = {{ myfile|safe }};
+console.log(locations);
 function CenterControl(controlDiv, map) {
 var controlUI = document.createElement('div');
 controlUI.style.backgroundImage = 'url("{% static 'images/icons/filter.png'%}")';
@@ -660,7 +661,7 @@ $('#map').show();
 &nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="font-size: 16px;"><br>Stop</b></div>
 <div class="col-lg-2 col-sm-2 col-md-2">
 <img class="" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
-    <span style="font-size: 20px">0</span><b style="font-size: 18px"><br>No Data</b></div>
+    <span style="font-size: 20px">{{ inactive }}</span><b style="font-size: 18px"><br>Inactive</b></div>
     <div class="col-lg-1 col-sm-1 col-md-1"><img class="card-img-left" src="{% static 'images/ico.png'%}" width="40px" height="41px" style="padding-bottom:10px;"></a>
     &nbsp;&nbsp;<span style="font-size: 20px">11 </span><b><br>Alerts</b></div>
 </div></div>
@@ -748,7 +749,7 @@ function myFunction() {
 
     <div class="container-fluid  " ><div class="row"><div class="col-lg-6  col-md-6 col-sm-6">
     <div  class="sample" id="sample">
-<table class="table table-bordered " id="tab">
+<table class="table table-bordered " id="tb1">
 <thead class="color" id="text">
 <tr>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">S.no&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
@@ -773,38 +774,40 @@ function myFunction() {
 
 <tbody>
 
-{% for i in object_list %}
-<tr>
-<td>{{ forloop.counter }}</td>
-<td>
-    {% if i.status == 'Running'%}
-    <img src="{% static 'images/greencar.png'%}">
-    {% elif i.status == 'Idle'%}
-    <img src="{% static 'images/yellowcar.png'%}">
-    {% elif i.status == 'Stop'%}
-    <img src="{% static 'images/redcar.png'%}">
-    {%else%}
-    <img src="{% static 'images/bluecar.png'%}">
-    {%endif%}
-</td>
 
-<td>{{ i.plateNumber }}</td>
-<td>{{ i.name }}</td>
-<td><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br></a></td>
-<td><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/hotspotsymbol.png' %}" style="width:16px;height:16px;"><br></a></td>
-<td>no data</td>
-<td>{{ i.speed }}</td>
-<td>{{ i.latitude }},{{ i.longitude }}</td>
-<td>no data</td>
-<td></td>
-</tr>
-{% endfor %}
 </tbody>
 
 </table>
+
     </div>
     </div>
         <div id="map" class=" col-lg-6 col-md-6 col-sm-6 map "  ></div> </div></div>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=initMap"></script>
+
+    <script>
+    $(document).ready(function () {
+    $.getJSON('http://13.232.41.131/extendapi/',
+    function (json) {
+
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + i + "</td>");
+            tr.append("<td>" + "<img src='{% static 'images/bluecar.png'%}'>" + "</td>");
+            tr.append("<td>" + json[i].status + "</td>");
+            tr.append("<td>" + json[i].plateNumber + "</td>");
+            tr.append("<td>" + json[i].Driver_Name  + "</td>");
+            tr.append("<td>" + '<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br></a>'  + "</td>");
+            tr.append("<td>" + '<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/hotspotsymbol.png' %}" style="width:16px;height:16px;"><br></a>'  + "</td>");
+            tr.append("<td>" + json[i].current_speed + "</td>");
+            tr.append("<td>" + json[i].endlocation + "</td>");
+            tr.append("<td>" + json[i].running + "</td>");
+            tr.append("<td>" + '--' + "</td>");
+            $('#tb1').append(tr);
+        }
+    });
+
+    });
+</script>
 {% endblock %}

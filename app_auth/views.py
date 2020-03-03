@@ -416,21 +416,25 @@ def funclu(po):
 
 def cluster(request):
     # reload_and_store()
-    temp = get_temp()
-    y1 = json.loads(temp)
-    df1 = get_dataframe(y1)
+    r1 = requests.get(API_REPORTS)
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df1 = json_normalize(y1)
     df2 = filter_running(df1)
     df3 = filter_idle(df1)
     df4 = filter_stop(df1)
+    df5 = filter_inactive(df1)
     total = len(df1)
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
+    inactive = len(df5)
     p1, result = funclu(df1)
     queryset = vehicle.objects.all()
 
     context = {
-        "myfile":result,'total':total,'running':running,'idle':idle, 'stop':stop,"object_list":queryset
+        "myfile":result,'total':total,'running':running,'idle':idle,'inactive':inactive, 'stop':stop,"object_list":queryset
     }
 
     return render(request, 'main/cluster.html',context)

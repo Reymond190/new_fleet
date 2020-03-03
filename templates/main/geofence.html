@@ -244,7 +244,7 @@ return new google.maps.Marker({
           lat : parseFloat( location.lat ),
           lng : parseFloat( location.lng )
       },
-icon :'{% static 'images/greencar.png'%}',
+icon :'{% static 'images/redcar.png'%}',
 
 title: location.plate,
 map:map
@@ -301,7 +301,7 @@ function myFunction(ve){
 
     var marker = new google.maps.Marker({
      position:{lat:parseFloat(vcl[0].lat),lng:parseFloat(vcl[0].lng)},
-     icon :'{% static 'images/greencar.png'%}',
+     icon :'{% static 'images/redcar.png'%}',
      title: location.plate,
      map:map
 

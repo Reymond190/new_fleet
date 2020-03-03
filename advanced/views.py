@@ -7,13 +7,15 @@ from django.shortcuts import render
 # Create your views here.
 from pandas.io.json import json_normalize
 
+from auth1.settings import API_REPORTS
+
 
 def advance(request):
     return render(request,"main/advanced.html")
 
 
 def se(request):
-    r1 = requests.get('http://13.235.62.229/location/')
+    r1 = requests.get(API_REPORTS)
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)

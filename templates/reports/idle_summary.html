@@ -553,7 +553,7 @@ function sortListDir(z) {
 
 
   <div  class="container-fluid scrollit">
-<table class="table table-bordered" style="font-size:13px;">
+<table id = 'tb1' class="table table-bordered" style="font-size:13px;">
 <thead class="color" id="text">
 <tr>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Company&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
@@ -591,37 +591,36 @@ function sortListDir(z) {
 </tr>
 </thead>
 <tbody>
-<script>
-var x = {{ one1|safe}};
-console.log(x);
-var myObj = JSON.stringify(x);
 
-var my = JSON.parse(myObj);
-var count = Object.keys(my).length;
-for(var i=0;i<=count;i++){
-console.log(i);
-var $tr = "<tr></td><td>--</td><td>--</td><td>"+my["vin"][i]+"</td><td>--</td><td>"+my["deviceImeiNo"][i]+"</td><td>" + my["distance"][i] + "</td><td>" + my["running"][i] + "</td><td>" + my["idle"][i] + "</td><td>" + my["noidle"][i] + "</td><td>--</td><td>--</td></tr>";
-$("table tbody").append($tr);
-console.log($tr);
-}
-</script>
-<!--{% for i in object_list %}-->
-<!--		<tr>-->
-<!--		<td>{{ i.companyId }}</td>-->
-<!--		<td>{{ forloop.counter }}</td>-->
-<!--		<td>{{ i.plateNumber }}</td>-->
-<!--		<td>driver</td>-->
-<!--		<td>{{ i.deviceImeiNo }}</td>-->
-<!--		<td>45.98</td>-->
-<!--		<td>09:56</td>-->
-<!--		<td>02:32</td>-->
-<!--		<td>45</td>-->
-<!--		<td>00:01</td>-->
-<!--		<td>00.09</td>-->
-<!--		</tr>-->
-<!--{% endfor %}-->
+
 </tbody>
 </table>
 </div>
+<script>
+    $(document).ready(function () {
+    $.getJSON('http://13.232.41.131/extendapi/',
+    function (json) {
+
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].Driver_Name + "</td>");
+            tr.append("<td>" + i + "</td>");
+            console.log(i);
+            tr.append("<td>" + json[i].plateNumber + "</td>");
+            tr.append("<td>" + json[i].Driver_Name + "</td>");
+            tr.append("<td>" + json[i].deviceImeiNo  + "</td>");
+            tr.append("<td>" + json[i].distance  + "</td>");
+            tr.append("<td>" + json[i].running  + "</td>");
+            tr.append("<td>" + json[i].idle  + "</td>");
+            tr.append("<td>" + "0" + "</td>");
+            tr.append("<td>" + "--" + "</td>");
+            tr.append("<td>" + "--" + "</td>");
+            $('#tb1').append(tr);
+        }
+    });
+
+    });
+</script>
 
 {% endblock %}

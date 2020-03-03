@@ -548,7 +548,7 @@ function sortListDir(z) {
 }
 </script>
 <div  class="container-fluid scrollit">
-<table class="table table-bordered" style="font-size:13px;">
+<table id="tb1" class="table table-bordered" style="font-size:13px;">
 <thead class="color" id="text">
 <tr>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Company&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
@@ -557,7 +557,7 @@ function sortListDir(z) {
 <li><a href="#">nn</a></li>
 <li><a href="#">nbn</a></li>
 </ul>
-<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Branch</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></style></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Branch</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
 <ul class="dropdown-menu">
 <li><a href="#">bn</a></li>
 <li><a href="#">nn</a></li>
@@ -581,39 +581,60 @@ function sortListDir(z) {
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/total_running_duration.png">Running</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/total_idle_duration.png">Idle</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"> <img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/total_stop_duration.png">Stop</a></th>
-<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/inactive_duration.png">No Data</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/inactive_duration.png">Inactive</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/alert.png">Alerts</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Start Odometer</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">End Odometer</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/end_location.png">   End Location</a></th>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/playback.png">Playback</a></th>
-<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="<img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/history.png">History</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/history.png">History</a></th>
 </tr>
 </thead>
 <tbody>
-{% for i in object_list %}
+
 <tr>
-<td>{{ i.companyId }}</td>
-<td>{{ forloop.counter }}</td>
-<td>{{ i.plateNumber }}</td>
-<td>{{ date}}</td>
-<td>{{ i.deviceImeiNo }}</td>
-<td>{{ i.location }}</td>
-<td>{{ i.direction }}</td>
-<td>{{ i.status }}</td>
-<td>{{ i.status }}</td>
-<td>{{ i.status }}</td>
-<td>{{ i.status }}</td>
-<td>{{ forloop.counter}}</td>
-<td>{{ forloop.counter}}</td>
-<td>{{ i.speed }}</td>
-<td>{{ i.location }}</td>
-<td><img src="http://13.127.144.213/images/Play.png"> </td>
-  <td><img src="http://13.127.144.213/images/History.png"></td>
+
 </tr>
-{% endfor %}
+
+
+
+
+
+
 
 </tbody>
 </table>
 </div>
+    <script>
+    $(document).ready(function () {
+    $.getJSON('http://13.232.41.131/extendapi/',
+    function (json) {
+
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].Driver_Name + "</td>");
+            tr.append("<td>" + i + "</td>");
+            console.log(i);
+            tr.append("<td>" + json[i].plateNumber + "</td>");
+            tr.append("<td>" + json[i].date + "</td>");
+            tr.append("<td>" + json[i].deviceImeiNo  + "</td>");
+            tr.append("<td>" + json[i].startlocation +"</td>");
+            tr.append("<td>" + json[i].distance + "</td>");
+            tr.append("<td>" + json[i].running +"</td>");
+            tr.append("<td>" + json[i].idle + "</td>");
+            tr.append("<td>" + json[i].stop + "</td>");
+            tr.append("<td>" + json[i].inactive + "</td>");
+            tr.append("<td>" + json[i].alert + "</td>");
+            tr.append("<td>" + json[i].startodometer + "</td>");
+            tr.append("<td>" + json[i].endodometer+ "</td>");
+            tr.append("<td>" + json[i].endlocation + "</td>");
+            tr.append("<td>" + "<img src='http://13.127.144.213/images/Play.png'>" + "</td>");
+            tr.append("<td>" + "<img src='http://13.127.144.213/images/History.png'>"+ "</td>");
+            $('#tb1').append(tr);
+        }
+    });
+
+    });
+</script>
 {% endblock %}

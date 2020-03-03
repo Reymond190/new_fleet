@@ -1,5 +1,9 @@
+import requests
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from pandas.io.json import json_normalize
+
+from auth1.settings import API_REPORTS
 from .models import AddTrip
 from app_auth.forms import AddTripForm
 
@@ -8,9 +12,11 @@ import json
 
 @csrf_exempt
 def add_trip(request):
-    temp = get_temp()
-    y1 = json.loads(temp)
-    df1 = get_dataframe(y1)
+    r1 = requests.get(API_REPORTS)
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df1 = json_normalize(y1)
     i,j = funclu(df1)
     print(request.method)
     if request.is_ajax():

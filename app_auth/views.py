@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+
+from auth1.settings import API_REPORTS
 from .forms import UserRegisterForm, ProfileAddForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
@@ -80,17 +82,21 @@ def get_dataframe(y1):
 
 
 def filter_running(df):
-    df2 = df.loc[(df["engine"] == "ON") & (df["speed"] > 0)]  # RUNNING VEHICLES
+    df2 = df.loc[(df["status"] == 'running')]  # RUNNING VEHICLES
     return df2
 
 
 def filter_idle(df):
-    df3 = df.loc[(df["engine"] == "ON") & (df["speed"] == 0)]  # IDLE VEHICLES
+    df3 = df.loc[(df["status"] == 'idle')]  # IDLE VEHICLES
     return df3
 
 
 def filter_stop(df):
-    df4 = df.loc[(df["engine"] == "OFF") & (df["speed"] == 0)]  # STOP_VEHICLES
+    df4 = df.loc[(df["status"] == 'stop')]  # STOP_VEHICLES
+    return df4
+
+def filter_inactive(df):
+    df4 = df.loc[(df["status"] == 'Inactive')]  # STOP_VEHICLES
     return df4
 
 
@@ -178,19 +184,20 @@ def start(request):
     return render(request, 'file1.html')
 
 def detail(request):
-
-    queryset = vehicle.objects.all()
-    temp = get_temp()
-    y1 = json.loads(temp)
-
-    df1 = get_dataframe(y1)
+    r1 = requests.get(API_REPORTS)
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df1 = json_normalize(y1)
     df2 = filter_running(df1)
     df3 = filter_idle(df1)
     df4 = filter_stop(df1)
+    df5 = filter_inactive(df1)
     total = len(df1)
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
+    inactive = len(df5)
     if request.method == 'GET' and 'totalbutton' in request.GET:
         p1, result = funclu(df1)
     elif request.method == 'GET' and 'runningbutton' in request.GET:
@@ -203,7 +210,7 @@ def detail(request):
     else:
         p1, result = funclu(df1)
 
-    context = {"object_list":queryset,'total':total,'running':running,'idle':idle, 'stop':stop, "myfile1":result}
+    context = {'total':total,'running':running,'idle':idle, 'stop':stop, "myfile1":result, "inactive":inactive,'dump':x2}
     return render(request, 'main/details.html',context)
 
 def advance(request):
@@ -236,19 +243,22 @@ def advance(request):
     #     "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
     # }
     # return render(request,"main/advanced.html",context)
-    temp = get_temp()
-    y1 = json.loads(temp)
-    df1 = get_dataframe(y1)
+    r1 = requests.get(API_REPORTS)
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df1 = json_normalize(y1)
     df2 = filter_running(df1)
     df3 = filter_idle(df1)
     df4 = filter_stop(df1)
+    df5 = filter_inactive(df1)
     total = len(df1)
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
+    inactive = len(df5)
     p1, result = funclu(df1)
     print(result)
-    queryset = vehicle.objects.all()
     if request.method == 'GET' and 'totalbutton' in request.GET:
         p1, result = funclu(df1)
     elif request.method == 'GET' and 'runningbutton' in request.GET:
@@ -261,7 +271,7 @@ def advance(request):
         p1, result = funclu(df1)
 
     context = {
-        "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
+        "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop,'inactive':inactive,'dict2':x2
     }
 
     return render(request,"main/advanced.html",context)
@@ -388,9 +398,12 @@ def map(request):
     return render(request, 'main/track.html', context)
 
 def funclu(po):
-    lat_list = list(po["latitude"])
-    long_list = list(po["longitude"])
-    v_plate = list(po["plateNumber"])
+    int1 = po["latitude"].astype(float)
+    int2 = po["longitude"].astype(float)
+    int3 = po["plateNumber"]
+    lat_list = list(int1)
+    long_list = list(int2)
+    v_plate = list(int3)
     #print(len(v_plate))
     data1 = "one"
     v_status = list(po["status"])
@@ -436,7 +449,7 @@ def get_ch(request):
 
 def LineData():
 
-     r = requests.get('http://13.232.118.209/path')
+     r = requests.get('http://13.232.41.131/path')
      x = r.json()
      x1 = json.dumps(x)
      y = json.loads(x1)
@@ -457,7 +470,7 @@ def LineData():
 
 
 def ChartData():
-    r = requests.get('http://13.232.118.209/api2')
+    r = requests.get('http://13.232.41.131/api2')
     x = r.json()
     x1 = json.dumps(x)
     y = json.loads(x1)
@@ -475,7 +488,7 @@ def ChartData():
     return data
 
 def BarChart():
-    r = requests.get('http://13.232.118.209/path')
+    r = requests.get('http://13.232.41.131/path')
     x = r.json()
     x1 = json.dumps(x)
     y = json.loads(x1)

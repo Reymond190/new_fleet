@@ -608,12 +608,15 @@ function sortListDir(z) {
 var myObj = JSON.stringify(x);
 
 var my = JSON.parse(myObj);
- var count = Object.keys(my).length;
+var count = Object.keys(my).length;
 for(var i=0;i<count;i++){
 console.log(i);
+        if (typeof(my["vin"][i]) == 'undefined') {
+    break;
+}
         var $tr = "<tr></td><td>--</td><td>--</td><td>"+my["vin"][i]+"</td><td>--</td><td>"+my["deviceImeiNo"][i]+"</td><td>" + my["startlocation"][i] + "</td><td>" + my["distance"][i] + "</td><td>" + my["running"][i] + "</td><td>" + my["idle"][i] + "</td><td>" + my["stop"][i] + "</td><td>--</td><td>" + my["maxstop"][i] + "</td><td>" + my["noidle"][i] + "</td><td>" + my["average"][i] + "</td><td>" + my["maxspeed"][i] + "</td><td>" + my["overspeed"][i] + "</td><td>" + my["alert"][i] + "</td><td>" + my["endlocation"][i] + "</td><td>-</td></tr>";
            $("table tbody").append($tr);
-        console.log($tr);
+
     }
 
 

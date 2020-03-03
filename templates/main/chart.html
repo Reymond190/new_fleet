@@ -22,7 +22,7 @@
 
 window.onload = function () {
 var ch = {{bar|safe}};
-var seasondata2 = []
+var seasondata2 = [];
 var count = Object.values(ch["X"]).length;
 for (var index = 0; index < count; index++) {
 
@@ -56,13 +56,13 @@ function updateChart() {
 	options.data[0].dataPoints = dps;
 	$("#chartContainer").CanvasJSChart().render();
 };
-updateChart();
 
-setInterval(function () { updateChart() }, 500);
+
+
 
 //Line Chart
 var data = {{line|safe}}; // dataPoints
-var seasondata = []
+var seasondata = [];
 var count = Object.values(data["X"]).length;
 for (var index = 0; index < count; index++) {
 
@@ -96,8 +96,8 @@ for (var index = 0; index < count; index++) {
 
 
 //piechart
-d = {{chart|safe}}
-var seasondata1 = []
+d = {{chart|safe}};
+var seasondata1 = [];
 var count1 = Object.values(d["X"]).length;
 for (var index = 0; index < count1; index++) {
        de = d["X"][index];
@@ -108,7 +108,7 @@ console.log(seasondata1);
 var chart = new CanvasJS.Chart("chartC",
 	{
 		title:{
-			text: "Vehicle"
+			text: "Status distribution"
 		},
 		legend: {
 			maxWidth: 350,
@@ -134,17 +134,17 @@ am4core.ready(function() {
 am4core.useTheme(am4themes_material);
 var chart = am4core.create("chartdiv", am4charts.PieChart);
 chart.data = [ {
-  "State": "Delhi",
+  "State": "cars",
+  "Vehicle": 10
+}, {
+ "State": "bikes",
   "Vehicle": 100
 }, {
- "State": "Uttar Pradesh",
-  "Vehicle": 30
+ "State": "buses",
+  "Vehicle": 10
 }, {
- "State": "Bihar",
-  "Vehicle": 160
-}, {
-  "State": "TamilNadu",
-  "Vehicle": 100
+  "State": "other",
+  "Vehicle": 10
 },];
 chart.innerRadius = am4core.percent(50);
 var pieSeries = chart.series.push(new am4charts.PieSeries());

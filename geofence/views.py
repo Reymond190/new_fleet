@@ -13,6 +13,7 @@ import pandas as pd
 import json as simplejson
 from pandas.io.json import json_normalize
 from app_auth.forms import GeofenceForm
+from auth1.settings import API_REPORTS
 from .models import Geofence
 
 
@@ -69,7 +70,7 @@ def funclu(po):
 
 
 def geofence(request):
-    r1 = requests.get(' http://13.232.118.209/path')
+    r1 = requests.get(API_REPORTS)
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)
@@ -85,7 +86,7 @@ def geofence(request):
 def g1(request):
     i = Geofence()
     veh = request.GET['veh']
-    r1 = requests.get(' http://13.232.118.209/path/'+veh)
+    r1 = requests.get(API_REPORTS+veh)
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)

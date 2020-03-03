@@ -9,7 +9,8 @@
 <script type="text/javascript" src="{% static 'js/style8.js' %}"></script>
 <script>
 var locations = {{ myfile|safe }};
-console.log(locations);
+
+console.log(typeof locations);
     function CenterControl(controlDiv, map) {
 
 // Set CSS for the control border.
@@ -117,20 +118,20 @@ controlDiv.appendChild(controlUI);
 
 }
 var icons = {
-Idle: {
-name: 'Idle',
+idle: {
+name: 'idle',
 icon: '{% static 'images/yellowcar.png'%}'
 },
-Running: {
-name: 'Running',
+running: {
+name: 'running',
 icon: '{% static 'images/greencar.png'%}'
 },
-Stop: {
-name: 'Stop',
+stop: {
+name: 'stop',
 icon: '{% static 'images/redcar.png'%}'
 },
-NOData: {
-name: 'Nodata',
+Inactive: {
+name: 'Inactive',
 icon: '{% static 'images/bluecar.png'%}'
 }
 };
@@ -229,25 +230,58 @@ map:map
 
 var markerCluster = new MarkerClusterer(map, marker,
 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
+var fridge = {{ dict2|safe }};
  for (j=0;j<= marker.length;j++) {
 var mark = marker[j];
  google.maps.event.addListener(mark, 'click', function(j) {
  return function() {
- document.getElementById('im').src = icons[locations[j].status].icon ;
-document.getElementById('vno').innerHTML = locations[j].plate ;
+document.getElementById('im').src = icons[locations[j].status].icon ;
+document.getElementById('name').innerHTML = fridge[j].Driver_Name ;
+document.getElementById('vno').innerHTML = fridge[j].plateNumber ;
+document.getElementById('lat').innerHTML = fridge[j].latitude ;
+document.getElementById('long').innerHTML = fridge[j].longitude ;
+document.getElementById('dis').innerHTML = fridge[j].distance ;
+document.getElementById('run').innerHTML = fridge[j].running ;
+document.getElementById('idl').innerHTML = fridge[j].idle ;
+document.getElementById('stop').innerHTML = fridge[j].stop ;
+document.getElementById('inact').innerHTML = fridge[j].inactive ;
+document.getElementById('max').innerHTML = fridge[j].maxspeed ;
+document.getElementById('avg').innerHTML = fridge[j].average ;
+document.getElementById('curr').innerHTML = fridge[j].current_speed;
+document.getElementById('imei').innerHTML = fridge[j].deviceImeiNo;
+
+
+
+
+ var geocoder = new google.maps.Geocoder();
+ var latlng = new google.maps.LatLng( locations[j].lat,  locations[j].lng);
+
+    geocoder.geocode( { 'latLng': latlng }, function(results, status) {
+
+      if (status == google.maps.GeocoderStatus.OK) {
+
+        var address = (results[0].formatted_address);
+        document.getElementById('add').innerHTML = address ;
+
+                }
+        else {
+             address = "Renew geocoder";
+             document.getElementById('add').innerHTML = address ;
+      }
+
+        });
+
 
 
 $("#mySidenav").toggle();
-        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("mySidenav").style.width = "300px";
 }}(j));
 }
 
 }
 
 
-//start
-var locations;
+
 $.ajax({
             type: "GET",
             url: 'ajax/',
@@ -278,31 +312,39 @@ $.ajax({
 
 
 
-<div id="mySidenav" class="sidenav" style="display:none">
+<div id="mySidenav" class="sidenav" style="display:none;padding-left:20px; margin-top:50px;">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br><br>
 <div class="container">
     <div class="panel panel-default">
-    <div class="panel-heading"><img src="" id="im"> <label id="vno" style="font-size:14px;"></label></div>
-    <div class="panel-body "><div >
-        <label>Company&nbsp;<span id="company">AmigaIT</span></label><br><label>Branch</label><br><label>Vehicle Type</label><br><label>Driver</label><br><label>Mobile No</label><br><label>Speed</label>
+    <div class="panel-heading"><img src="" id="im">&nbsp;&nbsp;&nbsp;&nbsp;<b><label id="vno" style="font-size:23px;"></label></b></div>
+    <div class="panel-body ">
+        <div>
+        <label>Name:&nbsp;&nbsp;<span id="name"></span></label><br><label>Vehicle Type:</label><br><label>IMEI No: <label id="imei"></label></label><br><label>Mobile No:</label><br><label>Status:</label>
     </div>
+
         <div style="background-color:#F2F3F4">
-            <h4>Location <img src=" https://img.icons8.com/wired/2x/marker.png" style="width:20px;height:20px;" onclick="">&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/2x/worldwide-location--v2.png" style="width:20px;height:20px;" onclick="">&nbsp;&nbsp;<img src="https://img.icons8.com/material-rounded/2x/share-3.png"style="width:20px;height:20px;"onclick=""></h4>
-<label>Reached Time</label><br><label>Latitude&nbsp;&nbsp;&nbsp;Longitude</label>
-        </div><div>
-        <label>Travel Distance</label><br><input type="range" name="price-min" id="price-min" value="200" min="0" max="1000"></div><div><label>Travel Duration</label><br><input type="range" name="price-min" id="price-mi" value="200" min="0" max="1000"></div>
-  <div><img src="https://img.icons8.com/ios/20/000000/speed.png">&nbsp;<b>Speed</b>
-<br><br>
-1 Km/h&nbsp;&nbsp;&nbsp;1 Km/h&nbsp;&nbsp;&nbsp;0 Km/h<br>
-Max&nbsp;&nbsp;&nbsp; AVG&nbsp;&nbsp;&nbsp; Current
+            <label>Location <img src="https://img.icons8.com/pastel-glyph/2x/worldwide-location--v2.png" style="width:15px;height:15px;" onclick=""></label>
+<label id="add" style="font-size:13px;"></label><br>
+        </div>
+        <div>
+        <label >Latitude: <label id="lat"></label></label><br>
+        <label >Longitude: <label id="long"></label></label><br>
+        <label >Distance Travelled: <label id="dis"></label></label><br>
+        <label >Running Time: <label id="run"></label></label><br>
+        <label >Idle Time: <label id="idl"></label></label><br>
+        <label >Stop Time: <label id="stop"></label></label><br>
+        <label >Inactive Time: <label id="inact"></label></label>
+            </div>
+
+  <div style="background-color:#F2F3F4"><label>Speed</label>&nbsp;<img src="https://img.icons8.com/ios/20/000000/speed.png">
+<br>
+      <label>Max<br><span id="max">1 km/h</span></label>&nbsp;&nbsp;&nbsp;
+      <label>Avg<br><span id="avg">1 km/h</span></label>&nbsp;&nbsp;&nbsp;
+      <label>Current<br><span id="curr">0 km/h</span></label>
 </div>
 
 <div>
-<img src="https://img.icons8.com/officexs/20/000000/high-risk.png">&nbsp;Alert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://img.icons8.com/color/20/000000/parking.png">&nbsp;Parking<br>
-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-07:57&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14:59<br>
-Last Stop &nbsp;&nbsp;&nbsp;Total&nbsp;&nbsp; Last Stop &nbsp;&nbsp;Total
+    <label>Alert</label>&nbsp;<img src="https://img.icons8.com/officexs/20/000000/high-risk.png" style="height: 15px; width: 15px;">
 </div>
 <hr>
 <div>
@@ -616,7 +658,7 @@ Last Stop &nbsp;&nbsp;&nbsp;Total&nbsp;&nbsp; Last Stop &nbsp;&nbsp;Total
          <div class="  col-lg-1 col-md-1 col-sm-1 re"> <form method='GET'> <button class="p"  name="stopbutton" type='submit'>
              <span style="color:red;font-size:16px"><b>{{ stop }}</b> </span><br><p style="font-size:12px"><b>Stop</b></p>
          </button></form>  </div>
-         <div class=" col-lg-1  col-md-1 col-sm-1 re "> <form method='GET'>  <button class="p"><span style="font-size:16px">0</span><br><p style="font-size:12px"><b>NoData</b></p></button></form></div>
+         <div class=" col-lg-1  col-md-1 col-sm-1 re "> <form method='GET'>  <button class="p"><span style="font-size:16px">{{ inactive }}</span><br><p style="font-size:12px"><b>Inactive</b></p></button></form></div>
 
          <div class=" col-lg-1 col-md-1 col-sm-1 re">
             <form method='GET'> <button class = 'p'  name="totalbutton"  type='submit'>

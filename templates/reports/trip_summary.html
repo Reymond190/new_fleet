@@ -548,7 +548,7 @@ function sortListDir(z) {
 }
 </script>
 <div  class="container-fluid scrollit">
-<table class="table table-bordered" style="font-size:13px;">
+<table id="tb1" class="table table-bordered" style="font-size:13px;">
 <thead class="color" id="text">
 <tr>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Company&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
@@ -589,25 +589,38 @@ function sortListDir(z) {
 </tr>
 </thead>
 <tbody>
-{% for i in object_list %}
-<tr>
-<td>{{ i.companyId }}</td>
-<td>{{ forloop.revcounter }}</td>
-<td>{{ i.platenumber }}</td>
-<td>{{ i.name }}</td>
-<td>{{ i.deviceImeiNo }}</td>
-<td>98.00</td>
-<td>09.35</td>
-<td>00.60</td>
-<td>00.24</td>
-<td>24-05-2019 00:00:00</td>
-<td>2</td>
-<td>34</td>
-<td><img src="http://13.127.144.213/images/Play.png"></td>
-</tr>
-{% endfor %}
+<tr></tr>
+
 </tbody>
 </table>
 </div>
+<script>
+    $(document).ready(function () {
+    $.getJSON('http://13.232.41.131/extendapi/',
+    function (json) {
+
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].Driver_Name + "</td>");
+tr.append("<td>" + i + "</td>");
+console.log(i);
+tr.append("<td>" + json[i].plateNumber + "</td>");
+tr.append("<td>" + json[i].Driver_Name + "</td>");
+tr.append("<td>" + json[i].deviceImeiNo  + "</td>");
+tr.append("<td>" + "02.05" + "</td>");
+tr.append("<td>" + "05.10" + "</td>");
+tr.append("<td>" + json[i].average +"</td>");
+tr.append("<td>" + json[i].maxspeed +"</td>");
+tr.append("<td>" + json[i].overspeed + "</td>");
+tr.append("<td>" + json[i].alert + "</td>");
+tr.append("<td>" + "10" + "</td>");
+tr.append("<td>" +"<img src='http://13.127.144.213/images/Play.png'>" + "</td>");
+            $('#tb1').append(tr);
+        }
+    });
+
+    });
+</script>
 
 {% endblock %}

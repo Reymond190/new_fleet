@@ -71,7 +71,6 @@ var marker = locations.map(function(location, i) {
 return new google.maps.Marker({
 position: location,
 icon: icons[location.status].icon,
-label: labels[i % labels.length],
 title: location.plate,
 map:map
 });

@@ -1,107 +1,561 @@
 {% extends 'main/sidenav.html' %}
 {% load static%}
 {% block content1 %}
-<link rel="stylesheet" href="{% static 'css/style7.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+<style>
+.scrollit {
 
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>
- $( document ).ready(function() {
+width: auto;
+overflow:auto;
+margin:1px;
+text-align:center;
 
-am4core.useTheme(am4themes_animated);
-
-var chart = am4core.create("chartdiv", am4charts.PieChart);
-chart.hiddenState.properties.opacity = 0;
-
-chart.data = [
-  {
-    country: "No Data",
-    value: 260
-  },
-
-  {
-    country: "Stop",
-    value: 200
-  },
-  {
-    country: "Idle",
-    value: 165
-  },
-  {
-    country: "Running",
-    value: 139
-  },
-
-];
-
-var series = chart.series.push(new am4charts.PieSeries());
-series.dataFields.value = "value";
-series.dataFields.category = "country";
-series.slices.template.cornerRadius = 6;
-series.colors.step = 4;
-series.legendSettings.valueText.disabled=true;
-
-chart.legend = new am4charts.Legend();
-chart.legend.position = "left";
-chart.legend.markers.template.disabled = true;
-chart.legend.labels.template.disabled=true;
-chart.legend.itemContainers.template.togglable = false;
-chart.legend.itemContainers.template.events.on("hit", function(ev) {
-
-    });
-
-
-    });
-
-</script>
-<style>#chartwrapper {
-  position: relative;
-  width: 200px;
-  height: 200px;
 }
-#chartdiv {
-  position: absolute;
-  top: 0px;
-  right: 120px;
-  width : 130px;
-  height : 130px;
+.color{
+background-color:rgb(204, 204, 204);
 }
-
+th,table {
+font-family: "Times New Roman", Times, serif;
+}
 
 </style>
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
 
-    <div class="container-fluid a" style="position:relative;">
-<br>
-<div class="row" >
-<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="totalbutton" type='submit'>
-<div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="45px" width="100px" >
- &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div>
-</button></form></div>
+<div class="container-fluid"><div class="row">
+<div class="col-lg-11"> <h2>Detail Dashboard</h2></div><div class="col-lg-1" >
+    <button type="button" class="btn btn-default btn-medium" data-toggle="modal" data-target="#myModal">
+      <span class="fa fa-search"></span>
+    </button>
+</div></div></div>
 
-<div class="col-lg-2 card ">
-<form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="runningbutton" type='submit'><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
-   &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div>
-</button></form></div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
 
-<div class="col-lg-2 card " >
-<form method='GET'><button style="background-color: transparent;" class = 'p' name="idlebutton" type='submit'><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
- &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }} </span><b style="padding-left:50px;">Idle</b></div>
-</button></form></div>
+      <!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+<div class="btn-group">
+<button type="button" class="btn btn-default btn-medium" id="c"><span class="fa fa-search"></span></button>
+<button type="button" class="btn btn-default btn-medium" id="b"><span class="fa fa-filter"></span></button>
+<button type="button" class="btn btn-default btn-medium" id="vt"><span class=" fa fa-sort-alpha-asc"></span></button>
+<button type="button" class="btn btn-default btn-medium" id="vg"><span class="fa fa-user"></span></button>
+<button type="button" class="btn btn-default btn-medium" data-dismiss="modal"id="v"><span class="fa fa-chevron-right "></span></button>
+</div>
 
-<div class="col-lg-2 card"><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="stopbutton" type='submit'>
-<div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="100px" >
-&nbsp;&nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="padding-left:50px;margin-bottom: 30px;">Stop</b></div>
-</button></form></div>
-<div class="col-lg-2 card ">
-<div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
-  &nbsp; &nbsp;&nbsp; <span style="font-size: 20px">{{ inactive }}</span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inactive</b></div></div>
- <div class="col-lg-2" id="chartdiv">  </div>
-</div></div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+
+<div>
+<div id="c1">
+<h5><b>Vehicle</b></h5>
+<div class="form-group has-search fixed">
+    <span class="fa fa-search form-control-feedback"></span><input type="text" class="form-control" placeholder=&nbsp;&nbsp;&nbsp;Search>
+  </div>
+<div class="modal-body tab">
+
+<table id="myTable">
+
+<tr><td>
+<label><input type="checkbox" value="">&nbsp;&nbsp;All</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;12140</label></td></tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;357413256890</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;6823</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;AP 07 BY 8999</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 01 GC 0802</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 01 GD 6620</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 01 GG 2040</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 01 PJ 4938</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 52 G 2830</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 52 G 2873</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 52 G 2888</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;BR 52 G 2845</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;HR 38 H 8782</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;HR 38 H 8783</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;HR 38 J 3421</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;HR 38 J 3422</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 01 BB 9723</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 01 BC 2173[Car]</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 02 AK 7146</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 03 H 9366</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 03 J 8016</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 04 AH 9559</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 04 AH 5355</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;TN 04 AH 5637</label></td>
+</tr>
+
+</table>
+		</div>
+<h5><b>Select</b></h5>
+<form>
+<input type="radio" name="days" value="today"> Today<br>
+<input type="radio" name="days" value="yesterday"> Yesterday<br>
+<input type="radio" name="days" value="this month"> This Month<br>
+<input type="radio" name="days" value="last month"> Last Month<br>
+<input type="radio" name="days" value="custom"> Custom<br><br>
+<input type="submit" value="Apply" class="btn btn-primary btn-small custom">
+</form>
+</div>
+
+<div id="b1">
+<h5><b>Company:</b></h5>
+<select class="sel">
+	<option value="select">--Select--</option>
+  <option value="all">All</option>
+  <option value="andavar">Andavar</option>
+  <option value="aashotaush Kumar">Aashotaush Kumar</option>
+  <option value="amaitranjan Kumar">Amaitranjan Kumar</option>
+  <option value="amod Kumar">Amod Kumar</option>
+  <option value="arun Yadav">Arun Yadav</option>
+  <option value="bhushan Mistri">Bhushan Mistri</option>
+  <option value="suraj Kumar">Suraj Kumar</option>
+  <option value="ssk">SSK</option>
+  <option value="tracalogic">Tracalogic</option>
+  <option value="upendra Kumar">Upendra Kumar</option>
+</select>
+<h5><b>Branch:</b></h5>
+<select class="sel">
+	<option value="select">--Select--</option>
+  <option value="all">All</option>
+</select>
+<h5><b>Vehicle Group:</b></h5>
+<select class="sel">
+	<option value="select">--Select--</option>
+  <option value="all">All</option>
+</select>
+<h5><b>Vehicle Type:</b></h5>
+<select class="sel">
+	<option value="select">--Select--</option>
+  <option value="all">All</option>
+  <option value="ambulance">Ambulance</option>
+  <option value="bike">Bike</option>
+  <option value="bus">Bus</option>
+  <option value="car">Car</option>
+  <option value="default">Default</option>
+  <option value="tempo">Tempo</option>
+  <option value="truck">Truck</option>
+</select>
+<h5><b>Vehicle Brand:</b></h5>
+<select class="sel">
+	<option value="select">--Select--</option>
+  <option value="all">All</option>
+  <option value="amw">AMW</option>
+  <option value="ashok Leyland">Ashok Leyland</option>
+  <option value="bajaj">Bajaj</option>
+  <option value="boat">Boat</option>
+  <option value="chevrolet">Chevrolet</option>
+  <option value="eicher">Eicher</option>
+  <option value="ferrari">Ferrari</option>
+  <option value="ford">Ford</option>
+  <option value="general">General</option>
+  <option value="hero">Hero</option>
+  <option value="honda">Honda</option>
+  <option value="hyundai">Hyundai</option>
+</select>
+<h5><b>Vehicle Model:</b></h5>
+<select class="sel">
+	<option value="select">--Select--</option>
+  <option value="all">All</option>
+  <option value="auto Rickshaw">Auto Rickshaw</option>
+  <option value="general">General</option>
+</select>
+<h5><b>From Date:</b></h5>
+<input type='text' class="form-control" id='datetimepicker4' />
+
+<h5><b>To Date:</b></h5>
+
+<input type='text' class="form-control" id='datetimepicker4' /><br>
+
+<input type="submit" value="Apply" class="btn btn-primary btn-small custom"><br><br>
+<input type="submit" value="Set Default Filter" class="btn btn-primary btn-small custom">
+</div>
+
+<div id="vt1">
+<h5><b>Sort by:</b></h5>
+<div class="tab1">
+1.&nbsp;<select class="sel" id="id01">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id01')">Sort</button><br><br>
+2.&nbsp;<select class="sel" id="id02">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id02')">Sort</button><br><br>
+3.&nbsp;<select class="sel" id="id03">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id03')">Sort</button><br><br>
+4.&nbsp;<select class="sel" id="id04">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id04')">Sort</button><br><br>
+5.&nbsp;<select class="sel" id="id05">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id05')">Sort</button><br><br>
+6.&nbsp;<select class="sel" id="id06">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id06')">Sort</button><br><br>
+7.&nbsp;<select class="sel" id="id07">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id07')">Sort</button><br><br>
+8.&nbsp;<select class="sel" id="id08">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id08')">Sort</button><br><br>
+9.&nbsp;<select class="sel" id="id09">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id09')">Sort</button><br><br>
+10.<select class="sel" id="id10">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id10')">Sort</button><br><br>
+11.<select class="sel" id="id11">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id11')">Sort</button><br><br>
+12.<select class="sel" id="id12">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id12')">Sort</button><br><br>
+13.<select class="sel" id="id13">
+	<option value="select">--Select--</option>
+  <option value="company">Company</option>
+  <option value="branch">Branch</option>
+  <option value="vehicle">Vehicle</option>
+  <option value="driver">Driver</option>
+  <option value="imei no">IMEI No</option>
+  <option value="start location">Start Location</option>
+  <option value="distance">Distance</option>
+  <option value="running">Running</option>
+  <option value="idle">Idle</option>
+  <option value="stop">Stop</option>
+  <option value="over speed">Over Speed</option>
+  <option value="alert">Alert</option>
+  <option value="end location">End Location</option>
+</select>&nbsp;<button class="btn1" onclick="sortListDir('id13')">Sort</button><br><br>
+</div>
+<input type="submit" value="Apply" class="btn btn-primary btn-small custom">
+</div>
+
+<div id="vg1">
+<h5><b>Reseller:</b></h5>
+<select class="sel">
+	<option label="--Select--">Select</option>
+  <option label="All">All</option>
+  <option label="Tracalogic pvt ltd">Tracalogic pvt ltd</option>
+</select><br><br>
+<input type="submit" value="Apply" class="btn btn-primary btn-small custom">
+</div>
+
+<div id="v1">
+
+</div>
+</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+<script>
+$(document).ready(function(){
+$("#b1").hide();
+$("#c1").show();
+$("#v1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#c").click(function(){
+$("#c1").show();
+$("#b1").hide();
+$("#v1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#check1").click(function () {
+    $(".ch1").prop('checked', $(this).prop('checked'));
+});
+});
+$("#b").click(function(){
+$("#b1").show();
+$("#c1").hide();
+$("#v1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#check2").click(function () {
+    $(".ch2").prop('checked', $(this).prop('checked'));
+});
+});
+$("#vt").click(function(){
+$("#vt1").show();
+$("#b1").hide();
+$("#c1").hide();
+$("#v1").hide();
+$("#vg1").hide();
+$("#check3").click(function () {
+    $(".ch3").prop('checked', $(this).prop('checked'));
+});
+});
+$("#v").click(function(){
+$("#v1").show();
+$("#b1").hide();
+$("#c1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#check4").click(function () {
+    $(".ch4").prop('checked', $(this).prop('checked'));
+});
+});
+$("#vg").click(function(){
+$("#vg1").show();
+$("#v1").hide();
+$("#b1").hide();
+$("#c1").hide();
+$("#vt1").hide();
+});
+});
+</script>
+<script type="text/javascript">
+$(function () {
+$('#datetimepicker4').datetimepicker();});
+</script>
+<script>
+function sortListDir(z) {
+  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
+  list = document.getElementById(z);
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    b = list.getElementsByTagName("option");
+    for (i = 0; i < (b.length - 1); i++) {
+      shouldSwitch = false;
+      if (dir == "asc") {
+        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
+
+
 <div  class="container-fluid scrollit">
-    <table id="tb1" cellpadding="5" cellspacing="5" ><tr>
+    <table id = 'tb1' class="table table-bordered" style="font-size:13px;">
+<thead class="color" id="text">
+<tr>
        <th style="text-decoration:none;color:rgb(0, 0, 0);">S.no</th>
         <th style="text-decoration:none;color:rgb(0, 0, 0);">Status</th>
         <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/driver_name.png" style="width:16px;height:16px;"><br>Driver</a></th>
@@ -124,14 +578,18 @@ chart.legend.itemContainers.template.events.on("hit", function(ev) {
         <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/gps_status.png" style="width:16px;height:16px;"><br>GPS</a></th>
         <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/fuel.png" style="width:16px;height:16px;"><br>Fuel</a></th>
         </tr>
-        <tr>
+        </thead>
+<tbody>
 
-        </tr>
+
+</tbody>
+</table>
+</div>
 
         <script>
 
   $(document).ready(function () {
-    $.getJSON('http://13.232.41.131/path/',
+    $.getJSON('http://13.232.41.131/extendapi/',
     function (json) {
 
         var tr;
@@ -140,7 +598,7 @@ chart.legend.itemContainers.template.events.on("hit", function(ev) {
             tr.append("<td>" + i + "</td>");
             console.log(i);
             tr.append("<td>" + json[i].status + "</td>");
-            tr.append("<td>" + json[i].plateNumber + "</td>");
+            tr.append("<td>" + json[i].Driver_Name + "</td>");
             tr.append("<td>" + json[i].plateNumber + "</td>");
             tr.append("<td>" + json[i].distance + "</td>");
             tr.append("<td>" + json[i].running + "</td>");
@@ -156,6 +614,9 @@ chart.legend.itemContainers.template.events.on("hit", function(ev) {
             tr.append("<td>" + "oo" + "</td>");
             tr.append("<td>" + json[i].engine_current + "</td>");
             tr.append("<td>" + "-"+ "</td>");
+             tr.append("<td>" + "-"+ "</td>");
+              tr.append("<td>" + "-"+ "</td>");
+               tr.append("<td>" + "-"+ "</td>");
             $('#tb1').append(tr);
         }
     });
@@ -165,52 +626,4 @@ chart.legend.itemContainers.template.events.on("hit", function(ev) {
 
 </script>
 
-<tr></tr>
-
-{#{% for i in  object_list%}#}
-{#        <tr>#}
-{#            <td>{{ forloop.counter }}</td>#}
-{##}
-{#            <td>#}
-{#                {% if i.status == 'Running'%}#}
-{#                <img src="{% static 'images/greencar.png'%}">#}
-{#                {% elif i.status == 'Idle'%}#}
-{#                <img src="{% static 'images/yellowcar.png'%}">#}
-{#                {% elif i.status == 'Stop'%}#}
-{#                <img src="{% static 'images/redcar.png'%}">#}
-{#                {%else%}#}
-{#                <img src="{% static 'images/bluecar.png'%}">#}
-{#                {%endif%}#}
-{#            </td>#}
-{##}
-{#              <td>{{ i.name }}</td>#}
-{#              <td>India</td>#}
-{#              <td>{{ i.plateNumber }}</td>#}
-{#              <td>*</td>#}
-{#              <td>00.00</td>#}
-{#              <td>00.00</td>#}
-{#              <td>00.00</td>#}
-{#              <td>00.00</td>#}
-{#              <td>{{ i.speed }}</td>#}
-{#              <td>{{ i.odometer }}</td>#}
-{#              <td>{{ i.latitude }}</td>#}
-{#              <td>{{ i.longitude }}</td>#}
-{#              <td>{{ i.status }}</td>#}
-{#              <td>12-9-2019</td>#}
-{#              <td>--</td>#}
-{#              <td>0</td>#}
-{#              <td>--</td>#}
-{#              <td>--</td>#}
-{#              <td>--</td>#}
-{#            <td>--</td>#}
-{#        </tr>#}
-{#         {% endfor %}#}
-
-    </table>
-</div>
-
-        <!-- Modal footer -->
-
-
-
-{% endblock content1 %}
+{% endblock %}

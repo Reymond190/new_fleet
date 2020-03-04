@@ -55,16 +55,20 @@ def geo(request):
 
 
 def funclu(po):
-    lat_list = list(po["latitude"])
-    long_list = list(po["longitude"])
-    v_plate = list(po["plateNumber"])
-    # print(len(v_plate))
+    int1 = po["latitude"].astype(float)
+    int2 = po["longitude"].astype(float)
+    int3 = po["plateNumber"]
+    lat_list = list(int1)
+    long_list = list(int2)
+    v_plate = list(int3)
+    #print(len(v_plate))
     data1 = "one"
-    # v_status = list(po["status"])
+    v_status = list(po["status"])
 
     var1 = json.dumps(
-      [{'lat': country, 'lng': wins, 'plate': num} for country, wins, num in zip(lat_list, long_list, v_plate)]
+        [{'lat': country, 'lng': wins,'plate':num,'status':status} for country, wins, num , status in zip(lat_list, long_list,v_plate,v_status)]
     )
+    print(var1)
     return data1, var1
 
 
